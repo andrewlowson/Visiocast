@@ -18,44 +18,58 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sij-Nk-8iL">
-                                <rect key="frame" x="277" y="28" width="46" height="30"/>
+                                <rect key="frame" x="16" y="28" width="568" height="30"/>
                                 <state key="normal" title="Button">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="glasgowLogo" translatesAutoresizingMaskIntoConstraints="NO" id="ljB-Yv-l2d">
-                                <rect key="frame" x="16" y="440" width="240" height="103"/>
+                                <rect key="frame" x="16" y="421" width="271" height="122"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="103" id="7fF-df-yJ0"/>
-                                    <constraint firstAttribute="width" constant="240" id="msM-Tq-blG"/>
+                                    <constraint firstAttribute="height" constant="122" id="AcC-Zk-tyZ"/>
+                                    <constraint firstAttribute="width" constant="271" id="LDu-jt-beX"/>
                                 </constraints>
                             </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4qz-S1-5Hn">
-                                <rect key="frame" x="16" y="120" width="568" height="273"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Visucast" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NJU-Fa-YI5">
                                 <rect key="frame" x="16" y="66" width="568" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="34"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jmb-JJ-Yvt">
+                                <rect key="frame" x="-4" y="100" width="608" height="313"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4qz-S1-5Hn">
+                                        <rect key="frame" x="20" y="20" width="568" height="273"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="4qz-S1-5Hn" firstAttribute="centerX" secondItem="jmb-JJ-Yvt" secondAttribute="centerX" id="Qfh-kh-iJi"/>
+                                    <constraint firstAttribute="trailing" secondItem="4qz-S1-5Hn" secondAttribute="trailing" constant="20" id="TZc-qZ-bfd"/>
+                                    <constraint firstAttribute="bottom" secondItem="4qz-S1-5Hn" secondAttribute="bottom" constant="20" id="WvQ-vM-sgk"/>
+                                    <constraint firstItem="4qz-S1-5Hn" firstAttribute="top" secondItem="jmb-JJ-Yvt" secondAttribute="top" constant="20" id="j5k-pn-0D3"/>
+                                    <constraint firstItem="4qz-S1-5Hn" firstAttribute="leading" secondItem="jmb-JJ-Yvt" secondAttribute="leading" constant="20" id="rKw-m5-uIF"/>
+                                    <constraint firstItem="4qz-S1-5Hn" firstAttribute="centerY" secondItem="jmb-JJ-Yvt" secondAttribute="centerY" id="u9k-9a-3lF"/>
+                                </constraints>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="67c-94-44m" firstAttribute="top" secondItem="ljB-Yv-l2d" secondAttribute="bottom" constant="8" symbolic="YES" id="91m-rV-0Ir"/>
-                            <constraint firstItem="sij-Nk-8iL" firstAttribute="top" secondItem="SoN-x3-MSo" secondAttribute="bottom" constant="8" symbolic="YES" id="PMh-fh-vHX"/>
-                            <constraint firstItem="sij-Nk-8iL" firstAttribute="centerX" secondItem="NJU-Fa-YI5" secondAttribute="centerX" id="Rml-mV-8pC"/>
-                            <constraint firstItem="4qz-S1-5Hn" firstAttribute="trailing" secondItem="NJU-Fa-YI5" secondAttribute="trailing" id="bNv-UO-djQ"/>
-                            <constraint firstItem="ljB-Yv-l2d" firstAttribute="top" secondItem="4qz-S1-5Hn" secondAttribute="bottom" constant="47" id="c67-aQ-7EL"/>
-                            <constraint firstItem="4qz-S1-5Hn" firstAttribute="leading" secondItem="ljB-Yv-l2d" secondAttribute="leading" id="eeA-SV-PbS"/>
-                            <constraint firstItem="NJU-Fa-YI5" firstAttribute="leading" secondItem="q4R-dS-VYM" secondAttribute="leadingMargin" id="oaU-Jz-Lr2"/>
-                            <constraint firstItem="4qz-S1-5Hn" firstAttribute="top" secondItem="NJU-Fa-YI5" secondAttribute="bottom" constant="13" id="syo-6b-je7"/>
-                            <constraint firstItem="4qz-S1-5Hn" firstAttribute="trailing" secondItem="q4R-dS-VYM" secondAttribute="trailingMargin" id="uLl-Dk-pD0"/>
-                            <constraint firstItem="NJU-Fa-YI5" firstAttribute="top" secondItem="sij-Nk-8iL" secondAttribute="bottom" constant="8" symbolic="YES" id="wpv-QP-J65"/>
-                            <constraint firstItem="4qz-S1-5Hn" firstAttribute="leading" secondItem="NJU-Fa-YI5" secondAttribute="leading" id="yap-Uq-OLe"/>
+                            <constraint firstItem="jmb-JJ-Yvt" firstAttribute="leading" secondItem="q4R-dS-VYM" secondAttribute="leadingMargin" constant="-20" id="3UU-t5-9eo"/>
+                            <constraint firstItem="sij-Nk-8iL" firstAttribute="top" secondItem="SoN-x3-MSo" secondAttribute="bottom" constant="8" symbolic="YES" id="4gW-EW-GSe"/>
+                            <constraint firstItem="NJU-Fa-YI5" firstAttribute="leading" secondItem="ljB-Yv-l2d" secondAttribute="leading" id="B2z-9r-UAL"/>
+                            <constraint firstItem="67c-94-44m" firstAttribute="top" secondItem="ljB-Yv-l2d" secondAttribute="bottom" constant="8" symbolic="YES" id="DdO-FI-7aD"/>
+                            <constraint firstItem="jmb-JJ-Yvt" firstAttribute="top" secondItem="sij-Nk-8iL" secondAttribute="bottom" constant="42" id="JXh-98-7gB"/>
+                            <constraint firstItem="sij-Nk-8iL" firstAttribute="trailing" secondItem="q4R-dS-VYM" secondAttribute="trailingMargin" id="R1k-Vv-wAx"/>
+                            <constraint firstItem="sij-Nk-8iL" firstAttribute="leading" secondItem="NJU-Fa-YI5" secondAttribute="leading" id="S24-uH-yVI"/>
+                            <constraint firstItem="NJU-Fa-YI5" firstAttribute="top" secondItem="sij-Nk-8iL" secondAttribute="bottom" constant="8" symbolic="YES" id="Za5-XW-xrn"/>
+                            <constraint firstItem="NJU-Fa-YI5" firstAttribute="centerX" secondItem="jmb-JJ-Yvt" secondAttribute="centerX" id="ed4-Aw-QVr"/>
+                            <constraint firstItem="ljB-Yv-l2d" firstAttribute="leading" secondItem="q4R-dS-VYM" secondAttribute="leadingMargin" id="fjj-cs-ZtE"/>
+                            <constraint firstItem="NJU-Fa-YI5" firstAttribute="trailing" secondItem="sij-Nk-8iL" secondAttribute="trailing" id="gsT-A3-Vcc"/>
+                            <constraint firstItem="ljB-Yv-l2d" firstAttribute="top" secondItem="jmb-JJ-Yvt" secondAttribute="bottom" constant="8" symbolic="YES" id="qnq-p2-UV1"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" systemItem="more" id="w6F-b6-IcS"/>
@@ -63,6 +77,7 @@
                         <outlet property="AboutTabBarItem" destination="w6F-b6-IcS" id="uBD-b4-pXT"/>
                         <outlet property="aboutParagraph" destination="4qz-S1-5Hn" id="BAN-l6-88k"/>
                         <outlet property="imageLogoView" destination="ljB-Yv-l2d" id="4Nn-df-gac"/>
+                        <outlet property="scrollView" destination="jmb-JJ-Yvt" id="ye8-Uc-V39"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mDD-X8-isz" userLabel="First Responder" sceneMemberID="firstResponder"/>

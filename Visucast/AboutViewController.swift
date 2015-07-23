@@ -24,7 +24,7 @@ class AboutViewController: UIViewController {
         // Do any additional setup after loading the view.
         let logoImage = UIImage(named: "glasgowLogo")
         view.addSubview(self.imageLogoView!)
-        aboutParagraph.text = "asdfasf"
+        scrollView.addSubview(aboutParagraph)
     }
 
     override func didReceiveMemoryWarning() {
@@ -46,6 +46,13 @@ class AboutViewController: UIViewController {
         
     }
 
+    @IBOutlet weak var scrollView: UIScrollView!
+        {
+        didSet {
+            
+            aboutParagraph.text = "asdfasf \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf\nasdfasdfasd \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf v \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf v \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf "
+        }
+    }
     
     /*
     // MARK: - Navigation
