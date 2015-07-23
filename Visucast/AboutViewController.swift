@@ -11,44 +11,26 @@ import UIKit
 class AboutViewController: UIViewController {
     @IBOutlet weak var aboutParagraph: UITextView!
     
-    @IBOutlet weak var imageLogoView: UIImageView!
+    @IBOutlet weak var imageLogoView = UIImageView()
     
+    var image: UIImage? {
+        get { return imageLogoView?.image }
+        set { imageLogoView?.image = newValue }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.aboutParagraph.editable = false
         // Do any additional setup after loading the view.
+        let logoImage = UIImage(named: "glasgowLogo")
+        view.addSubview(self.imageLogoView!)
+        aboutParagraph.text = "asdfasf"
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    var logoImage = UIImage(named: "glasgowLogo")
-
-    var image: UIImage? {
-        get {
-            return imageLogoView.image
-        }
-        set {
-            imageLogoView.image = newValue
-            if let constrainedView = imageLogoView {
-                if let newImage = newValue {
-                    aspectRatioConstraint = NSLayoutConstraint(item: constrainedView,
-                        attribute: .Width,
-                        relatedBy: .Equal,
-                        toItem: constrainedView,
-                        attribute: .Height,
-                        multiplier: newImage.aspectRatio,
-                        constant: 0)
-                } else {
-                    aspectRatioConstraint = nil
-                }
-            }
-        }
-    }
-    
     
     var aspectRatioConstraint: NSLayoutConstraint? {
         willSet {
