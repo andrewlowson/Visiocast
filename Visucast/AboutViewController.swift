@@ -50,7 +50,7 @@ class AboutViewController: UIViewController {
         {
         didSet {
             
-            aboutParagraph.text = "asdfasf \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf\nasdfasdfasd \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf v \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf v \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf \n asdfasdfa \n asdfasdfasdf \n asfasdfasdf "
+            aboutParagraph.text = "Welcome to Visiocast. \n \nVisiocast is a Podcast application built for people who are visually impaired. \nThere is a global button at the top for you to dictate commands, like 'Download The Empire Podcast' or 'search for Back to Work.' \n \nVisiocast started as a Software Development Masters project out of the University of Glasgow in the summer of 2015.\n \nContact:\nAndrew Lowson: andrew@lowson.co \nChuan Chen: 2122015C@student.gla.ac.uk"
         }
     }
     
