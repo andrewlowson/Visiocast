@@ -13,6 +13,15 @@ class AboutViewController: UIViewController {
     
     @IBOutlet weak var imageLogoView = UIImageView()
     
+    @IBOutlet weak var dictateButton: UIButton! {
+        didSet{
+            let image = UIImage(named: "microphoneIcon") as UIImage!
+            let dictateButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton
+            dictateButton.setImage(image, forState: .Normal)
+            dictateButton.setTitle("Dictate", forState: .Normal)
+        }
+    }
+    
     var image: UIImage? {
         get { return imageLogoView?.image }
         set { imageLogoView?.image = newValue }
