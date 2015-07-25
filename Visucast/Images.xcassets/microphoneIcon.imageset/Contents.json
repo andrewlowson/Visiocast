@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "microphone.png"
+      "filename" : "microphoneSmaller.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "microphone.png"
+      "filename" : "microphoneSmaller.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "microphone.png"
+      "filename" : "microphoneSmaller.png"
     }
   ],
   "info" : {

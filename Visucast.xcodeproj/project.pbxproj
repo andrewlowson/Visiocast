@@ -11,7 +11,7 @@
 		116CF0551B5B1CAE0056FCA0 /* glasgowLogo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 116CF0541B5B1CAE0056FCA0 /* glasgowLogo.gif */; };
 		116CF0571B5B203E0056FCA0 /* DownloadsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116CF0561B5B203E0056FCA0 /* DownloadsViewController.swift */; };
 		116CF0591B5B204E0056FCA0 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116CF0581B5B204E0056FCA0 /* AboutViewController.swift */; };
-		116CF05B1B5B205E0056FCA0 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116CF05A1B5B205E0056FCA0 /* SearchViewController.swift */; };
+		116CF05B1B5B205E0056FCA0 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116CF05A1B5B205E0056FCA0 /* SearchTableViewController.swift */; };
 		116CF05D1B5B207A0056FCA0 /* NowPlayingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116CF05C1B5B207A0056FCA0 /* NowPlayingViewController.swift */; };
 		116CF05F1B5B208A0056FCA0 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116CF05E1B5B208A0056FCA0 /* SearchResultsViewController.swift */; };
 		118D2F311B5AD9370005F577 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118D2F301B5AD9370005F577 /* AppDelegate.swift */; };
@@ -37,7 +37,7 @@
 		116CF0541B5B1CAE0056FCA0 /* glasgowLogo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = glasgowLogo.gif; path = VisucastTests/glasgowLogo.gif; sourceTree = SOURCE_ROOT; };
 		116CF0561B5B203E0056FCA0 /* DownloadsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadsViewController.swift; sourceTree = "<group>"; };
 		116CF0581B5B204E0056FCA0 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
-		116CF05A1B5B205E0056FCA0 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		116CF05A1B5B205E0056FCA0 /* SearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		116CF05C1B5B207A0056FCA0 /* NowPlayingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowPlayingViewController.swift; sourceTree = "<group>"; };
 		116CF05E1B5B208A0056FCA0 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		118D2F2B1B5AD9370005F577 /* Visucast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Visucast.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -97,7 +97,7 @@
 				116CF05E1B5B208A0056FCA0 /* SearchResultsViewController.swift */,
 				116CF0561B5B203E0056FCA0 /* DownloadsViewController.swift */,
 				116CF0581B5B204E0056FCA0 /* AboutViewController.swift */,
-				116CF05A1B5B205E0056FCA0 /* SearchViewController.swift */,
+				116CF05A1B5B205E0056FCA0 /* SearchTableViewController.swift */,
 				114FED271B602509004DFA8F /* FriendItem.swift */,
 				118D2F301B5AD9370005F577 /* AppDelegate.swift */,
 				118D2F2E1B5AD9370005F577 /* Supporting Files */,
@@ -234,7 +234,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				116CF05B1B5B205E0056FCA0 /* SearchViewController.swift in Sources */,
+				116CF05B1B5B205E0056FCA0 /* SearchTableViewController.swift in Sources */,
 				118D2F331B5AD9370005F577 /* TabViewController.swift in Sources */,
 				114FED281B602509004DFA8F /* FriendItem.swift in Sources */,
 				118D2F311B5AD9370005F577 /* AppDelegate.swift in Sources */,

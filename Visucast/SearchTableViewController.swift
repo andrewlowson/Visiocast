@@ -8,14 +8,12 @@
 
 import UIKit
 
-class SearchViewController: UIViewController {
+class SearchTableViewController: UITableViewController {
     
     @IBOutlet weak var searchResultsTableView: UITableView!
     
     var friendsArray = [FriendItem]()
     var filteredFriends = [FriendItem]()
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +25,7 @@ class SearchViewController: UIViewController {
         self.friendsArray += [FriendItem(name: "Mac")]
         self.friendsArray += [FriendItem(name: "Gary Whittington")]
 
-        self.searchResultsTableView?.reloadData()
+    
         
     }
 
