@@ -13,8 +13,6 @@ class SearchTableViewController: UITableViewController {
     
     @IBOutlet weak var searchResultsTableView: UITableView!
     
-    
-    
     var friendsArray = [FriendItem]()
     var filteredFriends = [FriendItem]()
     

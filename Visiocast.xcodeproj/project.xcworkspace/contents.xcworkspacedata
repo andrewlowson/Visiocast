@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Visucast.xcodeproj">
+      location = "self:/Users/andrewlowson/XCodeProjects/Visucast/Visiocast.xcodeproj">
    </FileRef>
 </Workspace>

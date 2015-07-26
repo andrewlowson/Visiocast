@@ -17,7 +17,7 @@
                BlueprintIdentifier = "118D2F2A1B5AD9370005F577"
                BuildableName = "Visucast.app"
                BlueprintName = "Visucast"
-               ReferencedContainer = "container:Visucast.xcodeproj">
+               ReferencedContainer = "container:Visiocast.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -31,7 +31,7 @@
                BlueprintIdentifier = "118D2F3F1B5AD9370005F577"
                BuildableName = "VisucastTests.xctest"
                BlueprintName = "VisucastTests"
-               ReferencedContainer = "container:Visucast.xcodeproj">
+               ReferencedContainer = "container:Visiocast.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -49,7 +49,7 @@
                BlueprintIdentifier = "118D2F3F1B5AD9370005F577"
                BuildableName = "VisucastTests.xctest"
                BlueprintName = "VisucastTests"
-               ReferencedContainer = "container:Visucast.xcodeproj">
+               ReferencedContainer = "container:Visiocast.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -59,7 +59,7 @@
             BlueprintIdentifier = "118D2F2A1B5AD9370005F577"
             BuildableName = "Visucast.app"
             BlueprintName = "Visucast"
-            ReferencedContainer = "container:Visucast.xcodeproj">
+            ReferencedContainer = "container:Visiocast.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -79,7 +79,7 @@
             BlueprintIdentifier = "118D2F2A1B5AD9370005F577"
             BuildableName = "Visucast.app"
             BlueprintName = "Visucast"
-            ReferencedContainer = "container:Visucast.xcodeproj">
+            ReferencedContainer = "container:Visiocast.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -98,7 +98,7 @@
             BlueprintIdentifier = "118D2F2A1B5AD9370005F577"
             BuildableName = "Visucast.app"
             BlueprintName = "Visucast"
-            ReferencedContainer = "container:Visucast.xcodeproj">
+            ReferencedContainer = "container:Visiocast.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
