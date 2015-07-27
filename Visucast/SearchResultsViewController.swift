@@ -16,6 +16,9 @@ class SearchResultsViewController: UITableViewController
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.estimatedRowHeight = tableView.rowHeight
+        tableView.rowHeight = UITableViewAutomaticDimension
+        //refresh()
 //        self.resultSearchController = UISearchController(searchResultsController: nil)
 //        //self.resultSearchController.searchResultsUpdater = self
 //        

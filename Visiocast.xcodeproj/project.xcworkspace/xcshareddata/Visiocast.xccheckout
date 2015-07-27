@@ -14,6 +14,8 @@
 		<string>https://github.com/andrewlowson/Visiocast.git</string>
 		<key>67620B5EFA902936DF04070AF595B76AB0333747</key>
 		<string>https://github.com/Alamofire/Alamofire.git</string>
+		<key>C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3</key>
+		<string>https://github.com/SwiftyJSON/SwiftyJSON.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Visiocast.xcodeproj</string>
@@ -23,6 +25,8 @@
 		<string>../..</string>
 		<key>67620B5EFA902936DF04070AF595B76AB0333747</key>
 		<string>../..Alamofire/</string>
+		<key>C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3</key>
+		<string>../..SwiftyJSON/</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/andrewlowson/Visiocast.git</string>
@@ -39,6 +43,14 @@
 			<string>67620B5EFA902936DF04070AF595B76AB0333747</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Alamofire</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SwiftyJSON</string>
 		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>

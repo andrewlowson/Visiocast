@@ -293,7 +293,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1391" y="489"/>
+            <point key="canvasLocation" x="1392" y="489"/>
         </scene>
         <!--Tab View Controller-->
         <scene sceneID="fl4-zU-OuN">
@@ -378,10 +378,11 @@
             </objects>
             <point key="canvasLocation" x="3091" y="489"/>
         </scene>
-        <!--Search View Controller-->
+        <!--SearchViewController-->
         <scene sceneID="uI4-gB-XK3">
             <objects>
-                <viewController id="G5V-MM-ENt" customClass="SearchViewController" customModule="Visucast" customModuleProvider="target" sceneMemberID="viewController">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J5T-gU-TWz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="G5V-MM-ENt" userLabel="SearchViewController" customClass="SearchViewController" customModule="Visucast" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Cfb-9x-Try"/>
                         <viewControllerLayoutGuide type="bottom" id="4lO-2f-1Nb"/>
@@ -414,7 +415,7 @@
                                     <action selector="dictateButton:" destination="Z7o-YF-sHy" eventType="touchUpInside" id="hP2-1C-vk5"/>
                                 </connections>
                             </button>
-                            <searchBar contentMode="redraw" placeholder="Search for Podcasts" translatesAutoresizingMaskIntoConstraints="NO" id="3e8-nt-E6n">
+                            <searchBar contentMode="redraw" text="" placeholder="Search for Podcasts" translatesAutoresizingMaskIntoConstraints="NO" id="3e8-nt-E6n">
                                 <rect key="frame" x="0.0" y="128" width="600" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="600" id="OIX-no-Dks"/>
@@ -432,16 +433,36 @@
                                     <outlet property="delegate" destination="G5V-MM-ENt" id="0Ha-6K-oJD"/>
                                 </connections>
                             </searchBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Zdh-N7-DOx">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="101" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Zdh-N7-DOx" customClass="SearchTableView" customModule="Visucast" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="172" width="600" height="379"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="MKF-0b-85L">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="101" id="MKF-0b-85L" customClass="PodcastTableViewCell" customModule="Visucast" customModuleProvider="target">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MKF-0b-85L" id="wg9-qR-keR">
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CVQ-cE-389">
+                                                    <rect key="frame" x="8" y="0.0" width="92" height="92"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ttJ-8Y-8a5">
+                                                    <rect key="frame" x="108" y="71" width="484" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oC6-63-CxB">
+                                                    <rect key="frame" x="108" y="22" width="484" height="48"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="podcastArtistNameLabel" destination="ttJ-8Y-8a5" id="LUF-95-WsI"/>
+                                            <outlet property="podcastArtworkImageView" destination="CVQ-cE-389" id="FQg-tr-6uj"/>
+                                            <outlet property="podcastTitleLabel" destination="oC6-63-CxB" id="S9J-dW-GQz"/>
                                             <segue destination="mL0-zH-1BQ" kind="showDetail" id="03G-pL-Ac9"/>
                                         </connections>
                                     </tableViewCell>
@@ -465,23 +486,12 @@
                     </view>
                     <tabBarItem key="tabBarItem" systemItem="search" id="5wN-Cw-ozZ"/>
                     <connections>
-                        <outlet property="searchDisplayController" destination="4Sm-Un-x9k" id="v1B-PW-me9"/>
+                        <outlet property="searchBar" destination="3e8-nt-E6n" id="zBW-sB-WCD"/>
+                        <outlet property="tableView" destination="Zdh-N7-DOx" id="nUs-32-AkO"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="J5T-gU-TWz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="UqS-iE-Zej">
-                    <connections>
-                        <outlet property="delegate" destination="G5V-MM-ENt" id="OId-mD-jCg"/>
-                    </connections>
-                </searchDisplayController>
-                <searchDisplayController id="4Sm-Un-x9k">
-                    <connections>
-                        <outlet property="delegate" destination="G5V-MM-ENt" id="gNn-WB-zLg"/>
-                        <outlet property="searchBar" destination="3e8-nt-E6n" id="BpB-cf-lGt"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1391" y="-300"/>
+            <point key="canvasLocation" x="1390" y="-300"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="KS1-D0-d9x">

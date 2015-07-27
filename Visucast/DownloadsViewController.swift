@@ -10,6 +10,8 @@ import UIKit
 
 class DownloadsViewController: UIViewController {
 
+    var podcasts = [[Podcast]]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
