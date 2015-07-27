@@ -10,17 +10,12 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class SearchViewController: UIViewController, UISearchBarDelegate {
-    /**
-     *  Things that need to be done in this View:
-     *      - Text inside the search bar needs to be captured, turned lower case
-     *      - JSON needs to be parsed, feedURL, artworkURL, collectionName
-     *      - TableView Updated
-     *      - Segue prepare function
-    **/
-    
+class SearchViewController: UIViewController, UITableViewDelegate, UISearchBarDelegate {
+
+    var podcasts = [[Podcast]]()
+    var searchTerm = "https://itunes.apple.com/search?term=podcast+"
+   
     @IBOutlet weak var tableView: UITableView!
-    
     @IBOutlet private weak var searchBar: UISearchBar! {
         didSet {
             searchBar.delegate = self
@@ -28,46 +23,109 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
         }
     }
     
-    
-    var podcasts = [[Podcast]]()
-    
-    private var lastSuccessfulRequest: SearchRequest?
-    private var nextRequestToAttempt: SearchRequest? {
-        return nil
-    }
-    
-    var searchText: String? = "Search for Podcasts" {
-        didSet {
-            lastSuccessfulRequest = nil
-            searchBar.text = searchBar.placeholder
-            podcasts.removeAll()
-            tableView.reloadData()
-            searchBarSearchButtonClicked(searchBar)
-        }
-    }
-    
+    var searchActive : Bool = false
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         
+        searchBar.delegate = self
+        tableView.delegate = self
+        
         println("I loaded")
+    }
+    
+    
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        searchActive = true;
+    }
+    
+    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+        searchActive = false;
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchActive = false;
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        searchActive = false;
+        searchText = searchBar.text
+        podcastSearch(searchText!)
+        searchBar.resignFirstResponder()
+        tableView.reloadData()
         
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+//    
+//    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+//        
+//        if !searchActive {
+//                podcastSearch(searchText)
+//        }
+//        self.tableView.reloadData()
+//
+//    }
+    
+    var searchText: String? = "Search for Podcasts" {
+        didSet {
+            searchBar.text = searchBar.placeholder
+            podcasts.removeAll()
+            tableView.reloadData()
+        }
     }
+    
+    
+    
+    func podcastSearch(searchText: String) {
+        println("Search was called")
+        var search = searchText
+        let result = search.lowercaseString.stringByReplacingOccurrencesOfString(" ", withString: "+")
+        searchTerm +=  result
+        podcastInfo()
+    }
+    
+    func podcastInfo()
+    {
+        println("Networking was called")
+        Alamofire.request(.GET, searchTerm).responseJSON {
+            (_, _, jsonDict, _) in
+            var json = JSON(jsonDict!)
+            // println(json)
+            let results = json["results"]
+            var collectionName: String?
+            var artworkURL: String?
+            
+            for (index: String, resultJSON: JSON) in results {
+                let collectionName = resultJSON["collectionName"].string
+                let artistName = resultJSON["artistName"].string
+                let artworkURL = resultJSON["artworkUrl600"].string
+                let feedURL = resultJSON["feedUrl"].string
+                println(self.searchTerm)
+                println(collectionName!)
+                println(artistName!)
+                println(artworkURL!)
+                println(feedURL!)
+                
+                var feedurl = NSURL(string: feedURL!)
+                var artworkurl = NSURL(string: artworkURL!)
+                var podcast = Podcast()
+                podcast.podcastArtistName = artistName!
+                podcast.podcastTitle = collectionName!
+                podcast.podcastArtwork = artworkurl
+                podcast.podcastFeed = feedurl
+                println()
+            }
+        }
+    }
+    
+    
+    // TODO
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     //
-    }
-    
-    private func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         //
     }
+    
     
     /*
     // MARK: - Navigation

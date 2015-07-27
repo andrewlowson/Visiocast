@@ -8,9 +8,12 @@
 
 import UIKit
 import Foundation
+import Alamofire
+import SwiftyJSON
 
 class SearchRequest: NSObject {
    
-    
-    
+        
+   
+
 }

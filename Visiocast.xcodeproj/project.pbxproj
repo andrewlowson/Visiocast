@@ -25,7 +25,6 @@
 		11E22D5C1B6565F400EB6A6C /* Podcast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E22D5B1B6565F400EB6A6C /* Podcast.swift */; };
 		11E22D8E1B662EBC00EB6A6C /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11E22D871B662EB400EB6A6C /* SwiftyJSON.framework */; };
 		11E22D8F1B662EBC00EB6A6C /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 11E22D871B662EB400EB6A6C /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		11E22D931B6632FE00EB6A6C /* SearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E22D921B6632FE00EB6A6C /* SearchRequest.swift */; };
 		11E22D951B663C8300EB6A6C /* PodcastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E22D941B663C8300EB6A6C /* PodcastTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -145,7 +144,6 @@
 		11E22D521B650D1300EB6A6C /* SearchTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableView.swift; sourceTree = "<group>"; };
 		11E22D5B1B6565F400EB6A6C /* Podcast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Podcast.swift; sourceTree = "<group>"; };
 		11E22D7F1B662EB400EB6A6C /* SwiftyJSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftyJSON.xcodeproj; path = SwiftyJSON/SwiftyJSON.xcodeproj; sourceTree = "<group>"; };
-		11E22D921B6632FE00EB6A6C /* SearchRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchRequest.swift; sourceTree = "<group>"; };
 		11E22D941B663C8300EB6A6C /* PodcastTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -193,15 +191,14 @@
 			isa = PBXGroup;
 			children = (
 				118D2F341B5AD9370005F577 /* Main.storyboard */,
-				11E22D5B1B6565F400EB6A6C /* Podcast.swift */,
-				11E22D921B6632FE00EB6A6C /* SearchRequest.swift */,
-				11E22D941B663C8300EB6A6C /* PodcastTableViewCell.swift */,
 				116CF05A1B5B205E0056FCA0 /* SearchViewController.swift */,
+				11E22D941B663C8300EB6A6C /* PodcastTableViewCell.swift */,
 				11E22D521B650D1300EB6A6C /* SearchTableView.swift */,
 				116CF05E1B5B208A0056FCA0 /* SearchResultsViewController.swift */,
 				116CF0561B5B203E0056FCA0 /* DownloadsViewController.swift */,
 				116CF05C1B5B207A0056FCA0 /* NowPlayingViewController.swift */,
 				116CF0581B5B204E0056FCA0 /* AboutViewController.swift */,
+				11E22D5B1B6565F400EB6A6C /* Podcast.swift */,
 				118D2F2E1B5AD9370005F577 /* Supporting Files */,
 			);
 			path = Visucast;
@@ -435,7 +432,6 @@
 				116CF05B1B5B205E0056FCA0 /* SearchViewController.swift in Sources */,
 				118D2F331B5AD9370005F577 /* TabViewController.swift in Sources */,
 				118D2F311B5AD9370005F577 /* AppDelegate.swift in Sources */,
-				11E22D931B6632FE00EB6A6C /* SearchRequest.swift in Sources */,
 				11E22D951B663C8300EB6A6C /* PodcastTableViewCell.swift in Sources */,
 				116CF0591B5B204E0056FCA0 /* AboutViewController.swift in Sources */,
 				11E22D531B650D1300EB6A6C /* SearchTableView.swift in Sources */,

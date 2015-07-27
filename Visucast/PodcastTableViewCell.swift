@@ -22,18 +22,24 @@ class PodcastTableViewCell: UITableViewCell {
     
     func updateUI() {
         
-        // reset data
+        // reset data before updating
         podcastTitleLabel.text = nil
         podcastArtistNameLabel.text = nil
         podcastArtworkImageView.image = nil
         
         if let podcast = self.podcast {
             
-            podcastTitleLabel.text = podcast.podcastTitle
-            podcastArtistNameLabel.text = podcast.podcastArtist
+            podcastTitleLabel?.text = podcast.podcastTitle
+            podcastArtistNameLabel.text = podcast.podcastArtistName
 
+            if let artworkURL = podcast.podcastArtwork {
+                if let imageData = NSData(contentsOfURL: artworkURL) {
+                    // This blocks the main thread...fix...
+                    podcastArtworkImageView?.image = UIImage(data: imageData)
+                }
+            }
             
-            podcastArtworkImageView
+
         }
         
     }

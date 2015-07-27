@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-class Podcast: Printable {
+class Podcast: NSObject {
 
     /*
     // Only override drawRect: if you perform custom drawing.
@@ -22,12 +22,13 @@ class Podcast: Printable {
     var podcastTitle: String = ""
     var podcastArtistName: String = ""
     var podcastArtwork = NSURL(string: "")
+    var podcastFeed = NSURL(string: "")
     
-    func initWithDetails(title: String, artist: String, artwork: NSURL) -> Podcast {
+    func initWithDetails(title: String, artist: String, artwork: String, feedURL: String) -> Podcast {
         self.podcastTitle = title
         self.podcastArtistName = artist
-        self.podcastArtwork = artwork
-        
+        self.podcastArtwork = NSURL(string: artwork)
+        self.podcastFeed = NSURL(string: feedURL)
         return self
     }
     
