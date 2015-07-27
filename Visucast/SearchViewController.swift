@@ -46,8 +46,10 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     
     
     
+    
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
         searchActive = true;
+        searchBar.setShowsCancelButton(true, animated: true)
     }
     
     func searchBarTextDidEndEditing(searchBar: UISearchBar) {
@@ -56,6 +58,8 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         searchActive = false;
+        searchBar.resignFirstResponder()
+        searchBar.setShowsCancelButton(false, animated: true)
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
@@ -65,6 +69,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         podcastSearch(searchText!)
         println("Podcast search should have been called")
         searchBar.resignFirstResponder()
+        searchBar.setShowsCancelButton(false, animated: true)
         podcastTableView.reloadData()
         println("I called reload 1 \(searchText)")
     }
@@ -83,7 +88,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         println("Search was called")
         var search = searchText
         let result = search.lowercaseString.stringByReplacingOccurrencesOfString(" ", withString: "+")
-        searchTerm +=  result
+        searchTerm = defaultSearchTerm + result
         podcastInfo()
     }
     
