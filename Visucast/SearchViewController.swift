@@ -122,7 +122,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     private struct Storyboard {
-        static let CellReuseIdentifier = "Podcast"
+        static let CellReuseIdentifier = "cell"
     }
     
     // TODO
