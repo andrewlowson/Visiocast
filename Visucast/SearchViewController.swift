@@ -12,7 +12,7 @@ import SwiftyJSON
 
 class SearchViewController: UIViewController, UITableViewDelegate, UISearchBarDelegate {
 
-    var podcasts = [[Podcast]]()
+    var podcasts = [Podcast]()
     var searchTerm = "https://itunes.apple.com/search?term=podcast+"
    
     @IBOutlet weak var tableView: UITableView!
@@ -34,6 +34,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UISearchBarDe
         tableView.delegate = self
         
         println("I loaded")
+        tableView.reloadData()
     }
     
     
@@ -67,7 +68,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UISearchBarDe
 //
 //    }
     
-    var searchText: String? = "Search for Podcasts" {
+    var searchText: String? = "" {
         didSet {
             searchBar.text = searchBar.placeholder
             podcasts.removeAll()
@@ -114,11 +115,18 @@ class SearchViewController: UIViewController, UITableViewDelegate, UISearchBarDe
                 podcast.podcastTitle = collectionName!
                 podcast.podcastArtwork = artworkurl
                 podcast.podcastFeed = feedurl
+
+                self.podcasts.append(podcast)
                 println()
+                self.tableView.reloadData()
             }
+            
         }
     }
     
+    private struct Storyboard {
+        static let CellReuseIdentifier = "Podcast"
+    }
     
     // TODO
     
@@ -126,6 +134,24 @@ class SearchViewController: UIViewController, UITableViewDelegate, UISearchBarDe
         //
     }
     
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return podcasts.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    {
+        println("trying to display cells")
+        let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellReuseIdentifier, forIndexPath: indexPath) as! PodcastTableViewCell
+        
+        cell.podcast = podcasts[indexPath.section]
+        
+        return cell
+    }
+
     
     /*
     // MARK: - Navigation
