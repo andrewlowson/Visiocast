@@ -524,7 +524,7 @@
                                     <outlet property="delegate" destination="G5V-MM-ENt" id="0Ha-6K-oJD"/>
                                 </connections>
                             </searchBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="101" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Zdh-N7-DOx">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="101" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Zdh-N7-DOx" propertyAccessControl="all">
                                 <rect key="frame" x="0.0" y="172" width="600" height="379"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -577,8 +577,8 @@
                     </view>
                     <tabBarItem key="tabBarItem" systemItem="search" id="5wN-Cw-ozZ"/>
                     <connections>
+                        <outlet property="podcastTableView" destination="Zdh-N7-DOx" id="zk1-nj-KbM"/>
                         <outlet property="searchBar" destination="3e8-nt-E6n" id="zBW-sB-WCD"/>
-                        <outlet property="tableView" destination="Zdh-N7-DOx" id="nUs-32-AkO"/>
                     </connections>
                 </viewController>
             </objects>

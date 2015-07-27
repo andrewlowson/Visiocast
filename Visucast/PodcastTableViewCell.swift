@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 class PodcastTableViewCell: UITableViewCell {
 
@@ -44,9 +45,8 @@ class PodcastTableViewCell: UITableViewCell {
         
     }
     
-    
     override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+        setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }

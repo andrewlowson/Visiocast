@@ -10,12 +10,13 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class SearchViewController: UIViewController, UITableViewDelegate, UISearchBarDelegate {
+class SearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
 
     var podcasts = [Podcast]()
     var searchTerm = "https://itunes.apple.com/search?term=podcast+"
    
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var podcastTableView: UITableView!
+
     @IBOutlet private weak var searchBar: UISearchBar! {
         didSet {
             searchBar.delegate = self
@@ -24,18 +25,22 @@ class SearchViewController: UIViewController, UITableViewDelegate, UISearchBarDe
     }
     
     var searchActive : Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        tableView.estimatedRowHeight = tableView.rowHeight
-        tableView.rowHeight = UITableViewAutomaticDimension
+
+        podcastTableView.delegate = self
+        podcastTableView.dataSource = self
+        podcastTableView.estimatedRowHeight = podcastTableView.rowHeight
+        podcastTableView.rowHeight = UITableViewAutomaticDimension
         
         searchBar.delegate = self
-        tableView.delegate = self
         
         println("I loaded")
-        tableView.reloadData()
+        podcastTableView.reloadData()
+        println("I called reload")
     }
+    
     
     
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
@@ -55,28 +60,18 @@ class SearchViewController: UIViewController, UITableViewDelegate, UISearchBarDe
         searchText = searchBar.text
         podcastSearch(searchText!)
         searchBar.resignFirstResponder()
-        tableView.reloadData()
-        
+        podcastTableView.reloadData()
+                println("I called reload 1")
     }
-//    
-//    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-//        
-//        if !searchActive {
-//                podcastSearch(searchText)
-//        }
-//        self.tableView.reloadData()
-//
-//    }
-    
+
     var searchText: String? = "" {
         didSet {
             searchBar.text = searchBar.placeholder
             podcasts.removeAll()
-            tableView.reloadData()
+            podcastTableView.reloadData()
+            println("I called reload 2")
         }
     }
-    
-    
     
     func podcastSearch(searchText: String) {
         println("Search was called")
@@ -118,7 +113,9 @@ class SearchViewController: UIViewController, UITableViewDelegate, UISearchBarDe
 
                 self.podcasts.append(podcast)
                 println()
-                self.tableView.reloadData()
+                println("\(self.podcasts)")
+                self.podcastTableView.reloadData()
+                        println("I called reload 3")
             }
             
         }
@@ -135,10 +132,14 @@ class SearchViewController: UIViewController, UITableViewDelegate, UISearchBarDe
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        println("trying to find number of sections")
+
         return 1
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        println("trying to display number of rows")
+
         return podcasts.count
     }
     
