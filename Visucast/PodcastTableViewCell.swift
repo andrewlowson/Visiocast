@@ -15,10 +15,11 @@ class PodcastTableViewCell: UITableViewCell {
             updateUI()
         }
     }
+    @IBOutlet weak var podcastArtworkImageView: UIImageView!
 
     @IBOutlet weak var podcastTitleLabel: UILabel!
+    
     @IBOutlet weak var podcastArtistNameLabel: UILabel!
-    @IBOutlet weak var podcastArtworkImageView: UIImageView!
     
     func updateUI() {
         

@@ -16,6 +16,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     var defaultSearchTerm = "https://itunes.apple.com/search?term=podcast+"
     var searchTerm = "https://itunes.apple.com/search?term=podcast+"
    
+    
     @IBOutlet weak var podcastTableView: UITableView!
 
     @IBOutlet private weak var searchBar: UISearchBar! {
@@ -71,7 +72,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     
     var searchText: String? = "" {
         didSet {
-            searchBar.text = searchBar.placeholder
+            
             podcasts.removeAll()
             searchTerm = defaultSearchTerm
             println("I called reload 2")
@@ -127,7 +128,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     private struct Storyboard {
-        static let CellReuseIdentifier = "cell"
+        static let CellReuseIdentifier = "Podcast"
     }
     
     // TODO
