@@ -148,7 +148,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         println("trying to display cells")
         let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellReuseIdentifier, forIndexPath: indexPath) as! PodcastTableViewCell
         
-        cell.podcast = podcasts[indexPath.section]
+        cell.podcast = podcasts[indexPath.row]
         
         return cell
     }
