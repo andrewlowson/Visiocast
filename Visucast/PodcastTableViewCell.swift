@@ -10,15 +10,10 @@ import UIKit
 
 class PodcastTableViewCell: UITableViewCell {
 
-    var search: SearchRequest? {
+    var podcast: Podcast? {
         didSet {
             updateUI()
         }
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
     }
 
     @IBOutlet weak var podcastTitleLabel: UILabel!
@@ -26,11 +21,20 @@ class PodcastTableViewCell: UITableViewCell {
     @IBOutlet weak var podcastArtworkImageView: UIImageView!
     
     func updateUI() {
-       podcastTitleLabel.text = nil
-       podcastArtistNameLabel.text = nil
-       podcastArtworkImageView.image = nil
         
+        // reset data
+        podcastTitleLabel.text = nil
+        podcastArtistNameLabel.text = nil
+        podcastArtworkImageView.image = nil
         
+        if let podcast = self.podcast {
+            
+            podcastTitleLabel.text = podcast.podcastTitle
+            podcastArtistNameLabel.text = podcast.podcastArtist
+
+            
+            podcastArtworkImageView
+        }
         
     }
     

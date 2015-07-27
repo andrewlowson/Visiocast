@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import Foundation
 
-class Podcast: UITableView {
+class Podcast: Printable {
 
     /*
     // Only override drawRect: if you perform custom drawing.
@@ -17,5 +18,18 @@ class Podcast: UITableView {
         // Drawing code
     }
     */
-
+    
+    var podcastTitle: String = ""
+    var podcastArtistName: String = ""
+    var podcastArtwork = NSURL(string: "")
+    
+    func initWithDetails(title: String, artist: String, artwork: NSURL) -> Podcast {
+        self.podcastTitle = title
+        self.podcastArtistName = artist
+        self.podcastArtwork = artwork
+        
+        return self
+    }
+    
+    
 }
