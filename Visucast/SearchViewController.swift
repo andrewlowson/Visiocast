@@ -13,6 +13,7 @@ import SwiftyJSON
 class SearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
 
     var podcasts = [Podcast]()
+    var defaultSearchTerm = "https://itunes.apple.com/search?term=podcast+"
     var searchTerm = "https://itunes.apple.com/search?term=podcast+"
    
     @IBOutlet weak var podcastTableView: UITableView!
@@ -31,6 +32,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
 
         podcastTableView.delegate = self
         podcastTableView.dataSource = self
+        
         podcastTableView.estimatedRowHeight = podcastTableView.rowHeight
         podcastTableView.rowHeight = UITableViewAutomaticDimension
         
@@ -58,17 +60,20 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         searchActive = false;
         searchText = searchBar.text
+        searchTerm = defaultSearchTerm
         podcastSearch(searchText!)
+        println("Podcast search should have been called")
         searchBar.resignFirstResponder()
         podcastTableView.reloadData()
-                println("I called reload 1")
+        println("I called reload 1 \(searchText)")
     }
 
+    
     var searchText: String? = "" {
         didSet {
             searchBar.text = searchBar.placeholder
             podcasts.removeAll()
-            podcastTableView.reloadData()
+            searchTerm = defaultSearchTerm
             println("I called reload 2")
         }
     }

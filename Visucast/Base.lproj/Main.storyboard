@@ -472,7 +472,6 @@
         <!--SearchViewController-->
         <scene sceneID="uI4-gB-XK3">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="J5T-gU-TWz" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="G5V-MM-ENt" userLabel="SearchViewController" customClass="SearchViewController" customModule="Visucast" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Cfb-9x-Try"/>
@@ -581,6 +580,7 @@
                         <outlet property="searchBar" destination="3e8-nt-E6n" id="zBW-sB-WCD"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J5T-gU-TWz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1390" y="-300"/>
         </scene>
