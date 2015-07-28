@@ -8,9 +8,11 @@
 
 import UIKit
 
-class SearchResultsViewController: UITableViewController
+class SearchResultsViewController: UITableViewController, NSXMLParserDelegate
 {
     let appleProducts = ["iMac", "iPhone", "Apple Watch", "iPod", "iPad", "AppleTV", "Mac Pro"]
+    var podcastFeed: NSURL?
+    var podcastTitle = String()
     var filteredAppleProducts = [String]()
     var resultSearchController = UISearchController()
 
@@ -18,6 +20,7 @@ class SearchResultsViewController: UITableViewController
         super.viewDidLoad()
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
+        println("\(podcastTitle)")
         //refresh()
 //        self.resultSearchController = UISearchController(searchResultsController: nil)
 //        //self.resultSearchController.searchResultsUpdater = self
@@ -36,6 +39,9 @@ class SearchResultsViewController: UITableViewController
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(animated: Bool) {
+        println(podcastTitle)
+    }
     
     
     @IBOutlet weak var SearchTabBarItem: UITabBarItem!

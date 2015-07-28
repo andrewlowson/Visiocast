@@ -21,6 +21,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
 
     @IBOutlet private weak var searchBar: UISearchBar! {
         didSet {
+            searchBar.isAccessibilityElement == true
             searchBar.delegate = self
             searchBar.text = searchText
         }
@@ -136,11 +137,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         static let CellReuseIdentifier = "Podcast"
     }
     
-    // TODO
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        //
-    }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         println("trying to find number of sections")
@@ -160,19 +157,34 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellReuseIdentifier, forIndexPath: indexPath) as! PodcastTableViewCell
         
         cell.podcast = podcasts[indexPath.row]
+        cell.isAccessibilityElement == true
+        
         
         return cell
     }
 
     
-    /*
+    
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
+        var destination = segue.destinationViewController as? UIViewController
+        if let navCon = destination as? UINavigationController {
+            destination = navCon.visibleViewController
+        }
+        if let srvc = destination as? SearchResultsViewController {
+            if let identifier = segue.identifier {
+                if let podcast = podcastTableView.indexPathForSelectedRow()?.row {
+                    srvc.podcastFeed = podcasts[podcast].podcastFeed
+                    srvc.podcastTitle = podcasts[podcast].podcastTitle
+                }
+            }
+        }
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        
     }
-    */
+
 
 }

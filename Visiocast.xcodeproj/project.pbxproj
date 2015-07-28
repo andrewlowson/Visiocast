@@ -191,12 +191,11 @@
 			isa = PBXGroup;
 			children = (
 				118D2F341B5AD9370005F577 /* Main.storyboard */,
-				116CF05A1B5B205E0056FCA0 /* SearchViewController.swift */,
-				11E22D941B663C8300EB6A6C /* PodcastTableViewCell.swift */,
-				11E22D521B650D1300EB6A6C /* SearchTableView.swift */,
 				116CF05E1B5B208A0056FCA0 /* SearchResultsViewController.swift */,
 				116CF0561B5B203E0056FCA0 /* DownloadsViewController.swift */,
 				116CF05C1B5B207A0056FCA0 /* NowPlayingViewController.swift */,
+				116CF05A1B5B205E0056FCA0 /* SearchViewController.swift */,
+				11E22D941B663C8300EB6A6C /* PodcastTableViewCell.swift */,
 				116CF0581B5B204E0056FCA0 /* AboutViewController.swift */,
 				11E22D5B1B6565F400EB6A6C /* Podcast.swift */,
 				118D2F2E1B5AD9370005F577 /* Supporting Files */,
@@ -207,6 +206,7 @@
 		118D2F2E1B5AD9370005F577 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				11E22D521B650D1300EB6A6C /* SearchTableView.swift */,
 				118D2F321B5AD9370005F577 /* TabViewController.swift */,
 				118D2F301B5AD9370005F577 /* AppDelegate.swift */,
 				118D2F371B5AD9370005F577 /* Images.xcassets */,
