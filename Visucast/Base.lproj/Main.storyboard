@@ -273,7 +273,37 @@
         <scene sceneID="p4v-qe-rR7">
             <objects>
                 <tableViewController title="SearchResultsViewController" id="cB3-mi-mWy" customClass="SearchResultsViewController" customModule="Visucast" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" title="Search Results" id="XvI-yg-4t7"/>
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="87" sectionHeaderHeight="22" sectionFooterHeight="22" id="Jmo-Fm-2Qq">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Episode" rowHeight="87" id="Gea-yq-cdy">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Gea-yq-cdy" id="gZz-Gn-hdE">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="cB3-mi-mWy" id="ybG-AG-S1n"/>
+                            <outlet property="delegate" destination="cB3-mi-mWy" id="aTU-8C-Ha0"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Search Results" id="XvI-yg-4t7">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="Flt-11-6Xe">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="YeC-Fj-Pm6">
+                                <rect key="frame" x="-23" y="-15" width="133" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Now Playing">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="2dm-jV-lh3" kind="show" id="pwS-Rg-b0u"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Brg-ub-bIf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -489,7 +519,7 @@
                                             <outlet property="podcastArtistNameLabel" destination="r59-Wi-Hhn" id="dGX-0g-gkw"/>
                                             <outlet property="podcastArtworkImageView" destination="22U-YC-lvE" id="olB-iY-E28"/>
                                             <outlet property="podcastTitleLabel" destination="Tbx-nf-fjz" id="vI6-pG-2FS"/>
-                                            <segue destination="cB3-mi-mWy" kind="show" id="KMe-87-j3P"/>
+                                            <segue destination="cB3-mi-mWy" kind="show" id="bVF-vE-gp7"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -527,7 +557,7 @@
                             <constraint firstItem="4EI-ba-yHg" firstAttribute="top" secondItem="3e8-nt-E6n" secondAttribute="bottom" id="uCl-ce-UO4"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Search" id="Z3E-uU-w9Q">
+                    <navigationItem key="navigationItem" id="Z3E-uU-w9Q">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="0cG-ui-jc5">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ppa-6W-dqb">
                                 <rect key="frame" x="-23" y="-15" width="133" height="30"/>
@@ -572,6 +602,7 @@
         <!--Navigation Controller-->
         <scene sceneID="64L-QT-KJn">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CIe-zC-1hX" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Dft-qT-RNl" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="search" id="wXK-0A-r75"/>
                     <toolbarItems/>
@@ -584,7 +615,6 @@
                         <segue destination="G5V-MM-ENt" kind="relationship" relationship="rootViewController" id="AZV-SW-HmH"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="CIe-zC-1hX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1380" y="-292"/>
         </scene>
@@ -613,6 +643,6 @@
         <image name="microphoneIcon" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gHa-z6-F8Q"/>
+        <segue reference="pwS-Rg-b0u"/>
     </inferredMetricsTieBreakers>
 </document>
