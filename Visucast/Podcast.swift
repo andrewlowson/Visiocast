@@ -5,32 +5,24 @@
 //  Created by Andrew Lowson on 26/07/2015.
 //  Copyright (c) 2015 Andrew Lowson. All rights reserved.
 //
-
-import UIKit
 import Foundation
 
-class Podcast: Printable {
-
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
-    }
-    */
+class Podcast {
     
     var podcastTitle: String!
-    var podcastArtistName: String = ""
+    var podcastArtistName: String!
     var podcastArtwork = NSURL(string: "")
     var podcastFeed = NSURL(string: "")
+    var episodes = [Podcast]()
     
-    func initWithDetails(title: String, artist: String, artwork: String, feedURL: String) -> Podcast {
+    init(title: String, artist: String, artwork: String, feedURL: String) {
         self.podcastTitle = title
         self.podcastArtistName = artist
         self.podcastArtwork = NSURL(string: artwork)
         self.podcastFeed = NSURL(string: feedURL)
-        return self
     }
+    
+    
     
     var description: String {
         get {

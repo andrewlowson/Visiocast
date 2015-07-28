@@ -39,10 +39,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         podcastTableView.rowHeight = UITableViewAutomaticDimension
         
         searchBar.delegate = self
-        
-        println("I loaded")
         podcastTableView.reloadData()
-        println("I called reload")
     }
     
     
@@ -68,20 +65,16 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         searchText = searchBar.text
         searchTerm = defaultSearchTerm
         podcastSearch(searchText!)
-        println("Podcast search should have been called")
         searchBar.resignFirstResponder()
         searchBar.setShowsCancelButton(false, animated: true)
         podcastTableView.reloadData()
-        println("I called reload 1 \(searchText)")
     }
 
     
     var searchText: String? = "" {
         didSet {
-            
             podcasts.removeAll()
             searchTerm = defaultSearchTerm
-            println("I called reload 2")
         }
     }
     
@@ -90,10 +83,10 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         var search = searchText
         let result = search.lowercaseString.stringByReplacingOccurrencesOfString(" ", withString: "+")
         searchTerm = defaultSearchTerm + result
-        podcastInfo()
+        searchiTunesForPodcast()
     }
     
-    func podcastInfo()
+    func searchiTunesForPodcast()
     {
         println("Networking was called")
         Alamofire.request(.GET, searchTerm).responseJSON {
@@ -109,25 +102,14 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
                 let artistName = resultJSON["artistName"].string
                 let artworkURL = resultJSON["artworkUrl600"].string
                 let feedURL = resultJSON["feedUrl"].string
-                println(self.searchTerm)
-                println(collectionName!)
-                println(artistName!)
-                println(artworkURL!)
-                println(feedURL!)
                 
-                var feedurl = NSURL(string: feedURL!)
-                var artworkurl = NSURL(string: artworkURL!)
-                var podcast = Podcast()
-                podcast.podcastArtistName = artistName!
-                podcast.podcastTitle = collectionName!
-                podcast.podcastArtwork = artworkurl
-                podcast.podcastFeed = feedurl
+                // checking the term was correct
+                println(self.searchTerm)
 
+                var podcast = Podcast(title: collectionName!, artist: artistName!, artwork: artworkURL!,feedURL: feedURL!)
+                
                 self.podcasts.append(podcast)
-                println()
-                println("\(self.podcasts)")
                 self.podcastTableView.reloadData()
-                        println("I called reload 3")
             }
             
         }
@@ -140,25 +122,19 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        println("trying to find number of sections")
-
         return 1
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        println("trying to display number of rows")
-
         return podcasts.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        println("trying to display cells")
         let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellReuseIdentifier, forIndexPath: indexPath) as! PodcastTableViewCell
         
         cell.podcast = podcasts[indexPath.row]
         cell.isAccessibilityElement == true
-        
         
         return cell
     }
@@ -167,20 +143,23 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     
     // MARK: - Navigation
     
+//    var detailsViewController: DetailsViewController = segue.destinationViewController as! DetailsViewController
+//    var albumIndex = appsTableView!.indexPathForSelectedRow()!.row
+//    var selectedAlbum = self.albums[albumIndex]
+//    detailsViewController.album = selectedAlbum
+    
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        var destination = segue.destinationViewController as? UIViewController
-        if let navCon = destination as? UINavigationController {
-            destination = navCon.visibleViewController
-        }
-        if let srvc = destination as? SearchResultsViewController {
-            if let identifier = segue.identifier {
-                if let podcast = podcastTableView.indexPathForSelectedRow()?.row {
-                    srvc.podcastFeed = podcasts[podcast].podcastFeed
-                    srvc.podcastTitle = podcasts[podcast].podcastTitle
-                }
-            }
-        }
+        var podcastFeed: PodcastFeedViewController = segue.destinationViewController as! PodcastFeedViewController
+        var podcastIndex = podcastTableView!.indexPathForSelectedRow()!.row
+        
+        var selectedPodcast = self.podcasts[podcastIndex]
+        println("\(self.podcasts[podcastIndex].podcastTitle)")
+        podcastFeed.podcastFeed = selectedPodcast.podcastFeed!
+        podcastFeed.podcastTitle = selectedPodcast.podcastTitle!
+
+
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         
@@ -188,3 +167,26 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

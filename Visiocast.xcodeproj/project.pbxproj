@@ -12,7 +12,7 @@
 		116CF0591B5B204E0056FCA0 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116CF0581B5B204E0056FCA0 /* AboutViewController.swift */; };
 		116CF05B1B5B205E0056FCA0 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116CF05A1B5B205E0056FCA0 /* SearchViewController.swift */; };
 		116CF05D1B5B207A0056FCA0 /* NowPlayingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116CF05C1B5B207A0056FCA0 /* NowPlayingViewController.swift */; };
-		116CF05F1B5B208A0056FCA0 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116CF05E1B5B208A0056FCA0 /* SearchResultsViewController.swift */; };
+		116CF05F1B5B208A0056FCA0 /* PodcastFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116CF05E1B5B208A0056FCA0 /* PodcastFeedViewController.swift */; };
 		118D2F311B5AD9370005F577 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118D2F301B5AD9370005F577 /* AppDelegate.swift */; };
 		118D2F331B5AD9370005F577 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118D2F321B5AD9370005F577 /* TabViewController.swift */; };
 		118D2F361B5AD9370005F577 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 118D2F341B5AD9370005F577 /* Main.storyboard */; };
@@ -129,7 +129,7 @@
 		116CF0581B5B204E0056FCA0 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		116CF05A1B5B205E0056FCA0 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		116CF05C1B5B207A0056FCA0 /* NowPlayingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowPlayingViewController.swift; sourceTree = "<group>"; };
-		116CF05E1B5B208A0056FCA0 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
+		116CF05E1B5B208A0056FCA0 /* PodcastFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastFeedViewController.swift; sourceTree = "<group>"; };
 		118D2F2B1B5AD9370005F577 /* Visucast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Visucast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		118D2F2F1B5AD9370005F577 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		118D2F301B5AD9370005F577 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -191,7 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				118D2F341B5AD9370005F577 /* Main.storyboard */,
-				116CF05E1B5B208A0056FCA0 /* SearchResultsViewController.swift */,
+				116CF05E1B5B208A0056FCA0 /* PodcastFeedViewController.swift */,
 				116CF0561B5B203E0056FCA0 /* DownloadsViewController.swift */,
 				116CF05C1B5B207A0056FCA0 /* NowPlayingViewController.swift */,
 				116CF05A1B5B205E0056FCA0 /* SearchViewController.swift */,
@@ -437,7 +437,7 @@
 				11E22D531B650D1300EB6A6C /* SearchTableView.swift in Sources */,
 				11E22D5C1B6565F400EB6A6C /* Podcast.swift in Sources */,
 				116CF05D1B5B207A0056FCA0 /* NowPlayingViewController.swift in Sources */,
-				116CF05F1B5B208A0056FCA0 /* SearchResultsViewController.swift in Sources */,
+				116CF05F1B5B208A0056FCA0 /* PodcastFeedViewController.swift in Sources */,
 				116CF0571B5B203E0056FCA0 /* DownloadsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
