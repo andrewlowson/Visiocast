@@ -24,8 +24,8 @@ class PodcastEpisodeTableViewCell: UITableViewCell {
         if let podcastEpisode = self.podcastEpisode {
             episodeTitle?.text = podcastEpisode.episodeTitle!
             episodeDescription?.text = podcastEpisode.episodeDescription!
-            var descriptionText = podcastEpisode.episodeDate! +  " · " + podcastEpisode.episodeDuration!
-            episodeInformation?.text = descriptionText
+            var descriptionText = "\(podcastEpisode.episodeDate!)"
+            episodeInformation?.text = "info coming here"
         }
     }
     
