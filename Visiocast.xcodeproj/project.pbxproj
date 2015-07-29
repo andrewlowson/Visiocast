@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11175B7A1B68CE9D00A652CB /* PodcastEpisode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11175B791B68CE9D00A652CB /* PodcastEpisode.swift */; };
+		11175B821B68DAF100A652CB /* PodcastEpisodeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11175B811B68DAF100A652CB /* PodcastEpisodeTableViewCell.swift */; };
 		116CF0551B5B1CAE0056FCA0 /* glasgowLogo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 116CF0541B5B1CAE0056FCA0 /* glasgowLogo.gif */; };
 		116CF0571B5B203E0056FCA0 /* DownloadsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116CF0561B5B203E0056FCA0 /* DownloadsViewController.swift */; };
 		116CF0591B5B204E0056FCA0 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116CF0581B5B204E0056FCA0 /* AboutViewController.swift */; };
@@ -124,6 +126,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		11175B791B68CE9D00A652CB /* PodcastEpisode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastEpisode.swift; sourceTree = "<group>"; };
+		11175B811B68DAF100A652CB /* PodcastEpisodeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastEpisodeTableViewCell.swift; sourceTree = "<group>"; };
 		116CF0541B5B1CAE0056FCA0 /* glasgowLogo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = glasgowLogo.gif; path = VisucastTests/glasgowLogo.gif; sourceTree = SOURCE_ROOT; };
 		116CF0561B5B203E0056FCA0 /* DownloadsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadsViewController.swift; sourceTree = "<group>"; };
 		116CF0581B5B204E0056FCA0 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
@@ -191,7 +195,9 @@
 			isa = PBXGroup;
 			children = (
 				118D2F341B5AD9370005F577 /* Main.storyboard */,
+				11175B811B68DAF100A652CB /* PodcastEpisodeTableViewCell.swift */,
 				116CF05E1B5B208A0056FCA0 /* PodcastFeedViewController.swift */,
+				11175B791B68CE9D00A652CB /* PodcastEpisode.swift */,
 				116CF0561B5B203E0056FCA0 /* DownloadsViewController.swift */,
 				116CF05C1B5B207A0056FCA0 /* NowPlayingViewController.swift */,
 				116CF05A1B5B205E0056FCA0 /* SearchViewController.swift */,
@@ -431,6 +437,7 @@
 			files = (
 				116CF05B1B5B205E0056FCA0 /* SearchViewController.swift in Sources */,
 				118D2F331B5AD9370005F577 /* TabViewController.swift in Sources */,
+				11175B821B68DAF100A652CB /* PodcastEpisodeTableViewCell.swift in Sources */,
 				118D2F311B5AD9370005F577 /* AppDelegate.swift in Sources */,
 				11E22D951B663C8300EB6A6C /* PodcastTableViewCell.swift in Sources */,
 				116CF0591B5B204E0056FCA0 /* AboutViewController.swift in Sources */,
@@ -438,6 +445,7 @@
 				11E22D5C1B6565F400EB6A6C /* Podcast.swift in Sources */,
 				116CF05D1B5B207A0056FCA0 /* NowPlayingViewController.swift in Sources */,
 				116CF05F1B5B208A0056FCA0 /* PodcastFeedViewController.swift in Sources */,
+				11175B7A1B68CE9D00A652CB /* PodcastEpisode.swift in Sources */,
 				116CF0571B5B203E0056FCA0 /* DownloadsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

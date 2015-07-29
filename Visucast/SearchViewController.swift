@@ -31,7 +31,8 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         podcastTableView.delegate = self
         podcastTableView.dataSource = self
         
@@ -156,9 +157,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         
         var selectedPodcast = self.podcasts[podcastIndex]
         println("\(self.podcasts[podcastIndex].podcastTitle)")
-        podcastFeed.podcastFeed = selectedPodcast.podcastFeed!
-        podcastFeed.podcastTitle = selectedPodcast.podcastTitle!
-
+        podcastFeed.setValues(selectedPodcast.podcastFeed!, title: selectedPodcast.podcastTitle!)
 
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.

@@ -21,12 +21,7 @@ class PodcastTableViewCell: UITableViewCell {
         }
     }
 
-    @IBOutlet weak var podcastTitleLabel: UILabel! {
-        didSet {
-
-        }
-    }
-    
+    @IBOutlet weak var podcastTitleLabel: UILabel!
     @IBOutlet weak var podcastArtistNameLabel: UILabel!
     
     func updateUI() {

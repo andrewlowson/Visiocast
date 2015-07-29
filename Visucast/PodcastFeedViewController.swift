@@ -10,9 +10,11 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class PodcastFeedViewController: UITableViewController, NSXMLParserDelegate
+class PodcastFeedViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate, NSXMLParserDelegate
 {
-    let appleProducts = ["iMac", "iPhone", "Apple Watch", "iPod", "iPad", "AppleTV", "Mac Pro"]
+    
+    var podcastEpisodes = [PodcastEpisode]()
+    
     var podcastFeed: NSURL?
     var podcastTitle: String?
     var filteredAppleProducts = [String]()
@@ -21,24 +23,14 @@ class PodcastFeedViewController: UITableViewController, NSXMLParserDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         println("Podcast Feed Page")
+        
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        tableView.delegate = self
+        tableView.dataSource = self
+        
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         println("Podcast Feed for: \(podcastTitle!)")
-        feedParser()
-        
-        
-        
-        //refresh()
-//        self.resultSearchController = UISearchController(searchResultsController: nil)
-//        //self.resultSearchController.searchResultsUpdater = self
-//        
-//        self.resultSearchController.dimsBackgroundDuringPresentation = false
-//        self.resultSearchController.searchBar.sizeToFit()
-//        
-//        self.tableView.tableHeaderView = self.resultSearchController.searchBar
-//        
-//        self.tableView.reloadData()
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,37 +41,59 @@ class PodcastFeedViewController: UITableViewController, NSXMLParserDelegate
     override func viewWillAppear(animated: Bool) {
         println("viewWillAppear " + podcastTitle!)
         println("viewWillAppear \(podcastFeed!)")
+        feedParser()
     }
-    
+//
+    func setValues(feed: NSURL, title: String) {
+        self.podcastFeed = feed
+        self.podcastTitle = title
+    }
     
     func feedParser() {
         println("Here goes nothing")
-        Alamofire.request(.GET, podcastFeed!).responsePropertyList() {
-            (_, _, jsonDict, _) in
-            println(jsonDict)
-//            let results = json["results"]
-//            var collectionName: String?
-//            var artworkURL: String?
-//            
-//            for (index: String, resultJSON: JSON) in results {
-//                let collectionName = resultJSON["collectionName"].string
-//                let artistName = resultJSON["artistName"].string
-//                let artworkURL = resultJSON["artworkUrl600"].string
-//                let feedURL = resultJSON["feedUrl"].string
-//                
-//                // checking the term was correct
-//                println(self.searchTerm)
-//                
-//                var podcast = Podcast(title: collectionName!, artist: artistName!, artwork: artworkURL!,feedURL: feedURL!)
-//                
-//                self.podcasts.append(podcast)
-//                self.podcastTableView.reloadData()
-//            }
-//            
+        var feedString = "http://cloud.feedly.com/v3/feeds/\(podcastFeed!)"
+        var searchTerm = NSURL(string: feedString)
+        println(feedString)
+        println("Searching with: \(searchTerm!)")
+        Alamofire.request(
+            .GET,
+            searchTerm!,
+            encoding: .URL).responseJSON(options: NSJSONReadingOptions.allZeros) {
+                (request: NSURLRequest,
+                response: NSHTTPURLResponse?,
+                responseJSON: AnyObject?,
+                error: NSError?) -> Void in
+                
+                let jsonValue = JSON(responseJSON!)
+                println(responseJSON)
+
+                println(jsonValue)
+//                if let results = jsonValue["items"].array {
+//                    for result: JSON in results {
+//                        podcast = PodcastEpisode()
+//                        var podcast.episodeTitle = result["title"].string
+//                        var summary = result["summary"]["content"].string
+//                        var imageURL = result["visual"]["url"].URL
+//                        podcast = PodcastEpisode()
+//                        podcastEpisodes.append()
+//                    }
+//                }
         }
         
     }
+
+    private class func feedlyAPIURL() -> NSURL { return NSURL(string: "http://cloud.feedly.com")! }
     
+    private class func feedlySearchURL() -> NSURL {
+        return NSURL(string: "\(feedlyAPIURL())/v3/search/feeds")!
+    }
+    
+    func feedlyMixesContentURL(feedID: String) -> NSURL {
+        return NSURL(string: "http://cloud.feedly.com/v3/mixes/contents?streamId=\(feedID)")!
+    }
+    
+
+
     
     @IBOutlet weak var SearchTabBarItem: UITabBarItem!
     /*
@@ -91,5 +105,31 @@ class PodcastFeedViewController: UITableViewController, NSXMLParserDelegate
         // Pass the selected object to the new view controller.
     }
     */
+    
+    
+    
+    private struct Storyboard {
+        static let CellReuseIdentifier = "Episode"
+    }
+    
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return podcastEpisodes.count
+    }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    {
+        let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellReuseIdentifier, forIndexPath: indexPath) as! PodcastEpisodeTableViewCell
+        
+        cell.podcastEpisode = podcastEpisodes[indexPath.row]
+        cell.isAccessibilityElement == true
+        
+        return cell
+    }
+
+    
 
 }
