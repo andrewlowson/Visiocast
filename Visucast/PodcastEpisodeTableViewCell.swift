@@ -23,7 +23,15 @@ class PodcastEpisodeTableViewCell: UITableViewCell {
     func updateUI() {
         if let podcastEpisode = self.podcastEpisode {
             episodeTitle?.text = podcastEpisode.episodeTitle!
-            episodeDescription?.text = podcastEpisode.episodeDescription!
+            
+            var attrStr = NSAttributedString(
+                data: podcastEpisode.episodeDescription!.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: true)!,
+                options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
+                documentAttributes: nil,
+                error: nil)
+            episodeDescription?.attributedText = attrStr
+            episodeDescription?.font = UIFont.systemFontOfSize(12)
+            
             var descriptionText = "\(podcastEpisode.episodeDate!)"
             episodeInformation?.text = "info coming here"
         }

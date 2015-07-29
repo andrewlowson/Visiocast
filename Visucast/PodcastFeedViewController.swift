@@ -94,7 +94,7 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
         Alamofire.request(
             .GET,
             feedlyMixesContentURL(feed),
-            parameters: ["count": 20, "hours": 15],
+            parameters: ["count": 50],
             encoding: .URL).responseJSON(options: NSJSONReadingOptions.allZeros) {
                 (request: NSURLRequest,
                 response: NSHTTPURLResponse?,
