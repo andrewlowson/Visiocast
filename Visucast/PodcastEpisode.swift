@@ -11,19 +11,22 @@ import UIKit
 class PodcastEpisode: NSObject {
     
     var episodeTitle: String?
-    //var episodeDownloadURL: NSURL?
+    var episodeDownloadURL: NSURL?
+    var episodeSubtitle: String?
     var episodeDescription: String?
-    var episodeDate: NSTimeInterval?
+    var episodeDate: NSDate?
     var episodeDuration: String?
     var episodeID: String?
-    
-    
-    init(title: String, description: String, date: NSTimeInterval, id: String, download: String) {
+    var episodeSize: Int
+
+    init(title: String, description: String, date: NSDate, duration: String, download: String, subtitle: String, size: Int) {
         self.episodeTitle = title
-        //self.episodeDownloadURL = NSURL(string: download)
+        self.episodeDownloadURL = NSURL(string: download)
         self.episodeDescription = description
+        self.episodeDuration = duration
         self.episodeDate = date
-        self.episodeID = id
+        self.episodeSubtitle = subtitle
+        self.episodeSize = size
     }
     
 }

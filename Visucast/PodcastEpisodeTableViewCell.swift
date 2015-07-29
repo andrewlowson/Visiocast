@@ -32,8 +32,12 @@ class PodcastEpisodeTableViewCell: UITableViewCell {
             episodeDescription?.attributedText = attrStr
             episodeDescription?.font = UIFont.systemFontOfSize(12)
             
-            var descriptionText = "\(podcastEpisode.episodeDate!)"
-            episodeInformation?.text = "info coming here"
+            let formatter = NSDateFormatter()
+            formatter.dateStyle = NSDateFormatterStyle.LongStyle
+            var date = formatter.stringFromDate(podcastEpisode.episodeDate!)
+            var descriptionText = "\(date) · \(podcastEpisode.episodeDuration!)"
+            
+            episodeInformation?.text = descriptionText
         }
     }
     

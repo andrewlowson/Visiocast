@@ -22,7 +22,6 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        println("Podcast Feed Page")
         
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         tableView.delegate = self
@@ -55,8 +54,6 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
     
     func feedParser() {
         println("Here goes nothing")
-//        http://feeds.5by5.tv/b2w
-//        http://cloud.feedly.com//v3/search/feeds/
         var feedString = "http://cloud.feedly.com/v3/search/feeds/"
         var searchTerm = NSURL(string: feedString)
         println(feedString)
@@ -72,18 +69,13 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
                 error: NSError?) -> Void in
                 
                 let jsonValue = JSON(responseJSON!)
-                
+                //println(jsonValue)
                 if let results = jsonValue["results"].array {
                     for result: JSON in results {
+                       // println(result)
                         var feedID = result["feedId"].string
-                        println(feedID!)
+                        println("feedID"+feedID!)
                         self.getPodcastEpisodes(feedID!)
-//                        podcast = PodcastEpisode()
-//                        var podcast.episodeTitle = result["title"].string
-//                        var summary = result["summary"]["content"].string
-//                        var imageURL = result["visual"]["url"].URL
-//                        podcast = PodcastEpisode()
-//                        podcastEpisodes.append()
                     }
                 }
         }
@@ -91,76 +83,51 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
     }
     
     func getPodcastEpisodes(feed: String) {
-        Alamofire.request(
-            .GET,
-            feedlyMixesContentURL(feed),
-            parameters: ["count": 50],
-            encoding: .URL).responseJSON(options: NSJSONReadingOptions.allZeros) {
-                (request: NSURLRequest,
-                response: NSHTTPURLResponse?,
-                responseJSON: AnyObject?,
-                error: NSError?) -> Void in
-                if responseJSON == nil || error != nil {
-                    return
-                }
-                
-                let jsonValue = JSON(responseJSON!)
-                println(jsonValue)
-                var articles: Array<PodcastEpisode> = []
-                
-                if let results = jsonValue["items"].array {
-                    for result: JSON in results {
-                        let episodeID = result["id"].string
-                        var title = result["title"].string
-                        var summary = result["summary"]["content"].string
-                        var timestamp = result["published"].int
-                        //var downloadURL = result["enclosure"]["href"].string
-                        var downloadURL = ""
-                        var timeInterval: NSTimeInterval?
-                        
-                        if timestamp != nil {
-                            timeInterval = Double(timestamp!) / 1000.0
-                        }
-
-                        var podcastEpisode = PodcastEpisode(title: title!, description: summary!, date: timeInterval!, id: episodeID! ,download: downloadURL)
-                        
-                        self.podcastEpisodes.append(podcastEpisode)
-                        self.tableView.reloadData()
-                        
-                        //Cleans up strings if necessary
-                        
-//                        let article = FeedlyArticle(articleID: articleID!, title: title!)
-//                        article.summary = summary
-//                        article.imageURL = imageURL
-//                        article.articleURL = articleURL
-//                        article.engagement = engagement
-//                        article.engagementRate = engagementRate
-//                        article.publishedTimeInterval = timeInterval
-                        
-                  //      articles.append(article)
-                    }
-                }
-                
-//                articles.sort({
-//                    (firstArticle: FeedlyArticle, secondArticle: FeedlyArticle) -> Bool in
-//                    
-//                    if firstArticle.engagement == nil || firstArticle.age() == nil
-//                        || secondArticle.engagement == nil || secondArticle.age() == nil {
-//                            return true
-//                    }
-//                    
-//                    var firstArticleEngagementOverTime = Double(firstArticle.engagement!) / firstArticle.age()!
-//                    var secondArticleEngagementOverTime = Double(secondArticle.engagement!) / secondArticle.age()!
-//                    
-//                    return firstArticleEngagementOverTime > secondArticleEngagementOverTime
-//                })
-//                
-//                while articles.count > articleCount {
-//                    articles.removeLast()
+        println(feed)
+        var feedURL = NSURL(string: feed)
+        podcastEpisodes = PodcastManager.episodes(podcastFeed!)
+        tableView.reloadData()
+//        Alamofire.request(
+//            .GET,
+//            feedlyMixesContentURL(feed),
+//            parameters: ["count": 50],
+//            encoding: .URL).responseJSON {
+//                (request: NSURLRequest,
+//                response: NSHTTPURLResponse?,
+//                responseJSON: AnyObject?,
+//                error: NSError?) -> Void in
+//                if responseJSON == nil || error != nil {
+//                    return
 //                }
+//                let jsonValue = JSON(responseJSON!)
+//               // println(jsonValue)
+//                var articles: Array<PodcastEpisode> = []
 //                
-//                completion(articles: articles, error: nil)
-        }
+//                if let results = jsonValue["items"].array {
+//                    for result: JSON in results {
+//                        let episodeID = result["id"].string
+//                        var title = result["title"].string
+//                        var summary = result["summary"]["content"].string
+//                        var timestamp = result["published"].int
+//                        //var downloadURL = result["enclosure"]["href"].string
+//                        var downloadURL = ""
+//                        var timeInterval: NSTimeInterval?
+//                        
+//                        if timestamp != nil {
+//                            timeInterval = Double(timestamp!) / 1000.0
+//                        }
+//
+//                        if summary == nil {
+//                            summary = ""
+//                        }
+//                        
+//                        var podcastEpisode = PodcastEpisode(title: title!, description: summary!, date: timeInterval!, id: episodeID! ,download: downloadURL)
+//                        
+//                        self.podcastEpisodes.append(podcastEpisode)
+//                        self.tableView.reloadData()
+//                    }
+//                }
+//        }
     }
 
     private class func feedlyAPIURL() -> NSURL { return NSURL(string: "http://cloud.feedly.com")! }

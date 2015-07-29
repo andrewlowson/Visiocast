@@ -104,9 +104,6 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
                 let artworkURL = resultJSON["artworkUrl600"].string
                 let feedURL = resultJSON["feedUrl"].string
                 
-                // checking the term was correct
-                println(self.searchTerm)
-
                 var podcast = Podcast(title: collectionName!, artist: artistName!, artwork: artworkURL!,feedURL: feedURL!)
                 
                 self.podcasts.append(podcast)
