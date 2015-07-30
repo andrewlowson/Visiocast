@@ -28,5 +28,4 @@ class PodcastEpisode: NSObject {
         self.episodeSubtitle = subtitle
         self.episodeSize = size
     }
-    
 }

@@ -22,8 +22,6 @@ class Podcast {
         self.podcastFeed = NSURL(string: feedURL)
     }
     
-    
-    
     var description: String {
         get {
             return "Hello, I'm \(podcastTitle)"

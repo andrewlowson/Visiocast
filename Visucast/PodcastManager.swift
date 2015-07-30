@@ -1,9 +1,9 @@
 //
 //  PodcastManager.swift
-//  podcastthing
+//  Visiocast
 //
-//  Created by Andrew Hart on 29/07/2015.
-//  Copyright (c) 2015 Project Dent. All rights reserved.
+//  Created by Andrew Lowson on 29/07/2015.
+//  Copyright (c) 2015 Andrew Lowson. All rights reserved.
 //
 
 import Foundation
@@ -56,6 +56,7 @@ class PodcastManager {
                 duration = ""
             }
             if (enclosureURL == nil) {
+                println("ERROR NO DOWNLOAD URL FOR \(title)")
                 enclosureURL = ""
             }
             if (enclosureLengthString == nil) {

@@ -41,8 +41,6 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
     }
     
     override func viewWillAppear(animated: Bool) {
-        println("viewWillAppear " + podcastTitle!)
-        println("viewWillAppear \(podcastFeed!)")
         feedParser()
         tableView.reloadData()
     }
@@ -53,10 +51,10 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
     }
     
     func feedParser() {
-        println("Here goes nothing")
+        
         var feedString = "http://cloud.feedly.com/v3/search/feeds/"
         var searchTerm = NSURL(string: feedString)
-        println(feedString)
+        
         println("Searching with: \(searchTerm!)")
         Alamofire.request(
             .GET,
@@ -69,12 +67,9 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
                 error: NSError?) -> Void in
                 
                 let jsonValue = JSON(responseJSON!)
-                //println(jsonValue)
                 if let results = jsonValue["results"].array {
                     for result: JSON in results {
-                       // println(result)
                         var feedID = result["feedId"].string
-                        println("feedID"+feedID!)
                         self.getPodcastEpisodes(feedID!)
                     }
                 }
@@ -87,47 +82,6 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
         var feedURL = NSURL(string: feed)
         podcastEpisodes = PodcastManager.episodes(podcastFeed!)
         tableView.reloadData()
-//        Alamofire.request(
-//            .GET,
-//            feedlyMixesContentURL(feed),
-//            parameters: ["count": 50],
-//            encoding: .URL).responseJSON {
-//                (request: NSURLRequest,
-//                response: NSHTTPURLResponse?,
-//                responseJSON: AnyObject?,
-//                error: NSError?) -> Void in
-//                if responseJSON == nil || error != nil {
-//                    return
-//                }
-//                let jsonValue = JSON(responseJSON!)
-//               // println(jsonValue)
-//                var articles: Array<PodcastEpisode> = []
-//                
-//                if let results = jsonValue["items"].array {
-//                    for result: JSON in results {
-//                        let episodeID = result["id"].string
-//                        var title = result["title"].string
-//                        var summary = result["summary"]["content"].string
-//                        var timestamp = result["published"].int
-//                        //var downloadURL = result["enclosure"]["href"].string
-//                        var downloadURL = ""
-//                        var timeInterval: NSTimeInterval?
-//                        
-//                        if timestamp != nil {
-//                            timeInterval = Double(timestamp!) / 1000.0
-//                        }
-//
-//                        if summary == nil {
-//                            summary = ""
-//                        }
-//                        
-//                        var podcastEpisode = PodcastEpisode(title: title!, description: summary!, date: timeInterval!, id: episodeID! ,download: downloadURL)
-//                        
-//                        self.podcastEpisodes.append(podcastEpisode)
-//                        self.tableView.reloadData()
-//                    }
-//                }
-//        }
     }
 
     private class func feedlyAPIURL() -> NSURL { return NSURL(string: "http://cloud.feedly.com")! }
@@ -140,9 +94,6 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
         return NSURL(string: "http://cloud.feedly.com/v3/mixes/contents?streamId=\(feedID)")!
     }
     
-
-
-    
     @IBOutlet weak var SearchTabBarItem: UITabBarItem!
     /*
     // MARK: - Navigation
@@ -153,7 +104,6 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
         // Pass the selected object to the new view controller.
     }
     */
-    
     
     
     private struct Storyboard {
@@ -177,7 +127,4 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
         
         return cell
     }
-
-    
-
 }

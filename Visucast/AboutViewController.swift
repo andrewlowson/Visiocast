@@ -51,41 +51,18 @@ class AboutViewController: UIViewController {
             if let newConstraint = aspectRatioConstraint {
                 view.addConstraint(newConstraint)
             }
-        }
-        
+        }  
     }
     
     @IBOutlet weak var scrollView: UIScrollView!
         {
         didSet {
-            
-            // TODO Make email links URLS
-            
-//            let attributes = [
-//                NSLinkAttributeName : "andrew@lowson.co"
-//            ]
-//            
-//            var attributedString = NSAttributedString(string: "andrew@lowson.co", attributes: attributes)
-
-            
             aboutParagraph.text = "Welcome to Visiocast. \n \nVisiocast is a Podcast application built for people who are visually impaired. \nThere is a global button at the top for you to dictate commands, like 'Download The Empire Podcast' or 'search for Back to Work.' \n \nVisiocast started as a Software Development Masters project out of the University of Glasgow in the summer of 2015.\n \nContact:\nAndrew Lowson: andrew@lowson.co \nChuan Chen: 2122015C@student.gla.ac.uk"
         }
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     @IBOutlet weak var AboutTabBarItem: UITabBarItem!
 }
-
-
 
 extension UIImage {
     var aspectRatio: CGFloat {

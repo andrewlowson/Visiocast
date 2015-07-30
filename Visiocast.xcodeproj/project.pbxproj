@@ -25,6 +25,7 @@
 		118D2F381B5AD9370005F577 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 118D2F371B5AD9370005F577 /* Images.xcassets */; };
 		118D2F3B1B5AD9370005F577 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 118D2F391B5AD9370005F577 /* LaunchScreen.xib */; };
 		118D2F471B5AD9370005F577 /* VisucastTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118D2F461B5AD9370005F577 /* VisucastTests.swift */; };
+		11BCCD8D1B6A4716002D7DE9 /* DownloadsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BCCD8C1B6A4716002D7DE9 /* DownloadsTableViewCell.swift */; };
 		11E22D4D1B6509BB00EB6A6C /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11E22D461B6509B200EB6A6C /* Alamofire.framework */; };
 		11E22D4E1B6509BB00EB6A6C /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 11E22D461B6509B200EB6A6C /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		11E22D531B650D1300EB6A6C /* SearchTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E22D521B650D1300EB6A6C /* SearchTableView.swift */; };
@@ -155,6 +156,7 @@
 		118D2F401B5AD9370005F577 /* VisucastTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VisucastTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		118D2F451B5AD9370005F577 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		118D2F461B5AD9370005F577 /* VisucastTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisucastTests.swift; sourceTree = "<group>"; };
+		11BCCD8C1B6A4716002D7DE9 /* DownloadsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadsTableViewCell.swift; sourceTree = "<group>"; };
 		11E22D3E1B6509B200EB6A6C /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		11E22D521B650D1300EB6A6C /* SearchTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableView.swift; sourceTree = "<group>"; };
 		11E22D5B1B6565F400EB6A6C /* Podcast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Podcast.swift; sourceTree = "<group>"; };
@@ -219,16 +221,17 @@
 			isa = PBXGroup;
 			children = (
 				118D2F341B5AD9370005F577 /* Main.storyboard */,
-				11175B811B68DAF100A652CB /* PodcastEpisodeTableViewCell.swift */,
-				116CF05E1B5B208A0056FCA0 /* PodcastFeedViewController.swift */,
+				11E22D5B1B6565F400EB6A6C /* Podcast.swift */,
 				11175B791B68CE9D00A652CB /* PodcastEpisode.swift */,
-				116CF0561B5B203E0056FCA0 /* DownloadsViewController.swift */,
-				116CF05C1B5B207A0056FCA0 /* NowPlayingViewController.swift */,
-				116CF05A1B5B205E0056FCA0 /* SearchViewController.swift */,
-				11E22D941B663C8300EB6A6C /* PodcastTableViewCell.swift */,
 				11037ED61B697111000F88EF /* PodcastManager.swift */,
 				116CF0581B5B204E0056FCA0 /* AboutViewController.swift */,
-				11E22D5B1B6565F400EB6A6C /* Podcast.swift */,
+				116CF05A1B5B205E0056FCA0 /* SearchViewController.swift */,
+				116CF0561B5B203E0056FCA0 /* DownloadsViewController.swift */,
+				116CF05C1B5B207A0056FCA0 /* NowPlayingViewController.swift */,
+				116CF05E1B5B208A0056FCA0 /* PodcastFeedViewController.swift */,
+				11E22D941B663C8300EB6A6C /* PodcastTableViewCell.swift */,
+				11BCCD8C1B6A4716002D7DE9 /* DownloadsTableViewCell.swift */,
+				11175B811B68DAF100A652CB /* PodcastEpisodeTableViewCell.swift */,
 				11037EF81B697C11000F88EF /* Visucast-Bridging-Header.h */,
 				11037EF11B697B5E000F88EF /* HTMLParser */,
 				118D2F2E1B5AD9370005F577 /* Supporting Files */,
@@ -467,6 +470,7 @@
 				118D2F331B5AD9370005F577 /* TabViewController.swift in Sources */,
 				11175B821B68DAF100A652CB /* PodcastEpisodeTableViewCell.swift in Sources */,
 				11037EF71B697B5E000F88EF /* HTMLParser.m in Sources */,
+				11BCCD8D1B6A4716002D7DE9 /* DownloadsTableViewCell.swift in Sources */,
 				118D2F311B5AD9370005F577 /* AppDelegate.swift in Sources */,
 				11E22D951B663C8300EB6A6C /* PodcastTableViewCell.swift in Sources */,
 				116CF0591B5B204E0056FCA0 /* AboutViewController.swift in Sources */,

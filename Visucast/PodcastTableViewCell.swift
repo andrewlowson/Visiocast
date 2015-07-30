@@ -42,10 +42,6 @@ class PodcastTableViewCell: UITableViewCell {
                     podcastArtworkImageView?.image = UIImage(data: imageData)
                 }
             }
-            
-
         }
-        
     }
-    
 }
