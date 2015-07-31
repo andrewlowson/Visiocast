@@ -14,18 +14,26 @@ class DownloadsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let api = DownloadManager()
 
         // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        
         // Dispose of any resources that can be recreated.
     }
     
     @IBOutlet weak var downloadsTableView: UITableView!
 
     @IBOutlet weak var DownloadsTabBarItem: UITabBarItem!
+    
+    func initiateDownload() {
+        
+    }
+    
+    
     /*
     // MARK: - Navigation
 

@@ -7,13 +7,12 @@
 //
 
 import UIKit
-import Alamofire
-import SwiftyJSON
 
 class PodcastFeedViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate, PodcastManagerProtocol
 {
     
     let api = PodcastManager()
+    let downloader = DownloadManager()
     var podcastEpisodes = [PodcastEpisode]()
     
     var podcastFeed: NSURL?
@@ -48,15 +47,12 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
         
         tableView.reloadData()
     }
-//
+
     func setValues(feed: NSURL, title: String) {
         self.podcastFeed = feed
         self.podcastTitle = title
     }
     
-   
-
-        
     @IBOutlet weak var SearchTabBarItem: UITabBarItem!
     /*
     // MARK: - Navigation
@@ -95,5 +91,16 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
         cell.isAccessibilityElement == true
         
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        // trigger download
+        println("Selected")
+        var podcastIndex = tableView.indexPathForSelectedRow()!.row
+        var selectedPodcast = self.podcastEpisodes[podcastIndex]
+        var downloadURL = selectedPodcast.episodeDownloadURL
+        
+        downloader.initiateDownload(downloadURL!)
+        
     }
 }
