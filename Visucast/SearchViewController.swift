@@ -10,12 +10,13 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class SearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+class SearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, PodcastManagerProtocol {
 
     var podcasts = [Podcast]()
-    var defaultSearchTerm = "https://itunes.apple.com/search?term=podcast+"
-    var searchTerm = "https://itunes.apple.com/search?term=podcast+"
+//    var defaultSearchTerm = "https://itunes.apple.com/search?term=podcast+"
+//    var searchTerm = "https://itunes.apple.com/search?term=podcast+"
    
+    let api = PodcastManager()
     
     @IBOutlet weak var podcastTableView: UITableView!
 
@@ -31,7 +32,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        api.delegate = self
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         podcastTableView.delegate = self
         podcastTableView.dataSource = self
@@ -43,7 +44,13 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         podcastTableView.reloadData()
     }
     
-    
+    func didReceiveResults(results: NSArray) {
+        dispatch_async(dispatch_get_main_queue(), {
+            self.podcasts = results as! [(Podcast)]
+            println(self.podcasts)
+            self.podcastTableView.reloadData()
+        })
+    }
     
     
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
@@ -62,62 +69,32 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        
         searchActive = false;
         searchText = searchBar.text
-        searchTerm = defaultSearchTerm
-        podcastSearch(searchText!)
+        podcasts.removeAll()
+        podcastTableView.reloadData()
+        
+        api.podcastSearch(self.searchBar.text)
+        println("back to search")
+        println(podcasts)
         searchBar.resignFirstResponder()
         searchBar.setShowsCancelButton(false, animated: true)
-        podcastTableView.reloadData()
+        
     }
 
     
     var searchText: String? = "" {
         didSet {
             podcasts.removeAll()
-            searchTerm = defaultSearchTerm
+//            searchTerm = defaultSearchTerm
         }
     }
     
-    func podcastSearch(searchText: String) {
-        println("Search was called")
-        var search = searchText
-        let result = search.lowercaseString.stringByReplacingOccurrencesOfString(" ", withString: "+")
-        searchTerm = defaultSearchTerm + result
-        searchiTunesForPodcast()
-    }
-    
-    func searchiTunesForPodcast()
-    {
-        println("Networking was called")
-        Alamofire.request(.GET, searchTerm).responseJSON {
-            (_, _, jsonDict, _) in
-            var json = JSON(jsonDict!)
-            // println(json)
-            let results = json["results"]
-            var collectionName: String?
-            var artworkURL: String?
-            
-            for (index: String, resultJSON: JSON) in results {
-                let collectionName = resultJSON["collectionName"].string
-                let artistName = resultJSON["artistName"].string
-                let artworkURL = resultJSON["artworkUrl600"].string
-                let feedURL = resultJSON["feedUrl"].string
-                
-                var podcast = Podcast(title: collectionName!, artist: artistName!, artwork: artworkURL!,feedURL: feedURL!)
-                
-                self.podcasts.append(podcast)
-                self.podcastTableView.reloadData()
-            }
-            
-        }
-    }
-    
+       
     private struct Storyboard {
         static let CellReuseIdentifier = "Podcast"
     }
-    
-    
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1

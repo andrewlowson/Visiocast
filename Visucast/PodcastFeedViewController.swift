@@ -10,9 +10,10 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class PodcastFeedViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate, NSXMLParserDelegate
+class PodcastFeedViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate, PodcastManagerProtocol
 {
     
+    let api = PodcastManager()
     var podcastEpisodes = [PodcastEpisode]()
     
     var podcastFeed: NSURL?
@@ -23,6 +24,7 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        api.delegate = self
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         tableView.delegate = self
         tableView.dataSource = self
@@ -41,7 +43,9 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
     }
     
     override func viewWillAppear(animated: Bool) {
-        feedParser()
+        
+        api.feedParser(podcastFeed!)
+        
         tableView.reloadData()
     }
 //
@@ -50,50 +54,9 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
         self.podcastTitle = title
     }
     
-    func feedParser() {
-        
-        var feedString = "http://cloud.feedly.com/v3/search/feeds/"
-        var searchTerm = NSURL(string: feedString)
-        
-        println("Searching with: \(searchTerm!)")
-        Alamofire.request(
-            .GET,
-            searchTerm!,
-            parameters: ["query": "\(podcastFeed!)"],
-            encoding: .URL).responseJSON(options: NSJSONReadingOptions.allZeros) {
-                (request: NSURLRequest,
-                response: NSHTTPURLResponse?,
-                responseJSON: AnyObject?,
-                error: NSError?) -> Void in
-                
-                let jsonValue = JSON(responseJSON!)
-                if let results = jsonValue["results"].array {
-                    for result: JSON in results {
-                        var feedID = result["feedId"].string
-                        self.getPodcastEpisodes(feedID!)
-                    }
-                }
-        }
-        
-    }
-    
-    func getPodcastEpisodes(feed: String) {
-        println(feed)
-        var feedURL = NSURL(string: feed)
-        podcastEpisodes = PodcastManager.episodes(podcastFeed!)
-        tableView.reloadData()
-    }
+   
 
-    private class func feedlyAPIURL() -> NSURL { return NSURL(string: "http://cloud.feedly.com")! }
-    
-    private class func feedlySearchURL() -> NSURL {
-        return NSURL(string: "\(feedlyAPIURL())/v3/search/feeds")!
-    }
-    
-    func feedlyMixesContentURL(feedID: String) -> NSURL {
-        return NSURL(string: "http://cloud.feedly.com/v3/mixes/contents?streamId=\(feedID)")!
-    }
-    
+        
     @IBOutlet weak var SearchTabBarItem: UITabBarItem!
     /*
     // MARK: - Navigation
@@ -105,6 +68,12 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
     }
     */
     
+    func didReceiveResults(results: NSArray) {
+        dispatch_async(dispatch_get_main_queue(), {
+            self.podcastEpisodes = results as! [(PodcastEpisode)]
+            self.tableView.reloadData()
+        })
+    }
     
     private struct Storyboard {
         static let CellReuseIdentifier = "Episode"

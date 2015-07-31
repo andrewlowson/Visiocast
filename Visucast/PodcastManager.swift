@@ -7,9 +7,19 @@
 //
 
 import Foundation
+import Alamofire
+import SwiftyJSON
+
+protocol PodcastManagerProtocol {
+    func didReceiveResults(results: NSArray)
+}
 
 class PodcastManager {
-    class func episodes(feedURL: NSURL) -> Array<PodcastEpisode> {
+    var defaultSearchTerm = "https://itunes.apple.com/search?term=podcast+"
+    var delegate: PodcastManagerProtocol?
+
+    func episodes(feedURL: NSURL) -> Array<PodcastEpisode> {
+        
         var episodes: Array<PodcastEpisode> = []
         
         let data = NSData(contentsOfURL: feedURL)
@@ -78,7 +88,90 @@ class PodcastManager {
             
             episodes.append(episode)
         }
-        
         return episodes
     }
+    
+    func podcastSearch(searchText: String) -> Array<Podcast> {
+        println("Search was called")
+        var podcasts = [Podcast]()
+        var search = searchText
+        let result = search.lowercaseString.stringByReplacingOccurrencesOfString(" ", withString: "+")
+        var searchTerm = defaultSearchTerm + result
+        
+        println("Networking was called")
+        println(searchTerm)
+        Alamofire.request(.GET, searchTerm).responseJSON {
+            (_, _, jsonDict, _) in
+            var json = JSON(jsonDict!)
+            println(json)
+            let results = json["results"]
+            var collectionName: String?
+            var artworkURL: String?
+            
+            for (index: String, resultJSON: JSON) in results {
+                let collectionName = resultJSON["collectionName"].string
+                let artistName = resultJSON["artistName"].string
+                let artworkURL = resultJSON["artworkUrl600"].string
+                let feedURL = resultJSON["feedUrl"].string
+                
+                var podcast = Podcast(title: collectionName!, artist: artistName!, artwork: artworkURL!,feedURL: feedURL!)
+                
+                
+                podcasts.append(podcast)
+                self.delegate?.didReceiveResults(podcasts)
+                println(podcasts)
+            }
+        }
+            return podcasts
+        
+    }
+    
+    func feedParser(podcastFeed: NSURL) {
+        
+        var feedString = "http://cloud.feedly.com/v3/search/feeds/"
+        var searchTerm = NSURL(string: feedString)
+        
+        println("Searching with: \(searchTerm!)")
+        println("Podcast Feed: \(podcastFeed)")
+        Alamofire.request(
+            .GET,
+            searchTerm!,
+            parameters: ["query": "\(podcastFeed)"],
+            encoding: .URL).responseJSON(options: NSJSONReadingOptions.allZeros) {
+                (request: NSURLRequest,
+                response: NSHTTPURLResponse?,
+                responseJSON: AnyObject?,
+                error: NSError?) -> Void in
+                
+                let jsonValue = JSON(responseJSON!)
+                if let results = jsonValue["results"].array {
+                    for result: JSON in results {
+                        var feedID = result["feedId"].string
+                        self.getPodcastEpisodes(feedID!, podcastFeed: podcastFeed)
+                    }
+                }
+        }
+        
+    }
+    
+    func getPodcastEpisodes(feed: String, podcastFeed: NSURL) {
+        println(feed)
+        var podcastEpisodes = [PodcastEpisode]()
+        var feedURL = NSURL(string: feed)
+        podcastEpisodes = episodes(podcastFeed)
+        self.delegate?.didReceiveResults(podcastEpisodes)
+    }
+    
+    
+    private class func feedlyAPIURL() -> NSURL { return NSURL(string: "http://cloud.feedly.com")! }
+    
+    private class func feedlySearchURL() -> NSURL {
+        return NSURL(string: "\(feedlyAPIURL())/v3/search/feeds")!
+    }
+    
+    func feedlyMixesContentURL(feedID: String) -> NSURL {
+        return NSURL(string: "http://cloud.feedly.com/v3/mixes/contents?streamId=\(feedID)")!
+    }
+
+
 }
