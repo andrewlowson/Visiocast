@@ -67,7 +67,7 @@ class PodcastManager {
     * Method to search a podcast RSS and pull out individual episode feeds.
     * results are passed to episode method to parse the feed
     */
-    func feedParser(podcastFeed: NSURL) {
+    func feedParser(podcastFeed: NSURL, podcast:Podcast) {
         
         var searchTerm = NSURL(string: feedString)
         
@@ -87,7 +87,7 @@ class PodcastManager {
                         var feedID = result["feedId"].string
                         var podcastEpisodes = [PodcastEpisode]()
                         var feedURL = NSURL(string: feedID!)
-                        podcastEpisodes = self.episodes(podcastFeed)
+                        podcastEpisodes = self.episodes(podcastFeed, podcast: podcast)
                         self.delegate?.didReceiveResults(podcastEpisodes)
                     }
                 }
@@ -99,7 +99,7 @@ class PodcastManager {
      * Method to parse a podcast RSS and pull out individual episodes.
      * Episode Objecst are then created and all put into an Array passed back to the method caller
      */
-    func episodes(feedURL: NSURL) -> Array<PodcastEpisode> {
+    func episodes(feedURL: NSURL, podcast: Podcast) -> Array<PodcastEpisode> {
         
         var episodes: Array<PodcastEpisode> = []
         
@@ -154,7 +154,7 @@ class PodcastManager {
                 enclosureLength = 0
             }
             
-            let episode = PodcastEpisode(title: title!,description:  summary!,date:  publishedDate!,duration:  duration!,download:  enclosureURL!,subtitle:  subtitle!,size:  enclosureLength!)
+            let episode = PodcastEpisode(title: title!,description:  summary!,date:  publishedDate!,duration:  duration!,download:  enclosureURL!,subtitle:  subtitle!,size:  enclosureLength!, podcast: podcast)
             
             episodes.append(episode)
         }

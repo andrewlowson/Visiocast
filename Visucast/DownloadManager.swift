@@ -10,34 +10,32 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
+protocol DownloadManagerProtocol {
+    // pass the information to the DownloadsView
+}
+
+
 class DownloadManager {
     
     var fileName: String?
     var finalPath: NSURL?
+    var episode: PodcastEpisode?
     
-    func initiateDownload(downloadURL: NSURL) {
+    func initiateDownload(podcastEpisode: PodcastEpisode, downloadURL: NSURL) {
         println("I'm going to start downloading something now")
-//        Alamofire.download(.GET, downloadURL, { (temporaryURL, response) in
-//            
-//            if let directoryURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as? NSURL {
-//                
-//                fileName = response.suggestedFilename!
-//                finalPath = directoryURL.URLByAppendingPathComponent(fileName!)
-//                return finalPath!
-//            }
-//            
-//            return temporaryURL
-//        }).response { (request, response, data, error) in
-//                
-//                if error != nil {
-//                    println("REQUEST: \(request)")
-//                    println("RESPONSE: \(response)")
-//                } 
-//                
-//                if finalPath != nil {
-//                    doSomethingWithTheFile(finalPath!, fileName: fileName!)
-//                }
-//        }
+        episode = podcastEpisode
+        
+        let destination = Alamofire.Request.suggestedDownloadDestination(directory: .DocumentDirectory, domain: .UserDomainMask)
+        println(destination)
+        Alamofire.download(.GET, downloadURL, destination: destination)
+            .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
+                println(totalBytesRead)
+            }
+            .response { request, response, _, error in
+                println("\(response!)")
+                println(self.episode?.episodeTitle)
+        }
+        // prepare stuff to be sent to the DownloadsView
     }
-    
 }
+

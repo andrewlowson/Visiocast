@@ -112,7 +112,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         cell.podcast = podcasts[indexPath.row]
         
         //  This imagecaching block was suggested on JamesonQuave.com, it dramatically improves scrolling performance
-        if let artwork = podcastArtwork[self.podcasts[indexPath.row].podcastArtwork!] {
+        if let artwork = podcastArtwork[cell.podcast!.podcastArtwork!] {
             cell.podcastArtworkImageView?.image = artwork
         }
         else {
@@ -123,12 +123,12 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
             NSURLConnection.sendAsynchronousRequest(request, queue: mainQueue, completionHandler: { (response, data, error) -> Void in
                 if error == nil {
                     // Convert the downloaded data in to a UIImage object
-                    let image = UIImage(data: data)
+                    let artwork = UIImage(data: data)
                     // Store the image in to our cache
-                    self.podcastArtwork[self.podcasts[indexPath.row].podcastArtwork!] = image
+                    self.podcastArtwork[self.podcasts[indexPath.row].podcastArtwork!] = artwork
                     // Update the cell
                     dispatch_async(dispatch_get_main_queue(), {
-                        cell.podcastArtworkImageView?.image = image
+                        cell.podcastArtworkImageView?.image = artwork
                     })
                 }
                 else {
@@ -136,8 +136,6 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
                 }
             })
         }
-        
-
         
         cell.isAccessibilityElement == true
         
@@ -155,7 +153,8 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         
         var selectedPodcast = self.podcasts[podcastIndex]
         println("\(self.podcasts[podcastIndex].podcastTitle)")
-        podcastFeed.setValues(selectedPodcast.podcastFeed!, title: selectedPodcast.podcastTitle!)
+//        podcastFeed.setValues(selectedPodcast.podcastFeed!, title: selectedPodcast.podcastTitle!)
+        podcastFeed.setValues(selectedPodcast)
 
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.

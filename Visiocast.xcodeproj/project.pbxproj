@@ -27,7 +27,6 @@
 		118D2F471B5AD9370005F577 /* VisucastTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118D2F461B5AD9370005F577 /* VisucastTests.swift */; };
 		11BCCD8D1B6A4716002D7DE9 /* DownloadsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BCCD8C1B6A4716002D7DE9 /* DownloadsTableViewCell.swift */; };
 		11C9781F1B6B90AC00EFDA95 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C9781E1B6B90AC00EFDA95 /* DownloadManager.swift */; };
-		11C978211B6CE73D00EFDA95 /* Ant-Man Spoiler Special Empire Podcast.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 11C978201B6CE73C00EFDA95 /* Ant-Man Spoiler Special Empire Podcast.mp3 */; };
 		11E22D4D1B6509BB00EB6A6C /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11E22D461B6509B200EB6A6C /* Alamofire.framework */; };
 		11E22D4E1B6509BB00EB6A6C /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 11E22D461B6509B200EB6A6C /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		11E22D531B650D1300EB6A6C /* SearchTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E22D521B650D1300EB6A6C /* SearchTableView.swift */; };
@@ -160,7 +159,6 @@
 		118D2F461B5AD9370005F577 /* VisucastTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisucastTests.swift; sourceTree = "<group>"; };
 		11BCCD8C1B6A4716002D7DE9 /* DownloadsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadsTableViewCell.swift; sourceTree = "<group>"; };
 		11C9781E1B6B90AC00EFDA95 /* DownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
-		11C978201B6CE73C00EFDA95 /* Ant-Man Spoiler Special Empire Podcast.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Ant-Man Spoiler Special Empire Podcast.mp3"; sourceTree = "<group>"; };
 		11E22D3E1B6509B200EB6A6C /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		11E22D521B650D1300EB6A6C /* SearchTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableView.swift; sourceTree = "<group>"; };
 		11E22D5B1B6565F400EB6A6C /* Podcast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Podcast.swift; sourceTree = "<group>"; };
@@ -228,11 +226,11 @@
 				11E22D5B1B6565F400EB6A6C /* Podcast.swift */,
 				11175B791B68CE9D00A652CB /* PodcastEpisode.swift */,
 				11037ED61B697111000F88EF /* PodcastManager.swift */,
+				11C9781E1B6B90AC00EFDA95 /* DownloadManager.swift */,
 				116CF0581B5B204E0056FCA0 /* AboutViewController.swift */,
 				116CF05A1B5B205E0056FCA0 /* SearchViewController.swift */,
 				116CF05E1B5B208A0056FCA0 /* PodcastFeedViewController.swift */,
 				116CF0561B5B203E0056FCA0 /* DownloadsViewController.swift */,
-				11C9781E1B6B90AC00EFDA95 /* DownloadManager.swift */,
 				116CF05C1B5B207A0056FCA0 /* NowPlayingViewController.swift */,
 				11E22D941B663C8300EB6A6C /* PodcastTableViewCell.swift */,
 				11BCCD8C1B6A4716002D7DE9 /* DownloadsTableViewCell.swift */,
@@ -250,7 +248,6 @@
 				11E22D521B650D1300EB6A6C /* SearchTableView.swift */,
 				118D2F321B5AD9370005F577 /* TabViewController.swift */,
 				118D2F301B5AD9370005F577 /* AppDelegate.swift */,
-				11C978201B6CE73C00EFDA95 /* Ant-Man Spoiler Special Empire Podcast.mp3 */,
 				118D2F371B5AD9370005F577 /* Images.xcassets */,
 				116CF0541B5B1CAE0056FCA0 /* glasgowLogo.gif */,
 				118D2F391B5AD9370005F577 /* LaunchScreen.xib */,
@@ -453,7 +450,6 @@
 				118D2F361B5AD9370005F577 /* Main.storyboard in Resources */,
 				118D2F3B1B5AD9370005F577 /* LaunchScreen.xib in Resources */,
 				118D2F381B5AD9370005F577 /* Images.xcassets in Resources */,
-				11C978211B6CE73D00EFDA95 /* Ant-Man Spoiler Special Empire Podcast.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

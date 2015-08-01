@@ -18,6 +18,7 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
     let downloader = DownloadManager()
     var podcastEpisodes = [PodcastEpisode]()
     
+    var podcast: Podcast?
     var podcastFeed: NSURL?
     var podcastTitle: String?
     var filteredAppleProducts = [String]()
@@ -45,15 +46,20 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
     
     override func viewWillAppear(animated: Bool) {
         isLoadingEpisodes.startAnimating()
-        api.feedParser(podcastFeed!)
+        api.feedParser(podcastFeed!, podcast: podcast!)
         
         tableView.reloadData()
     }
 
-    func setValues(feed: NSURL, title: String) {
-        self.podcastFeed = feed
-        self.podcastTitle = title
+    func setValues(podcast: Podcast) {
+        self.podcast = podcast
+        self.podcastFeed = podcast.podcastFeed
+        self.podcastTitle = podcast.podcastTitle
     }
+//    func setValues(feed: NSURL, title: String) {
+//        self.podcastFeed = feed
+//        self.podcastTitle = title
+//    }
     
     @IBOutlet weak var SearchTabBarItem: UITabBarItem!
     /*
@@ -102,7 +108,7 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
         var selectedPodcast = self.podcastEpisodes[podcastIndex]
         var downloadURL = selectedPodcast.episodeDownloadURL
         
-        downloader.initiateDownload(downloadURL!)
-        
+        downloader.initiateDownload(selectedPodcast ,downloadURL: downloadURL!)
+        //DownloadsViewController.addPodcast(selectedPodcast, downloadURL!)
     }
 }

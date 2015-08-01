@@ -20,9 +20,10 @@ class PodcastEpisode: NSObject {
     var episodeDuration: String?
     var episodeID: String?
     var episodeSize: Int
+    var podcast: Podcast?
 
     init(title: String, description: String, date: NSDate,
-        duration: String, download: String, subtitle: String, size: Int)
+        duration: String, download: String, subtitle: String, size: Int, podcast: Podcast)
     {
         self.episodeTitle = title
         self.episodeDownloadURL = NSURL(string: download)
@@ -31,5 +32,6 @@ class PodcastEpisode: NSObject {
         self.episodeDate = date
         self.episodeSubtitle = subtitle
         self.episodeSize = size
+        self.podcast = podcast
     }
 }
