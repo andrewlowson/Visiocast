@@ -20,6 +20,15 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, UITableVie
         
         episodesTableView.delegate = self
         episodesTableView.dataSource = self
+        // We need just to get the documents folder url
+        let documentsUrl =  NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as! NSURL
+        
+        // if you want to filter the directory contents you can do like this:
+        if let directoryUrls =  NSFileManager.defaultManager().contentsOfDirectoryAtURL(documentsUrl, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsSubdirectoryDescendants, error: nil) {
+            println(directoryUrls)
+            let mp3Files = directoryUrls.map(){ $0.lastPathComponent }.filter(){ $0.pathExtension == "mp3" }
+            println("MP3 FILES:\n" + mp3Files.description)
+        }
 
         // Do any additional setup after loading the view.
     }
@@ -29,6 +38,18 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, UITableVie
         
         // Dispose of any resources that can be recreated.
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        let documentsUrl =  NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as! NSURL
+        
+        // if you want to filter the directory contents you can do like this:
+        if let directoryUrls =  NSFileManager.defaultManager().contentsOfDirectoryAtURL(documentsUrl, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsSubdirectoryDescendants, error: nil) {
+            println(directoryUrls)
+            let mp3Files = directoryUrls.map(){ $0.lastPathComponent }.filter(){ $0.pathExtension == "mp3" }
+            println("MP3 FILES:\n" + mp3Files.description)
+        }
+    }
+    
     
     func didReceiveResults(results: NSArray) {
         //
