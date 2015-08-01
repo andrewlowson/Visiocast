@@ -76,14 +76,6 @@ class PodcastManager {
                 enclosureLength = 0
             }
             
-            println("title: \(title)")
-            println("subtitle: \(subtitle)")
-            println("summary: \(summary)")
-            println("published date: \(publishedDate)")
-            println("duration: \(duration)")
-            println("enclosure URL: \(enclosureURL)")
-            println("enclosure length: \(enclosureLength)")
-            
             let episode = PodcastEpisode(title: title!,description:  summary!,date:  publishedDate!,duration:  duration!,download:  enclosureURL!,subtitle:  subtitle!,size:  enclosureLength!)
             
             episodes.append(episode)

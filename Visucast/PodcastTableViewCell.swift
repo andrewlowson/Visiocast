@@ -26,6 +26,10 @@ class PodcastTableViewCell: UITableViewCell {
     
     func updateUI() {
         
+
+
+// main thread main UI
+// background thread for downloads etc
         // reset data before updating
         podcastTitleLabel.text = nil
         podcastArtistNameLabel.text = nil
@@ -38,8 +42,13 @@ class PodcastTableViewCell: UITableViewCell {
 
             if let artworkURL = podcast.podcastArtwork {
                 if let imageData = NSData(contentsOfURL: artworkURL) {
-                    // This blocks the main thread...fix...
-                    podcastArtworkImageView?.image = UIImage(data: imageData)
+                    let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+                    dispatch_async(dispatch_get_global_queue(priority, 0)) {
+                        var image = UIImage(data: imageData)
+                        dispatch_async(dispatch_get_main_queue()) {
+                            podcastArtworkImageView?.image = image
+                        }
+                    }
                 }
             }
         }

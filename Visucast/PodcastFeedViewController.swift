@@ -4,6 +4,8 @@
 //
 //  Created by Andrew Lowson on 19/07/2015.
 //  Copyright (c) 2015 Andrew Lowson. All rights reserved.
+//  
+//  JamesonQuave.com
 //
 
 import UIKit
@@ -11,6 +13,7 @@ import UIKit
 class PodcastFeedViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate, PodcastManagerProtocol
 {
     
+    @IBOutlet weak var isLoadingEpisodes: UIActivityIndicatorView!
     let api = PodcastManager()
     let downloader = DownloadManager()
     var podcastEpisodes = [PodcastEpisode]()
@@ -22,16 +25,15 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        isLoadingEpisodes.startAnimating()
+        tableView.estimatedRowHeight = tableView.rowHeight
+        tableView.rowHeight = UITableViewAutomaticDimension
         
         api.delegate = self
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         tableView.delegate = self
         tableView.dataSource = self
-        
-        tableView.estimatedRowHeight = tableView.rowHeight
-        //tableView.rowHeight = UITableViewAutomaticDimension
-        
-        println("Podcast Feed for: \(podcastTitle!)")
+    
         title = podcastTitle!
         tableView.reloadData()
     }
@@ -42,7 +44,7 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
     }
     
     override func viewWillAppear(animated: Bool) {
-        
+        isLoadingEpisodes.startAnimating()
         api.feedParser(podcastFeed!)
         
         tableView.reloadData()
@@ -65,10 +67,11 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
     */
     
     func didReceiveResults(results: NSArray) {
-        dispatch_async(dispatch_get_main_queue(), {
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
             self.podcastEpisodes = results as! [(PodcastEpisode)]
+            self.isLoadingEpisodes.stopAnimating()
             self.tableView.reloadData()
-        })
+        }
     }
     
     private struct Storyboard {
@@ -82,8 +85,7 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return podcastEpisodes.count
     }
-    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+        override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellReuseIdentifier, forIndexPath: indexPath) as! PodcastEpisodeTableViewCell
         

@@ -5,15 +5,16 @@
 //  Created by Andrew Lowson on 19/07/2015.
 //  Copyright (c) 2015 Andrew Lowson. All rights reserved.
 //
+//
+//  JamesonQuave.com
 
 import UIKit
 
 class SearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, PodcastManagerProtocol {
 
     var podcasts = [Podcast]()
-//    var defaultSearchTerm = "https://itunes.apple.com/search?term=podcast+"
-//    var searchTerm = "https://itunes.apple.com/search?term=podcast+"
-   
+    var podcastImages = [String: UIImage]()
+    
     let api = PodcastManager()
     
     @IBOutlet weak var podcastTableView: UITableView!
@@ -27,6 +28,9 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     var searchActive : Bool = false
+    
+    @IBOutlet weak var waitingForResults: UIActivityIndicatorView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,11 +47,12 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func didReceiveResults(results: NSArray) {
-        dispatch_async(dispatch_get_main_queue(), {
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
             self.podcasts = results as! [(Podcast)]
             println(self.podcasts)
+            self.waitingForResults.stopAnimating()
             self.podcastTableView.reloadData()
-        })
+        }
     }
     
     
@@ -74,6 +79,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         podcastTableView.reloadData()
         
         api.podcastSearch(self.searchBar.text)
+        self.waitingForResults.startAnimating()
         println("back to search")
         println(podcasts)
         searchBar.resignFirstResponder()
@@ -85,7 +91,8 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     var searchText: String? = "" {
         didSet {
             podcasts.removeAll()
-//            searchTerm = defaultSearchTerm
+            podcastTableView.reloadData()
+            api.podcastSearch(self.searchBar.text)
         }
     }
     
@@ -105,6 +112,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellReuseIdentifier, forIndexPath: indexPath) as! PodcastTableViewCell
+        
         
         cell.podcast = podcasts[indexPath.row]
         cell.isAccessibilityElement == true
