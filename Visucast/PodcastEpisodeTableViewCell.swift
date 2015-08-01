@@ -30,7 +30,6 @@ class PodcastEpisodeTableViewCell: UITableViewCell {
                 documentAttributes: nil,
                 error: nil)
             episodeDescription?.attributedText = attrStr
-            episodeDescription?.font = UIFont.systemFontOfSize(12)
             
             let formatter = NSDateFormatter()
             formatter.dateStyle = NSDateFormatterStyle.LongStyle
