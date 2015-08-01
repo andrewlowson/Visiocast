@@ -5,15 +5,15 @@
 //  Created by Andrew Lowson on 19/07/2015.
 //  Copyright (c) 2015 Andrew Lowson. All rights reserved.
 //
-//
-//  JamesonQuave.com
 
 import UIKit
 
 class SearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, PodcastManagerProtocol {
 
     var podcasts = [Podcast]()
-    var podcastImages = [String: UIImage]()
+    
+    // Dictionary with String, UIImage
+    var podcastArtwork = [NSURL: UIImage]()
     
     let api = PodcastManager()
     
@@ -49,7 +49,6 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     func didReceiveResults(results: NSArray) {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             self.podcasts = results as! [(Podcast)]
-            println(self.podcasts)
             self.waitingForResults.stopAnimating()
             self.podcastTableView.reloadData()
         }
@@ -81,12 +80,10 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         api.podcastSearch(self.searchBar.text)
         self.waitingForResults.startAnimating()
         println("back to search")
-        println(podcasts)
         searchBar.resignFirstResponder()
         searchBar.setShowsCancelButton(false, animated: true)
         
     }
-
     
     var searchText: String? = "" {
         didSet {
@@ -95,7 +92,6 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
             api.podcastSearch(self.searchBar.text)
         }
     }
-    
        
     private struct Storyboard {
         static let CellReuseIdentifier = "Podcast"
@@ -113,8 +109,36 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     {
         let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellReuseIdentifier, forIndexPath: indexPath) as! PodcastTableViewCell
         
-        
         cell.podcast = podcasts[indexPath.row]
+        
+        //  This imagecaching block was suggested on JamesonQuave.com, it dramatically improves scrolling performance
+        if let artwork = podcastArtwork[self.podcasts[indexPath.row].podcastArtwork!] {
+            cell.podcastArtworkImageView?.image = artwork
+        }
+        else {
+            // The image isn't cached, download the image data
+            // We should perform this in a background thread
+            let request: NSURLRequest = NSURLRequest(URL: cell.podcast!.podcastArtwork!)
+            let mainQueue = NSOperationQueue.mainQueue()
+            NSURLConnection.sendAsynchronousRequest(request, queue: mainQueue, completionHandler: { (response, data, error) -> Void in
+                if error == nil {
+                    // Convert the downloaded data in to a UIImage object
+                    let image = UIImage(data: data)
+                    // Store the image in to our cache
+                    self.podcastArtwork[self.podcasts[indexPath.row].podcastArtwork!] = image
+                    // Update the cell
+                    dispatch_async(dispatch_get_main_queue(), {
+                        cell.podcastArtworkImageView?.image = image
+                    })
+                }
+                else {
+                    println("Error: \(error.localizedDescription)")
+                }
+            })
+        }
+        
+
+        
         cell.isAccessibilityElement == true
         
         return cell
@@ -123,12 +147,6 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     
     
     // MARK: - Navigation
-    
-//    var detailsViewController: DetailsViewController = segue.destinationViewController as! DetailsViewController
-//    var albumIndex = appsTableView!.indexPathForSelectedRow()!.row
-//    var selectedAlbum = self.albums[albumIndex]
-//    detailsViewController.album = selectedAlbum
-    
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

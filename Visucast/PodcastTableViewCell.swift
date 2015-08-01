@@ -40,17 +40,17 @@ class PodcastTableViewCell: UITableViewCell {
             podcastTitleLabel?.text = podcast.podcastTitle
             podcastArtistNameLabel.text = podcast.podcastArtistName
 
-            if let artworkURL = podcast.podcastArtwork {
-                if let imageData = NSData(contentsOfURL: artworkURL) {
-                    let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-                    dispatch_async(dispatch_get_global_queue(priority, 0)) {
-                        var image = UIImage(data: imageData)
-                        dispatch_async(dispatch_get_main_queue()) {
-                            podcastArtworkImageView?.image = image
-                        }
-                    }
-                }
-            }
+//            if let artworkURL = podcast.podcastArtwork {
+//                if let imageData = NSData(contentsOfURL: artworkURL) {
+//                    let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+//                    dispatch_async(dispatch_get_global_queue(priority, 0)) {
+//                        var image = UIImage(data: imageData)
+//                        dispatch_async(dispatch_get_main_queue()) {
+//                            podcastArtworkImageView?.image = image
+//                        }
+//                    }
+//                }
+//            }
         }
     }
 }

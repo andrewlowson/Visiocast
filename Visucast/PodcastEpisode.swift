@@ -2,6 +2,8 @@
 //  PodcastEpisode.swift
 //  Visiocast
 //
+//  Podcast Episode Object with details on Title, duration, file size and file location
+//
 //  Created by Andrew Lowson on 29/07/2015.
 //  Copyright (c) 2015 Andrew Lowson. All rights reserved.
 //
@@ -19,7 +21,9 @@ class PodcastEpisode: NSObject {
     var episodeID: String?
     var episodeSize: Int
 
-    init(title: String, description: String, date: NSDate, duration: String, download: String, subtitle: String, size: Int) {
+    init(title: String, description: String, date: NSDate,
+        duration: String, download: String, subtitle: String, size: Int)
+    {
         self.episodeTitle = title
         self.episodeDownloadURL = NSURL(string: download)
         self.episodeDescription = description

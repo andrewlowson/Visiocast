@@ -9,10 +9,9 @@
 import UIKit
 
 class AboutViewController: UIViewController {
+    
     @IBOutlet weak var aboutParagraph: UITextView!
-    
     @IBOutlet weak var imageLogoView = UIImageView()
-    
     @IBOutlet weak var dictateButton: UIButton! {
         didSet{
             let image = UIImage(named: "microphoneIcon") as UIImage!
@@ -27,6 +26,7 @@ class AboutViewController: UIViewController {
         set { imageLogoView?.image = newValue }
     }
     
+    // layout items
     override func viewDidLoad() {
         super.viewDidLoad()
         self.aboutParagraph.editable = false
@@ -41,6 +41,7 @@ class AboutViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
     var aspectRatioConstraint: NSLayoutConstraint? {
         willSet {
             if let existingConstraint = aspectRatioConstraint {
@@ -54,6 +55,8 @@ class AboutViewController: UIViewController {
         }  
     }
     
+    
+    // About text
     @IBOutlet weak var scrollView: UIScrollView!
         {
         didSet {
