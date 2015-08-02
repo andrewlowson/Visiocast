@@ -21,6 +21,7 @@ class PodcastEpisode: NSObject {
     var episodeID: String?
     var episodeSize: Int
     var podcast: Podcast?
+    var filePath: String?
 
     init(title: String, description: String, date: NSDate,
         duration: String, download: String, subtitle: String, size: Int, podcast: Podcast)

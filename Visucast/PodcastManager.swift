@@ -50,8 +50,12 @@ class PodcastManager {
             for (index: String, resultJSON: JSON) in results {
                 let collectionName = resultJSON["collectionName"].string
                 let artistName = resultJSON["artistName"].string
-                let artworkURL = resultJSON["artworkUrl600"].string
-                let feedURL = resultJSON["feedUrl"].string
+                var artworkURL = resultJSON["artworkUrl600"].string
+                var feedURL = resultJSON["feedUrl"].string
+                
+                if (artworkURL == nil) {
+                    var artworkURL = resultJSON["artworkUrl100"].string
+                }
                 
                 var podcast = Podcast(title: collectionName!, artist: artistName!, artwork: artworkURL!,feedURL: feedURL!)
                 

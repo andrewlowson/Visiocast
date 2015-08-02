@@ -51,10 +51,10 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
         tableView.reloadData()
     }
 
-    func setValues(podcast: Podcast) {
+    func setValues(podcastFeed: NSURL, podcastTitle: String, podcast: Podcast) {
         self.podcast = podcast
-        self.podcastFeed = podcast.podcastFeed
-        self.podcastTitle = podcast.podcastTitle
+        self.podcastFeed = podcastFeed
+        self.podcastTitle = podcastTitle
     }
 //    func setValues(feed: NSURL, title: String) {
 //        self.podcastFeed = feed

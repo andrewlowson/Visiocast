@@ -25,11 +25,8 @@ class PodcastTableViewCell: UITableViewCell {
     @IBOutlet weak var podcastArtistNameLabel: UILabel!
     
     func updateUI() {
-        
-
-
-// main thread main UI
-// background thread for downloads etc
+        // main thread main UI
+        // background thread for downloads etc
         // reset data before updating
         podcastTitleLabel.text = nil
         podcastArtistNameLabel.text = nil

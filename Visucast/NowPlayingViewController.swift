@@ -9,12 +9,27 @@
 import UIKit
 import AVKit
 import AVFoundation
+import MediaPlayer
 
 class NowPlayingViewController: UIViewController {
 
+    var episode: PodcastEpisode?
+    var episodeTitle: String = ""
+    //var episodePath = NSFileManager.documentsDirectoryPath() + episodeTitle!
+    
+    //var ButtonAudioURL = NSURL(fileURLWithPath: NSSearchPathDirectory.DocumentDirectory
+    var isAudioPlaying: Bool = false
+    
+    var ButtonAudioPlayer = AVAudioPlayer()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        //isAudioPlaying = true
+        playAudio()
+        
+        //ButtonAudioPlayer = AVAudioPlayer(contentsOfURL: self.ButtonAudioURL, error: nil)
 
+        
         // Do any additional setup after loading the view.
     }
 
@@ -22,6 +37,34 @@ class NowPlayingViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    @IBAction func PlayAudio(sender: UIButton) {
+        if (isAudioPlaying) {
+            ButtonAudioPlayer.stop()
+            !isAudioPlaying
+            sender.setTitle("Play", forState: UIControlState.Normal)
+            
+        } else {
+            ButtonAudioPlayer.play()
+            !isAudioPlaying
+            sender.setTitle("Pause", forState: UIControlState.Normal)
+        }
+    }
+    
+    func playAudio() {
+    }
+    
+    @IBAction func SkipForward(sender: UIButton) {
+        
+    }
+    
+    
+    @IBAction func SkipBack(sender: UIButton) {
+        
+        
+    }
+    
+    
     
     @IBOutlet weak var shareButton: UIButton!
    
@@ -48,3 +91,4 @@ class NowPlayingViewController: UIViewController {
     */
 
 }
+

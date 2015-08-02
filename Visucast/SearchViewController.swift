@@ -153,8 +153,8 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         
         var selectedPodcast = self.podcasts[podcastIndex]
         println("\(self.podcasts[podcastIndex].podcastTitle)")
-//        podcastFeed.setValues(selectedPodcast.podcastFeed!, title: selectedPodcast.podcastTitle!)
-        podcastFeed.setValues(selectedPodcast)
+        podcastFeed.setValues(selectedPodcast.podcastFeed!, podcastTitle: selectedPodcast.podcastTitle!, podcast: selectedPodcast)
+
 
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.

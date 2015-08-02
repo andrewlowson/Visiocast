@@ -10,7 +10,7 @@ import UIKit
 
 class DownloadsTableViewCell: UITableViewCell {
 
-    var podcastEpisode: PodcastEpisode? {
+    var episode: PodcastEpisode? {
         didSet {
             updateUI()
         }
@@ -21,7 +21,8 @@ class DownloadsTableViewCell: UITableViewCell {
     @IBOutlet weak var epsideSummaryLabel: UILabel!
     
     func updateUI() {
-        if let podcastEpisode = self.podcastEpisode {
+        println("I'm addings things now!")
+        if let podcastEpisode = self.episode {
             episodeTitleLabel?.text = podcastEpisode.episodeTitle!
             var podcastURL = podcastEpisode.podcast?.podcastArtwork!
              
