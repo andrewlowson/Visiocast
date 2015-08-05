@@ -246,9 +246,12 @@
                                     <action selector="dictateButton:" destination="Z7o-YF-sHy" eventType="touchUpInside" id="fDU-uG-vdk"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="93" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="pHi-0b-xON">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="93" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="pHi-0b-xON">
                                 <rect key="frame" x="0.0" y="172" width="600" height="379"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="600" id="vcT-Tf-CRF"/>
+                                </constraints>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Episode" rowHeight="93" id="P4d-QJ-qUh" customClass="DownloadsTableViewCell" customModule="Visucast" customModuleProvider="target">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -258,13 +261,13 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="frS-52-J3b">
                                                     <rect key="frame" x="8" y="4" width="84" height="84"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cs5-PX-9gd">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cs5-PX-9gd">
                                                     <rect key="frame" x="100" y="8" width="492" height="31"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h1a-7x-raZ">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h1a-7x-raZ">
                                                     <rect key="frame" x="100" y="47" width="492" height="37"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -280,6 +283,11 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="vcT-Tf-CRF"/>
+                                    </mask>
+                                </variation>
                                 <variation key="heightClass=compact-widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="0.0" y="117" width="400" height="234"/>
                                 </variation>
@@ -287,9 +295,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="pHi-0b-xON" firstAttribute="top" secondItem="gVa-3z-BpJ" secondAttribute="bottom" constant="8" symbolic="YES" id="3j0-qh-pe9"/>
                             <constraint firstItem="gVa-3z-BpJ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="8Uz-af-Nix"/>
                             <constraint firstAttribute="trailing" secondItem="gVa-3z-BpJ" secondAttribute="trailing" id="8bO-gV-jxc"/>
+                            <constraint firstItem="gVa-3z-BpJ" firstAttribute="width" secondItem="pHi-0b-xON" secondAttribute="width" id="gS9-1H-OJn"/>
+                            <constraint firstItem="pHi-0b-xON" firstAttribute="centerX" secondItem="gVa-3z-BpJ" secondAttribute="centerX" id="pqM-eN-JBj"/>
                             <constraint firstItem="gVa-3z-BpJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="r7w-gE-4Zx"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="pHi-0b-xON" secondAttribute="bottom" id="ziz-FH-8dS"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Downloads" id="M5q-iw-AJ2">

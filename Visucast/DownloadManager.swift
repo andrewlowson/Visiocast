@@ -42,7 +42,10 @@ class DownloadManager {
                 
                 var soFar = Double(totalBytesRead / 1024) / 1024
                 var percentage = (soFar / inMBytes) * 100
-               // println("\(percentage)% Complete. \(soFar)MB of \(inMBytes)MB downloaded.")
+                
+                var someDoubleFormat = ".3"
+                
+                println("\(percentage.format(someDoubleFormat))% Complete. \(soFar.format(someDoubleFormat))MB of \(inMBytes)MB downloaded.")
             }
             .response { request, response, _, error in
                 println("\(response!)")
@@ -53,3 +56,8 @@ class DownloadManager {
     }
 }
 
+extension Double {
+    func format(f: String) -> String {
+        return NSString(format: "%\(f)f", self) as String
+    }
+}
