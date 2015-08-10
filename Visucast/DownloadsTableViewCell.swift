@@ -21,15 +21,13 @@ class DownloadsTableViewCell: UITableViewCell {
     @IBOutlet weak var epsideSummaryLabel: UILabel!
     
     func updateUI() {
-        println("I'm addings things now!")
-        if let podcastEpisode = self.episode {
-            episodeTitleLabel?.text = podcastEpisode.episodeTitle!
-            var podcastURL = podcastEpisode.podcast?.podcastArtwork!
+            episodeTitleLabel?.text = self.episode!.episodeTitle!
+            var podcastURL = self.episode!.podcast?.podcastArtwork!
              
             if let imageData = NSData(contentsOfURL: podcastURL!) { // blocks main thread!
                 episodeArtworkImageView?.image = UIImage(data: imageData)
             }
-        }
+
     
     }
     

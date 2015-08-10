@@ -13,84 +13,26 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
 
     var podcasts = [PodcastEpisode]()
     
-    var podcastArtwork = [NSURL: UIImage]()
+    var podcastArtwork = [String: UIImage]()
+    
+    var myPlayer = AVAudioPlayer()
+    
     
     @IBOutlet weak var episodesTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let api = DownloadManager()
-        
-        episodesTableView.delegate = self
-        episodesTableView.dataSource = self
         
         episodesTableView.estimatedRowHeight = episodesTableView.rowHeight
         episodesTableView.rowHeight = UITableViewAutomaticDimension
-        
-        // We need just to get the documents folder url
-        let documentsUrl =  NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as! NSURL
-        
-        // if you want to filter the directory contents you can do like this:
-        if let directoryUrls =  NSFileManager.defaultManager().contentsOfDirectoryAtURL(documentsUrl, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsSubdirectoryDescendants, error: nil) {
-            //println(directoryUrls)
-            
-            let mp3Files = directoryUrls.map(){ $0.lastPathComponent }.filter(){ $0.pathExtension == "mp3" }
+        let api = DownloadManager()
 
-            for (file: String) in mp3Files {
-                println(file)
-                var fileString = "\(documentsUrl)"+file
-                
-                var fileURL: NSURL! = NSURL(string: fileString)!
-                
-                let item = AVPlayerItem(URL: fileURL)
-                let metadataList = item.asset.commonMetadata as! [AVMetadataItem]
-                
-                var title: String?
-                var artist: String?
-                var podcastTitle: String?
-                for item in metadataList {
-                    if (item.commonKey != nil && item.stringValue != nil) {
-                        println("\(item.commonKey) = " + item.stringValue)
-                        if (item.commonKey == "title") {
-                            title = item.stringValue
-                        }
-                        if (item.commonKey == "artist") {
-                            artist = item.stringValue
-                        }
-                        if (item.commonKey == "albumName"){
-                            podcastTitle = item.stringValue
-                        }
-                    }
-                }
-                
-                if (title == nil) {
-                    title = file
-                }
-                if (artist == nil) {
-                    artist = file
-                }
-                if (podcastTitle == nil) {
-                    podcastTitle = file
-                }
-                //println(fileURL)
-                println(file)
-                println()
-                var publishedDate: NSDate?
-                let dateFormatter = NSDateFormatter()
-                dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss ZZ"
-                
-                publishedDate = dateFormatter.dateFromString("Wed, 29 Jul 2015 13:52:35 +0000")
-                
-                var podcast = Podcast(title: podcastTitle!, artist: artist!, artwork: "", feedURL: "")
-                var episode = PodcastEpisode(title: title!, description: file, date: publishedDate!, duration: "", download: "", subtitle: "", size: 0, podcast: podcast)
-                
-                podcasts.append(episode)
-            }
-            episodesTableView.reloadData()
-           // println("MP3 FILES:\n" + mp3Files.description)
-        }
-
-        // Do any additional setup after loading the view.
+        episodesTableView.delegate = self
+        episodesTableView.dataSource = self
+        
+        
+        loadFiles()
+        episodesTableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -99,18 +41,22 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewDidAppear(animated: Bool) {
-        podcasts.removeAll()
+//    override func viewDidAppear(animated: Bool) {
+//        podcasts.removeAll()
+//        loadFiles()
+//    }
+    
+    func loadFiles() {
         // We need just to get the documents folder url
         let documentsUrl =  NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as! NSURL
         
         // if you want to filter the directory contents you can do like this:
         if let directoryUrls =  NSFileManager.defaultManager().contentsOfDirectoryAtURL(documentsUrl, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsSubdirectoryDescendants, error: nil) {
-            //println(directoryUrls)
+
             let mp3Files = directoryUrls.map(){ $0.lastPathComponent }.filter(){ $0.pathExtension == "mp3" }
             
             for (file: String) in mp3Files {
-                println(file)
+
                 var fileString = "\(documentsUrl)"+file
                 
                 var fileURL: NSURL! = NSURL(string: fileString)!
@@ -121,18 +67,37 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                 var title: String?
                 var artist: String?
                 var podcastTitle: String?
+                var artwork: UIImage?
                 for item in metadataList {
-                    if (item.commonKey != nil && item.stringValue != nil) {
-                        println("\(item.commonKey) = " + item.stringValue)
-                        if (item.commonKey == "title") {
-                            title = item.stringValue
+                    
+                    if item.commonKey == nil {
+                        continue
+                    }
+                    
+                    if let key = item.commonKey, let value = item.value {
+                        
+                        if key != "artwork" {
+                            println("\(key)  \(value)")
+                            println()
                         }
-                        if (item.commonKey == "artist") {
-                            artist = item.stringValue
+                        
+                        if key == "title" {
+                            title = value as? String
                         }
-                        if (item.commonKey == "albumName"){
-                            podcastTitle = item.stringValue
+                        
+                        if key == "artist" {
+                            artist = value as? String
                         }
+                        
+                        if key == "albumName" {
+                            podcastTitle = value as? String
+                        }
+                        if key == "artwork" {
+                            if let image = UIImage(data: value as! NSData) {
+                                artwork = image
+                            }
+                        }
+                        
                     }
                 }
                 
@@ -145,9 +110,10 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                 if (podcastTitle == nil) {
                     podcastTitle = file
                 }
-                //println(fileURL)
-                println(file)
-                println()
+                if (artwork != nil) {
+                    podcastArtwork[title!] = artwork!
+                }
+
                 var publishedDate: NSDate?
                 let dateFormatter = NSDateFormatter()
                 dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss ZZ"
@@ -155,14 +121,14 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                 publishedDate = dateFormatter.dateFromString("Wed, 29 Jul 2015 13:52:35 +0000")
                 
                 var podcast = Podcast(title: podcastTitle!, artist: artist!, artwork: "", feedURL: "")
-                var episode = PodcastEpisode(title: title!, description: file, date: publishedDate!, duration: "", download: "", subtitle: "", size: 0, podcast: podcast)
-                
+                var episode = PodcastEpisode(title: title!, description: file as String, date: publishedDate!, duration: "", download: "", subtitle: "", size: 0, podcast: podcast)
                 podcasts.append(episode)
             }
             episodesTableView.reloadData()
         }
+
+        episodesTableView.reloadData()
     }
-    
     
     func didReceiveDownload(episode: PodcastEpisode) {
         
@@ -192,39 +158,22 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
         static let CellReuseIdentifier = "Episode"
     }
     
+
+    
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellReuseIdentifier, forIndexPath: indexPath) as! DownloadsTableViewCell
         
         cell.episode = podcasts[indexPath.row]
+        var podcast = podcasts[indexPath.row]
+        var title = podcast.episodeTitle!
+        var description = podcast.episodeDescription!
+        var artwork = podcastArtwork[title]
         
-        if let artwork = podcastArtwork[cell.episode!.podcast!.podcastArtwork!] {
+        if let artwork = podcastArtwork[podcast.episodeTitle!] {
             cell.episodeArtworkImageView?.image = artwork
         }
-        else {
-            // The image isn't cached, download the image data
-            // We should perform this in a background thread
-            let request: NSURLRequest = NSURLRequest(URL: cell.episode!.podcast!.podcastArtwork!)
-            println(cell.episode!.podcast!.podcastArtwork!)
-            let mainQueue = NSOperationQueue.mainQueue()
-            NSURLConnection.sendAsynchronousRequest(request, queue: mainQueue, completionHandler: { (response, data, error) -> Void in
-                if error == nil {
-                    // Convert the downloaded data in to a UIImage object
-                    let artwork = UIImage(data: data)
-                    // Store the image in to our cache
-                    self.podcastArtwork[self.podcasts[indexPath.row].podcast!.podcastArtwork!] = artwork
-                    // Update the cell
-                    dispatch_async(dispatch_get_main_queue(), {
-                        cell.episodeArtworkImageView?.image = artwork
-                    })
-                }
-                else {
-                    println("Error: \(error.localizedDescription)")
-                }
-            })
-        }
 
-        
-        
         return cell
     }
     
@@ -241,7 +190,6 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
 //        let documentsUrl =  NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as! NSURL
 //        
 //        var fullPath = "\(documentsUrl)" + podcasts[fileIndex].filePath!
-//        println(fullPath)
 //        nowPlaying.episode = podcasts[fileIndex]
 //        //nowPlaying.episodeTitle = podcasts[fileIndex]
 //    }
@@ -249,27 +197,27 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
-        var fileIndex = episodesTableView!.indexPathForSelectedRow()!.row
+        var thisFileName = podcasts[indexPath.row].episodeDescription!
         
-        var thisFileURL = podcasts[fileIndex].description as String
-        print("url:" + thisFileURL)
+        var paths:[AnyObject] = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
         
         let documentsUrl =  NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as! NSURL
-        let directoryUrls =  NSFileManager.defaultManager().contentsOfDirectoryAtURL(documentsUrl, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsSubdirectoryDescendants, error: nil)
+        let documentsPath = documentsUrl.absoluteString
+        
+        var fileString = documentsPath!+thisFileName
+        let fileURL = NSURL(string: fileString)
+        var file = NSData(contentsOfURL: fileURL!)
+        println(fileURL!)
+        println()
+        println(file!.length)
+        self.prepareAudio(file!)
 
-        var fullPath = "\(documentsUrl)" + podcasts[fileIndex].description
-        
-        var player : AVAudioPlayer! = nil // will be Optional, must supply initializer
-        
-        var fileString = "\(documentsUrl)"+"news-321.mp3"
-        var fileTitle = podcasts[fileIndex].description as String
-        let path = fileString
-        let fileURL = NSURL(fileURLWithPath: path)
-        player = AVAudioPlayer(contentsOfURL: fileURL, error: nil)
-        player.prepareToPlay()
-        player.delegate = self
-     
-        player.play()
+        self.myPlayer.play()
+    }
+    
+    func prepareAudio(myData: NSData) {
+        myPlayer = AVAudioPlayer(data: myData, error: nil)
+        myPlayer.prepareToPlay()
     }
 }
 

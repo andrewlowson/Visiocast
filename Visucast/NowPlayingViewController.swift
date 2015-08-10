@@ -65,9 +65,11 @@ class NowPlayingViewController: UIViewController {
     }
     
     
+    @IBAction func shareButton(sender: UIBarButtonItem) {
+    }
     
     @IBOutlet weak var shareButton: UIButton!
-   
+
     @IBAction func shareButtonClicked(sender: UIButton)
     {
         let textToShare = "Swift is awesome!  Check out this website about it!"

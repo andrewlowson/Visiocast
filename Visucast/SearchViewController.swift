@@ -127,6 +127,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
                     // Store the image in to our cache
                     self.podcastArtwork[self.podcasts[indexPath.row].podcastArtwork!] = artwork
                     // Update the cell
+                    
                     dispatch_async(dispatch_get_main_queue(), {
                         cell.podcastArtworkImageView?.image = artwork
                     })
