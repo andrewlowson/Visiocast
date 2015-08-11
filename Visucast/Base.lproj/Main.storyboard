@@ -195,7 +195,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="2dm-jV-lh3" kind="show" id="gHa-z6-F8Q"/>
+                                    <segue destination="pSj-aI-z6L" kind="show" id="gHa-z6-F8Q"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -308,7 +308,7 @@
                                             <outlet property="episodeArtworkImageView" destination="frS-52-J3b" id="FCR-gE-VMS"/>
                                             <outlet property="episodeTitleLabel" destination="Cs5-PX-9gd" id="HSZ-St-XSJ"/>
                                             <outlet property="epsideSummaryLabel" destination="h1a-7x-raZ" id="UfL-uX-oNJ"/>
-                                            <segue destination="2dm-jV-lh3" kind="showDetail" id="dDU-zJ-1Ev"/>
+                                            <segue destination="pSj-aI-z6L" kind="show" id="u5f-1v-Mpn"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -342,7 +342,7 @@
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                 <state key="normal" title="Now Playing"/>
                                 <connections>
-                                    <segue destination="2dm-jV-lh3" kind="show" id="5Bb-dg-4PI"/>
+                                    <segue destination="pSj-aI-z6L" kind="show" id="5Bb-dg-4PI"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -439,6 +439,7 @@
                                     <outlet property="episodeDescription" destination="hN9-Ys-uS9" id="QMn-Vq-Doi"/>
                                     <outlet property="episodeInformation" destination="E7Q-gb-KWd" id="FcL-D2-gLB"/>
                                     <outlet property="episodeTitle" destination="xB2-I8-2MG" id="Phj-i9-ROJ"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="fa2-GT-1iD"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -457,7 +458,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="2dm-jV-lh3" kind="show" id="gzq-0C-pIM"/>
+                                    <segue destination="pSj-aI-z6L" kind="show" id="gzq-0C-pIM"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -530,7 +531,7 @@
                                     <action selector="SkipBack:" destination="2dm-jV-lh3" eventType="touchUpInside" id="opQ-f9-UJa"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="microphoneIcon" translatesAutoresizingMaskIntoConstraints="NO" id="gyx-w5-Dfy">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gyx-w5-Dfy">
                                 <rect key="frame" x="161" y="274" width="279" height="202"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="146" id="qV7-X0-Oqu"/>
@@ -715,10 +716,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="artworkImageView" destination="gyx-w5-Dfy" id="7Ow-0d-a0K"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cjJ-fJ-ftv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3120" y="489"/>
+            <point key="canvasLocation" x="3932" y="489"/>
         </scene>
         <!--AV Player View Controller-->
         <scene sceneID="v87-Wh-xvf">
@@ -1043,7 +1047,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="2dm-jV-lh3" kind="show" id="Tuj-Ip-fnn"/>
+                                    <segue destination="pSj-aI-z6L" kind="show" id="Tuj-Ip-fnn"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -1115,12 +1119,31 @@
             </objects>
             <point key="canvasLocation" x="1390" y="1330"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="x8g-6S-40z">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pSj-aI-z6L" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="euG-7c-B0X">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="2dm-jV-lh3" kind="relationship" relationship="rootViewController" id="CmS-1S-Tje"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j0Y-kT-u0n" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3120" y="489"/>
+        </scene>
     </scenes>
     <resources>
         <image name="glasgowLogo" width="700" height="300"/>
         <image name="microphoneIcon" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dDU-zJ-1Ev"/>
+        <segue reference="fa2-GT-1iD"/>
+        <segue reference="gzq-0C-pIM"/>
     </inferredMetricsTieBreakers>
 </document>

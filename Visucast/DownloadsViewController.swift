@@ -16,7 +16,8 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
     var podcastArtwork = [String: UIImage]()
     
     var myPlayer = AVAudioPlayer()
-    
+    let api = DownloadManager()
+
     
     @IBOutlet weak var episodesTableView: UITableView!
     
@@ -25,11 +26,10 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
         
         episodesTableView.estimatedRowHeight = episodesTableView.rowHeight
         episodesTableView.rowHeight = UITableViewAutomaticDimension
-        let api = DownloadManager()
 
         episodesTableView.delegate = self
         episodesTableView.dataSource = self
-        
+        api.delegate = self
         
         loadFiles()
         episodesTableView.reloadData()
@@ -41,12 +41,30 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
         // Dispose of any resources that can be recreated.
     }
     
-//    override func viewDidAppear(animated: Bool) {
-//        podcasts.removeAll()
-//        loadFiles()
-//    }
+    override func viewDidAppear(animated: Bool) {
+        podcasts.removeAll()
+        loadFiles()
+    }
     
     func loadFiles() {
+        
+        if api.duplicate == true {
+            var alert = UIAlertController(title: "Duplicate", message: "You've Already Downloaded This", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { action in
+                switch action.style{
+                case .Default:
+                    println("default")
+                    
+                case .Cancel:
+                    println("cancel")
+                    
+                case .Destructive:
+                    println("destructive")
+                }
+            }))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+        
         // We need just to get the documents folder url
         let documentsUrl =  NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as! NSURL
         
@@ -80,15 +98,12 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                             println("\(key)  \(value)")
                             println()
                         }
-                        
                         if key == "title" {
                             title = value as? String
                         }
-                        
                         if key == "artist" {
                             artist = value as? String
                         }
-                        
                         if key == "albumName" {
                             podcastTitle = value as? String
                         }
@@ -139,7 +154,6 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
     }
     
     @IBOutlet weak var downloadsTableView: UITableView!
-
     @IBOutlet weak var DownloadsTabBarItem: UITabBarItem!
     
     func addPodcast(podcast: PodcastEpisode, downloadURL: NSURL) {
@@ -157,9 +171,6 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
     private struct Storyboard {
         static let CellReuseIdentifier = "Episode"
     }
-    
-
-    
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellReuseIdentifier, forIndexPath: indexPath) as! DownloadsTableViewCell
@@ -180,19 +191,23 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
 
     // MARK: - Navigation
 
-//    // In a storyboard-based application, you will often want to do a little preparation before navigation
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//         //Get the new view controller using segue.destinationViewController.
-//         //Pass the selected object to the new view controller.
-//        var nowPlaying: NowPlayingViewController = segue.destinationViewController as! NowPlayingViewController
-//        var fileIndex = episodesTableView!.indexPathForSelectedRow()!.row
-//        
-//        let documentsUrl =  NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as! NSURL
-//        
-//        var fullPath = "\(documentsUrl)" + podcasts[fileIndex].filePath!
-//        nowPlaying.episode = podcasts[fileIndex]
-//        //nowPlaying.episodeTitle = podcasts[fileIndex]
-//    }
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+         //Get the new view controller using segue.destinationViewController.
+         //Pass the selected object to the new view controller.
+        let nav = segue.destinationViewController as! UINavigationController
+        let nowPlaying = nav.topViewController as! NowPlayingViewController
+        var fileIndex = episodesTableView!.indexPathForSelectedRow()!.row
+        
+        var title = podcasts[fileIndex].episodeTitle!
+        println(title)
+        println(podcastArtwork)
+        //        nowPlaying.artworkImageView.image = podcastArtwork[podcasts[fileIndex].episodeTitle!]
+        
+        nowPlaying.episode = podcasts[fileIndex]
+        nowPlaying.episodeTitle = title
+        nowPlaying.artworkImageView?.image = podcastArtwork[title]
+    }
 
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)

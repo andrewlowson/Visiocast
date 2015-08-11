@@ -21,10 +21,13 @@ class DownloadManager {
     var finalPath: NSURL?
     var episode: PodcastEpisode?
     var delegate: DownloadManagerProtocol?
+    var duplicate: Bool? = false
     
     func initiateDownload(podcastEpisode: PodcastEpisode, downloadURL: NSURL) {
         println("I'm going to start downloading something now")
         episode = podcastEpisode
+        
+        
         let pathString = "\(downloadURL)"
         
         let path = split(pathString) {$0 == "/"}
@@ -32,26 +35,44 @@ class DownloadManager {
         episode!.filePath = fileName
         println("path: \(fileName!)") // [foo, bar, baz]
         
-        
-        let destination = Alamofire.Request.suggestedDownloadDestination(directory: .DocumentDirectory, domain: .UserDomainMask)
-        println("Destination: \(destination)")
-        Alamofire.download(.GET, downloadURL, destination: destination)
-            .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
-                var inBytes = totalBytesExpectedToRead
-                var inMBytes = Double( (totalBytesExpectedToRead / 1024) / 1024)
-                
-                var soFar = Double(totalBytesRead / 1024) / 1024
-                var percentage = (soFar / inMBytes) * 100
-                
-                var someDoubleFormat = ".3"
-                
-                println("\(percentage.format(someDoubleFormat))% Complete. \(soFar.format(someDoubleFormat))MB of \(inMBytes)MB downloaded.")
+        checkForDuplicate()
+        if !duplicate! {
+            let destination = Alamofire.Request.suggestedDownloadDestination(directory: .DocumentDirectory, domain: .UserDomainMask)
+            println("Destination: \(destination)")
+            Alamofire.download(.GET, downloadURL, destination: destination)
+                .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
+                    var inBytes = totalBytesExpectedToRead
+                    var inMBytes = Double( (totalBytesExpectedToRead / 1024) / 1024)
+                    
+                    var soFar = Double(totalBytesRead / 1024) / 1024
+                    var percentage = (soFar / inMBytes) * 100
+                    
+                    var someDoubleFormat = ".3"
+                    
+                    println("\(percentage.format(someDoubleFormat))% Complete. \(soFar.format(someDoubleFormat))MB of \(inMBytes)MB downloaded.")
+                }
+                .response { request, response, _, error in
+                    println("\(response!)")
+                    println(self.episode!.episodeTitle)
+                    //self.episode?.filePath =
+                    self.delegate?.didReceiveDownload(self.episode!)
             }
-            .response { request, response, _, error in
-                println("\(response!)")
-                println(self.episode!.episodeTitle)
-                //self.episode?.filePath =
-                self.delegate?.didReceiveDownload(self.episode!)
+        }
+        
+    }
+    
+    func checkForDuplicate() {
+        let documentsUrl =  NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as! NSURL
+        
+        if let directoryUrls =  NSFileManager.defaultManager().contentsOfDirectoryAtURL(documentsUrl, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsSubdirectoryDescendants, error: nil) {
+            
+            let mp3Files = directoryUrls.map(){ $0.lastPathComponent }.filter(){ $0.pathExtension == "mp3" }
+            for file: String in mp3Files {
+                if self.fileName == file {
+                    self.duplicate = true
+                    
+                }
+            }
         }
     }
 }

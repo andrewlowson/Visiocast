@@ -22,8 +22,11 @@ class NowPlayingViewController: UIViewController {
     
     var ButtonAudioPlayer = AVAudioPlayer()
     
+    @IBOutlet weak var artworkImageView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         //isAudioPlaying = true
         playAudio()
         
@@ -45,7 +48,7 @@ class NowPlayingViewController: UIViewController {
             sender.setTitle("Play", forState: UIControlState.Normal)
             
         } else {
-            ButtonAudioPlayer.play()
+            ButtonAudioPlayer.pause()
             !isAudioPlaying
             sender.setTitle("Pause", forState: UIControlState.Normal)
         }
