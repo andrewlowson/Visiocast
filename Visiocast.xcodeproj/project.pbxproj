@@ -14,6 +14,7 @@
 		11175B7A1B68CE9D00A652CB /* PodcastEpisode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11175B791B68CE9D00A652CB /* PodcastEpisode.swift */; };
 		11175B821B68DAF100A652CB /* PodcastEpisodeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11175B811B68DAF100A652CB /* PodcastEpisodeTableViewCell.swift */; };
 		113AA6C71B6E481B0061FFB2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 113AA6C61B6E481B0061FFB2 /* AVFoundation.framework */; };
+		116B123C1B7A953500CED1AE /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116B123B1B7A953500CED1AE /* Reachability.swift */; };
 		116CF0551B5B1CAE0056FCA0 /* glasgowLogo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 116CF0541B5B1CAE0056FCA0 /* glasgowLogo.gif */; };
 		116CF0571B5B203E0056FCA0 /* DownloadsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116CF0561B5B203E0056FCA0 /* DownloadsViewController.swift */; };
 		116CF0591B5B204E0056FCA0 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116CF0581B5B204E0056FCA0 /* AboutViewController.swift */; };
@@ -36,6 +37,18 @@
 		11E22D8F1B662EBC00EB6A6C /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 11E22D871B662EB400EB6A6C /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		11E22D951B663C8300EB6A6C /* PodcastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E22D941B663C8300EB6A6C /* PodcastTableViewCell.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXBuildRule section */
+		116B123A1B7A16C900CED1AE /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			fileType = pattern.proxy;
+			isEditable = 1;
+			outputFiles = (
+			);
+			script = "";
+		};
+/* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
 		118D2F411B5AD9370005F577 /* PBXContainerItemProxy */ = {
@@ -143,6 +156,7 @@
 		11175B791B68CE9D00A652CB /* PodcastEpisode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastEpisode.swift; sourceTree = "<group>"; };
 		11175B811B68DAF100A652CB /* PodcastEpisodeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastEpisodeTableViewCell.swift; sourceTree = "<group>"; };
 		113AA6C61B6E481B0061FFB2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		116B123B1B7A953500CED1AE /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		116CF0541B5B1CAE0056FCA0 /* glasgowLogo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = glasgowLogo.gif; path = VisucastTests/glasgowLogo.gif; sourceTree = SOURCE_ROOT; };
 		116CF0561B5B203E0056FCA0 /* DownloadsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadsViewController.swift; sourceTree = "<group>"; };
 		116CF0581B5B204E0056FCA0 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
@@ -236,6 +250,7 @@
 				116CF05E1B5B208A0056FCA0 /* PodcastFeedViewController.swift */,
 				116CF0561B5B203E0056FCA0 /* DownloadsViewController.swift */,
 				116CF05C1B5B207A0056FCA0 /* NowPlayingViewController.swift */,
+				116B123B1B7A953500CED1AE /* Reachability.swift */,
 				11E22D941B663C8300EB6A6C /* PodcastTableViewCell.swift */,
 				11BCCD8C1B6A4716002D7DE9 /* DownloadsTableViewCell.swift */,
 				11175B811B68DAF100A652CB /* PodcastEpisodeTableViewCell.swift */,
@@ -312,6 +327,7 @@
 				11E22D511B6509BC00EB6A6C /* Embed Frameworks */,
 			);
 			buildRules = (
+				116B123A1B7A16C900CED1AE /* PBXBuildRule */,
 			);
 			dependencies = (
 				11E22D501B6509BB00EB6A6C /* PBXTargetDependency */,
@@ -486,6 +502,7 @@
 				11037ED71B697111000F88EF /* PodcastManager.swift in Sources */,
 				11E22D5C1B6565F400EB6A6C /* Podcast.swift in Sources */,
 				116CF05D1B5B207A0056FCA0 /* NowPlayingViewController.swift in Sources */,
+				116B123C1B7A953500CED1AE /* Reachability.swift in Sources */,
 				116CF05F1B5B208A0056FCA0 /* PodcastFeedViewController.swift in Sources */,
 				11175B7A1B68CE9D00A652CB /* PodcastEpisode.swift in Sources */,
 				116CF0571B5B203E0056FCA0 /* DownloadsViewController.swift in Sources */,

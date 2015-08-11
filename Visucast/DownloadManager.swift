@@ -37,26 +37,29 @@ class DownloadManager {
         
         checkForDuplicate()
         if !duplicate! {
-            let destination = Alamofire.Request.suggestedDownloadDestination(directory: .DocumentDirectory, domain: .UserDomainMask)
-            println("Destination: \(destination)")
-            Alamofire.download(.GET, downloadURL, destination: destination)
-                .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
-                    var inBytes = totalBytesExpectedToRead
-                    var inMBytes = Double( (totalBytesExpectedToRead / 1024) / 1024)
-                    
-                    var soFar = Double(totalBytesRead / 1024) / 1024
-                    var percentage = (soFar / inMBytes) * 100
-                    
-                    var someDoubleFormat = ".3"
-                    
-                    println("\(percentage.format(someDoubleFormat))% Complete. \(soFar.format(someDoubleFormat))MB of \(inMBytes)MB downloaded.")
+            if Reachability.isConnectedToNetwork() {
+                let destination = Alamofire.Request.suggestedDownloadDestination(directory: .DocumentDirectory, domain: .UserDomainMask)
+                println("Destination: \(destination)")
+                Alamofire.download(.GET, downloadURL, destination: destination)
+                    .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
+                        var inBytes = totalBytesExpectedToRead
+                        var inMBytes = Double( (totalBytesExpectedToRead / 1024) / 1024)
+                        
+                        var soFar = Double(totalBytesRead / 1024) / 1024
+                        var percentage = (soFar / inMBytes) * 100
+                        
+                        var someDoubleFormat = ".3"
+                        
+                        println("\(percentage.format(someDoubleFormat))% Complete. \(soFar.format(someDoubleFormat))MB of \(inMBytes)MB downloaded.")
+                    }
+                    .response { request, response, _, error in
+                        println("\(response!)")
+                        println(self.episode!.episodeTitle)
+                        //self.episode?.filePath =
+                        self.delegate?.didReceiveDownload(self.episode!)
                 }
-                .response { request, response, _, error in
-                    println("\(response!)")
-                    println(self.episode!.episodeTitle)
-                    //self.episode?.filePath =
-                    self.delegate?.didReceiveDownload(self.episode!)
             }
+            
         }
         
     }

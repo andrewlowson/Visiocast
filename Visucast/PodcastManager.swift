@@ -36,33 +36,37 @@ class PodcastManager {
         var searchTerm = defaultSearchTerm + result
         
         println("Networking was called")
-        
-        // Alamofire is the Networking library used.
-        // Give request type (GET), url and then decide what to do with results.
-        Alamofire.request(.GET, searchTerm).responseJSON {
-            (_, _, jsonDict, _) in
-            var json = JSON(jsonDict!)
-            let results = json["results"]
-            var collectionName: String?
-            var artworkURL: String?
-            
-            // for each result, pull out relevant data, create object
-            for (index: String, resultJSON: JSON) in results {
-                let collectionName = resultJSON["collectionName"].string
-                let artistName = resultJSON["artistName"].string
-                var artworkURL = resultJSON["artworkUrl600"].string
-                var feedURL = resultJSON["feedUrl"].string
+        if Reachability.isConnectedToNetwork() {
+            // Alamofire is the Networking library used.
+            // Give request type (GET), url and then decide what to do with results.
+            Alamofire.request(.GET, searchTerm).responseJSON {
+                (_, _, jsonDict, _) in
+                var json = JSON(jsonDict!)
+                let results = json["results"]
+                var collectionName: String?
+                var artworkURL: String?
                 
-                if (artworkURL == nil) {
-                    var artworkURL = resultJSON["artworkUrl100"].string
+                // for each result, pull out relevant data, create object
+                for (index: String, resultJSON: JSON) in results {
+                    let collectionName = resultJSON["collectionName"].string
+                    let artistName = resultJSON["artistName"].string
+                    var artworkURL = resultJSON["artworkUrl600"].string
+                    var feedURL = resultJSON["feedUrl"].string
+                    
+                    if (artworkURL == nil) {
+                        var artworkURL = resultJSON["artworkUrl100"].string
+                    }
+                    
+                    var podcast = Podcast(title: collectionName!, artist: artistName!, artwork: artworkURL!,feedURL: feedURL!)
+                    
+                    // populate array set delegate result to this array
+                    podcasts.append(podcast)
+                    self.delegate?.didReceiveResults(podcasts)
                 }
-                
-                var podcast = Podcast(title: collectionName!, artist: artistName!, artwork: artworkURL!,feedURL: feedURL!)
-                
-                // populate array set delegate result to this array
-                podcasts.append(podcast)
-                self.delegate?.didReceiveResults(podcasts)
             }
+        }
+        else {
+            println("No Network Connectivity")
         }
         return podcasts
     }
@@ -74,28 +78,30 @@ class PodcastManager {
     func feedParser(podcastFeed: NSURL, podcast:Podcast) {
         
         var searchTerm = NSURL(string: feedString)
-        
-        Alamofire.request(
-            .GET,
-            searchTerm!,
-            parameters: ["query": "\(podcastFeed)"],
-            encoding: .URL).responseJSON(options: NSJSONReadingOptions.allZeros) {
-                (request: NSURLRequest,
-                response: NSHTTPURLResponse?,
-                responseJSON: AnyObject?,
-                error: NSError?) -> Void in
-                
-                let jsonValue = JSON(responseJSON!)
-                if let results = jsonValue["results"].array {
-                    for result: JSON in results {
-                        var feedID = result["feedId"].string
-                        var podcastEpisodes = [PodcastEpisode]()
-                        var feedURL = NSURL(string: feedID!)
-                        podcastEpisodes = self.episodes(podcastFeed, podcast: podcast)
-                        self.delegate?.didReceiveResults(podcastEpisodes)
+        if Reachability.isConnectedToNetwork() {
+            Alamofire.request(
+                .GET,
+                searchTerm!,
+                parameters: ["query": "\(podcastFeed)"],
+                encoding: .URL).responseJSON(options: NSJSONReadingOptions.allZeros) {
+                    (request: NSURLRequest,
+                    response: NSHTTPURLResponse?,
+                    responseJSON: AnyObject?,
+                    error: NSError?) -> Void in
+                    
+                    let jsonValue = JSON(responseJSON!)
+                    if let results = jsonValue["results"].array {
+                        for result: JSON in results {
+                            var feedID = result["feedId"].string
+                            var podcastEpisodes = [PodcastEpisode]()
+                            var feedURL = NSURL(string: feedID!)
+                            podcastEpisodes = self.episodes(podcastFeed, podcast: podcast)
+                            self.delegate?.didReceiveResults(podcastEpisodes)
+                        }
                     }
-                }
+            }
         }
+        
     }
     
     
