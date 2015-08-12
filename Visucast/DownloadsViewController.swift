@@ -109,6 +109,11 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                                 artwork = image
                             }
                         }
+                    } else {
+                        println("I'm getting no metadata for this file")
+                        title = file
+                        artist = file
+                        podcastTitle = file
                     }
                 }
                 println()
@@ -118,6 +123,17 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                     self.podcastArtwork[title!] = artwork!
                 }
 
+                if (artist == nil) {
+                    artist = file
+                }
+                if (podcastTitle == nil) {
+                    podcastTitle = file
+                }
+                if title == nil {
+                    title = file
+                }
+            
+                
                 var publishedDate: NSDate?
                 let dateFormatter = NSDateFormatter()
                 dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss ZZ"
@@ -238,7 +254,7 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                 println(filepath)
                 println(error?.localizedDescription)
             }
-            
+            podcasts.removeAll()
             loadFiles()
         }
     }

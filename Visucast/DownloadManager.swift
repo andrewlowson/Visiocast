@@ -35,8 +35,6 @@ class DownloadManager {
         episode!.filePath = fileName
         println("path: \(fileName!)") // [foo, bar, baz]
         
-        checkForDuplicate()
-        if !duplicate! {
             if Reachability.isConnectedToNetwork() {
                 let destination = Alamofire.Request.suggestedDownloadDestination(directory: .DocumentDirectory, domain: .UserDomainMask)
                 println("Destination: \(destination)")
@@ -59,24 +57,30 @@ class DownloadManager {
                         self.delegate?.didReceiveDownload(self.episode!)
                 }
             }
-            
-        }
         
     }
     
-    func checkForDuplicate() {
+    func isDuplicate(fileURL: NSURL) -> Bool {
+        
+        var urlAsString = "\(fileURL)"
+        
+        let path = split(urlAsString) {$0 == "/"}
+        var filename = path[path.count-1]
+        
         let documentsUrl =  NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as! NSURL
         
         if let directoryUrls =  NSFileManager.defaultManager().contentsOfDirectoryAtURL(documentsUrl, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsSubdirectoryDescendants, error: nil) {
             
             let mp3Files = directoryUrls.map(){ $0.lastPathComponent }.filter(){ $0.pathExtension == "mp3" }
             for file: String in mp3Files {
-                if self.fileName == file {
+                println(file + " " + filename)
+                if filename == file {
                     self.duplicate = true
-                    
+                    return self.duplicate!
                 }
             }
         }
+        return self.duplicate!
     }
 }
 

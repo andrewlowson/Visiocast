@@ -108,7 +108,22 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
         var selectedPodcast = self.podcastEpisodes[podcastIndex]
         var downloadURL = selectedPodcast.episodeDownloadURL
         
-        downloader.initiateDownload(selectedPodcast ,downloadURL: downloadURL!)
+        // check to see if we already have the episode, if we don't then download it.
+        if !downloader.isDuplicate(downloadURL!) {
+            downloader.initiateDownload(selectedPodcast ,downloadURL: downloadURL!)
+        } else {
+            let alertController = UIAlertController(title: "Download Error", message: "You have already downloaded this.", preferredStyle: .Alert)
+            
+            let OKAction = UIAlertAction(title: "OK", style: .Default) { (action) in
+                // ...
+            }
+            alertController.addAction(OKAction)
+            
+            self.presentViewController(alertController, animated: true) {
+                // ...
+            }
+        }
+        
         //DownloadsViewController.addPodcast(selectedPodcast, downloadURL!)
     }
 }
