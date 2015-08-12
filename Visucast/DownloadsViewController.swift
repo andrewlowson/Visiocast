@@ -91,12 +91,9 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                     if item.commonKey == nil {
                         continue
                     }
-                    
                     if let key = item.commonKey, let value = item.value {
-                        
                         if key != "artwork" {
                             println("\(key)  \(value)")
-                            println()
                         }
                         if key == "title" {
                             title = value as? String
@@ -112,21 +109,13 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                                 artwork = image
                             }
                         }
-                        
                     }
                 }
-                
-                if (title == nil) {
-                    title = file
-                }
-                if (artist == nil) {
-                    artist = file
-                }
-                if (podcastTitle == nil) {
-                    podcastTitle = file
-                }
-                if (artwork != nil) {
-                    podcastArtwork[title!] = artwork!
+                println()
+                if artwork == nil {
+                  // fix it.
+                } else {
+                    self.podcastArtwork[title!] = artwork!
                 }
 
                 var publishedDate: NSDate?
@@ -228,6 +217,30 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
         self.prepareAudio(file!)
 
         self.myPlayer.play()
+    }
+    
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.Delete) {
+            
+            // grab the file path,
+            var error:NSError?
+            var manager = NSFileManager.defaultManager()
+            var path = manager.documentsDirectoryPath()
+            var filename = podcasts[indexPath.row].episodeDescription!
+            var filepath = path+"/"+filename
+            manager.removeItemAtPath(filepath, error: &error)
+            podcasts.removeAtIndex(indexPath.row)
+            if error != nil {
+                println(filepath)
+                println(error?.localizedDescription)
+            }
+            
+            loadFiles()
+        }
     }
     
     func prepareAudio(myData: NSData) {

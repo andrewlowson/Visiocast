@@ -15,6 +15,7 @@
 		11175B821B68DAF100A652CB /* PodcastEpisodeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11175B811B68DAF100A652CB /* PodcastEpisodeTableViewCell.swift */; };
 		113AA6C71B6E481B0061FFB2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 113AA6C61B6E481B0061FFB2 /* AVFoundation.framework */; };
 		116B123C1B7A953500CED1AE /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116B123B1B7A953500CED1AE /* Reachability.swift */; };
+		116B123F1B7B760C00CED1AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 116B123D1B7B760C00CED1AE /* Main.storyboard */; };
 		116CF0551B5B1CAE0056FCA0 /* glasgowLogo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 116CF0541B5B1CAE0056FCA0 /* glasgowLogo.gif */; };
 		116CF0571B5B203E0056FCA0 /* DownloadsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116CF0561B5B203E0056FCA0 /* DownloadsViewController.swift */; };
 		116CF0591B5B204E0056FCA0 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116CF0581B5B204E0056FCA0 /* AboutViewController.swift */; };
@@ -23,7 +24,6 @@
 		116CF05F1B5B208A0056FCA0 /* PodcastFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116CF05E1B5B208A0056FCA0 /* PodcastFeedViewController.swift */; };
 		118D2F311B5AD9370005F577 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118D2F301B5AD9370005F577 /* AppDelegate.swift */; };
 		118D2F331B5AD9370005F577 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118D2F321B5AD9370005F577 /* TabViewController.swift */; };
-		118D2F361B5AD9370005F577 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 118D2F341B5AD9370005F577 /* Main.storyboard */; };
 		118D2F381B5AD9370005F577 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 118D2F371B5AD9370005F577 /* Images.xcassets */; };
 		118D2F3B1B5AD9370005F577 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 118D2F391B5AD9370005F577 /* LaunchScreen.xib */; };
 		118D2F471B5AD9370005F577 /* VisucastTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118D2F461B5AD9370005F577 /* VisucastTests.swift */; };
@@ -157,6 +157,7 @@
 		11175B811B68DAF100A652CB /* PodcastEpisodeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastEpisodeTableViewCell.swift; sourceTree = "<group>"; };
 		113AA6C61B6E481B0061FFB2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		116B123B1B7A953500CED1AE /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		116B123E1B7B760C00CED1AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		116CF0541B5B1CAE0056FCA0 /* glasgowLogo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = glasgowLogo.gif; path = VisucastTests/glasgowLogo.gif; sourceTree = SOURCE_ROOT; };
 		116CF0561B5B203E0056FCA0 /* DownloadsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadsViewController.swift; sourceTree = "<group>"; };
 		116CF0581B5B204E0056FCA0 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
@@ -167,7 +168,6 @@
 		118D2F2F1B5AD9370005F577 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		118D2F301B5AD9370005F577 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		118D2F321B5AD9370005F577 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
-		118D2F351B5AD9370005F577 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		118D2F371B5AD9370005F577 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		118D2F3A1B5AD9370005F577 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		118D2F401B5AD9370005F577 /* VisucastTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VisucastTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -240,7 +240,7 @@
 		118D2F2D1B5AD9370005F577 /* Visucast */ = {
 			isa = PBXGroup;
 			children = (
-				118D2F341B5AD9370005F577 /* Main.storyboard */,
+				116B123D1B7B760C00CED1AE /* Main.storyboard */,
 				11E22D5B1B6565F400EB6A6C /* Podcast.swift */,
 				11175B791B68CE9D00A652CB /* PodcastEpisode.swift */,
 				11037ED61B697111000F88EF /* PodcastManager.swift */,
@@ -467,7 +467,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				118D2F361B5AD9370005F577 /* Main.storyboard in Resources */,
+				116B123F1B7B760C00CED1AE /* Main.storyboard in Resources */,
 				118D2F3B1B5AD9370005F577 /* LaunchScreen.xib in Resources */,
 				118D2F381B5AD9370005F577 /* Images.xcassets in Resources */,
 			);
@@ -538,10 +538,10 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		118D2F341B5AD9370005F577 /* Main.storyboard */ = {
+		116B123D1B7B760C00CED1AE /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				118D2F351B5AD9370005F577 /* Base */,
+				116B123E1B7B760C00CED1AE /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
