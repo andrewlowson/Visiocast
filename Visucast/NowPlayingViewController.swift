@@ -14,26 +14,45 @@ import MediaPlayer
 class NowPlayingViewController: UIViewController {
 
     var episode: PodcastEpisode?
-    var episodeTitle: String = ""
+    var episodeTitle: String?
     //var episodePath = NSFileManager.documentsDirectoryPath() + episodeTitle!
+    @IBOutlet weak var episodeTitleLabel: UILabel!
     
+    @IBOutlet weak var episodeDescriptionLabel: UILabel!
     //var ButtonAudioURL = NSURL(fileURLWithPath: NSSearchPathDirectory.DocumentDirectory
-    var isAudioPlaying: Bool = false
+    var isAudioPlaying = false
     
-    var ButtonAudioPlayer = AVAudioPlayer()
+    // not in use
+    var nowPlaying: AVAsset?
+    
+    var podcastFile: NSData?
+    
+    var myPlayer = AVAudioPlayer()
+    var podcastArtwork: UIImage?
     
     @IBOutlet weak var artworkImageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //isAudioPlaying = true
-        playAudio()
+        
+        self.prepareAudio(podcastFile!)
+        self.myPlayer.play()
+        isAudioPlaying = true
+        playButton.setTitle("Pause", forState: UIControlState.Normal)
+        artworkImageView.image = podcastArtwork!
+        episodeTitleLabel.text = episodeTitle!
+        
+        
         
         //ButtonAudioPlayer = AVAudioPlayer(contentsOfURL: self.ButtonAudioURL, error: nil)
 
         
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,22 +60,38 @@ class NowPlayingViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func prepareAudio(myData: NSData) {
+        myPlayer = AVAudioPlayer(data: myData, error: nil)
+        myPlayer.prepareToPlay()
+    }
+    
+    
     @IBAction func PlayAudio(sender: UIButton) {
         if (isAudioPlaying) {
-            ButtonAudioPlayer.stop()
-            !isAudioPlaying
+            println(isAudioPlaying)
+            myPlayer.pause()
+            isAudioPlaying = false
             sender.setTitle("Play", forState: UIControlState.Normal)
-            
         } else {
-            ButtonAudioPlayer.pause()
-            !isAudioPlaying
+            myPlayer.play()
+            isAudioPlaying = true
             sender.setTitle("Pause", forState: UIControlState.Normal)
         }
     }
     
     func playAudio() {
+        
     }
     
+    @IBOutlet weak var playButton: UIButton!{
+        didSet{
+            if self.isAudioPlaying {
+                playButton.setTitle("Pause", forState: UIControlState.Normal)
+            } else {
+                playButton.setTitle("Play", forState: UIControlState.Normal)
+            }
+        }
+    }
     @IBAction func SkipForward(sender: UIButton) {
         
     }

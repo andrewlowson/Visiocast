@@ -16,6 +16,7 @@
 		113AA6C71B6E481B0061FFB2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 113AA6C61B6E481B0061FFB2 /* AVFoundation.framework */; };
 		116B123C1B7A953500CED1AE /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116B123B1B7A953500CED1AE /* Reachability.swift */; };
 		116B123F1B7B760C00CED1AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 116B123D1B7B760C00CED1AE /* Main.storyboard */; };
+		116B12411B7BA70300CED1AE /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 116B12401B7BA70300CED1AE /* AudioToolbox.framework */; };
 		116CF0551B5B1CAE0056FCA0 /* glasgowLogo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 116CF0541B5B1CAE0056FCA0 /* glasgowLogo.gif */; };
 		116CF0571B5B203E0056FCA0 /* DownloadsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116CF0561B5B203E0056FCA0 /* DownloadsViewController.swift */; };
 		116CF0591B5B204E0056FCA0 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116CF0581B5B204E0056FCA0 /* AboutViewController.swift */; };
@@ -158,6 +159,7 @@
 		113AA6C61B6E481B0061FFB2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		116B123B1B7A953500CED1AE /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		116B123E1B7B760C00CED1AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		116B12401B7BA70300CED1AE /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		116CF0541B5B1CAE0056FCA0 /* glasgowLogo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = glasgowLogo.gif; path = VisucastTests/glasgowLogo.gif; sourceTree = SOURCE_ROOT; };
 		116CF0561B5B203E0056FCA0 /* DownloadsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadsViewController.swift; sourceTree = "<group>"; };
 		116CF0581B5B204E0056FCA0 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				116B12411B7BA70300CED1AE /* AudioToolbox.framework in Frameworks */,
 				113AA6C71B6E481B0061FFB2 /* AVFoundation.framework in Frameworks */,
 				11037EE61B6973C8000F88EF /* libxml2.dylib in Frameworks */,
 				11E22D8E1B662EBC00EB6A6C /* SwiftyJSON.framework in Frameworks */,
@@ -218,6 +221,7 @@
 		118D2F221B5AD9370005F577 = {
 			isa = PBXGroup;
 			children = (
+				116B12401B7BA70300CED1AE /* AudioToolbox.framework */,
 				113AA6C61B6E481B0061FFB2 /* AVFoundation.framework */,
 				11037EE51B6973C8000F88EF /* libxml2.dylib */,
 				11E22D7F1B662EB400EB6A6C /* SwiftyJSON.xcodeproj */,

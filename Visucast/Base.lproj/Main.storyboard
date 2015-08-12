@@ -78,6 +78,7 @@
                                 <color key="backgroundColor" red="0.43812830320000001" green="0.48216619900000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <accessibility key="accessibilityConfiguration" hint="Press to give application a command" label="Dictate"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="gmP-Vj-vnc"/>
                                     <constraint firstAttribute="height" constant="45" id="pru-DA-Vyg"/>
                                 </constraints>
                                 <state key="normal" title="Dictate" image="microphoneIcon">
@@ -229,6 +230,7 @@
                                 <color key="backgroundColor" red="0.43812830323187169" green="0.4821661989540329" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <accessibility key="accessibilityConfiguration" hint="Press to give application a command" label="Dictate"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="TgF-5Q-eEq"/>
                                     <constraint firstAttribute="height" constant="45" id="md9-A5-BKS"/>
                                 </constraints>
                                 <state key="normal" title="Dictate" image="microphoneIcon">
@@ -261,21 +263,6 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="P4d-QJ-qUh" id="XA3-xV-NiQ">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cs5-PX-9gd">
-                                                    <rect key="frame" x="91" y="18" width="501" height="34"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h1a-7x-raZ">
-                                                    <rect key="frame" x="91" y="60" width="501" height="24"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="24" id="wZn-ED-aDO"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="frS-52-J3b">
                                                     <rect key="frame" x="8" y="11" width="75" height="75"/>
                                                     <constraints>
@@ -289,16 +276,18 @@
                                                         </mask>
                                                     </variation>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cs5-PX-9gd">
+                                                    <rect key="frame" x="91" y="11" width="501" height="75"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Cs5-PX-9gd" firstAttribute="top" secondItem="XA3-xV-NiQ" secondAttribute="topMargin" constant="10" id="9ZZ-OS-SCy"/>
+                                                <constraint firstItem="Cs5-PX-9gd" firstAttribute="top" secondItem="XA3-xV-NiQ" secondAttribute="topMargin" constant="3" id="9ZZ-OS-SCy"/>
                                                 <constraint firstItem="frS-52-J3b" firstAttribute="top" secondItem="XA3-xV-NiQ" secondAttribute="topMargin" constant="3" id="OBl-Lt-zjH"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="h1a-7x-raZ" secondAttribute="bottom" constant="7" id="Ors-cD-NyP"/>
-                                                <constraint firstItem="h1a-7x-raZ" firstAttribute="leading" secondItem="frS-52-J3b" secondAttribute="trailing" constant="8" symbolic="YES" id="OzV-0Z-JZh"/>
                                                 <constraint firstItem="Cs5-PX-9gd" firstAttribute="trailing" secondItem="XA3-xV-NiQ" secondAttribute="trailingMargin" id="Y6l-Og-TBT"/>
-                                                <constraint firstItem="h1a-7x-raZ" firstAttribute="top" secondItem="Cs5-PX-9gd" secondAttribute="bottom" constant="8" symbolic="YES" id="aC1-qd-ciw"/>
-                                                <constraint firstItem="h1a-7x-raZ" firstAttribute="trailing" secondItem="XA3-xV-NiQ" secondAttribute="trailingMargin" id="ctS-MA-MM5"/>
-                                                <constraint firstItem="Cs5-PX-9gd" firstAttribute="width" secondItem="h1a-7x-raZ" secondAttribute="width" id="mmQ-rm-0e8"/>
+                                                <constraint firstItem="Cs5-PX-9gd" firstAttribute="height" secondItem="frS-52-J3b" secondAttribute="height" id="geW-9h-kWK"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="frS-52-J3b" secondAttribute="bottom" constant="5" id="qnP-65-vAW"/>
                                                 <constraint firstItem="Cs5-PX-9gd" firstAttribute="leading" secondItem="frS-52-J3b" secondAttribute="trailing" constant="8" symbolic="YES" id="w2v-Ck-ean"/>
                                                 <constraint firstItem="frS-52-J3b" firstAttribute="leading" secondItem="XA3-xV-NiQ" secondAttribute="leadingMargin" id="yxn-FW-ZsM"/>
@@ -307,7 +296,6 @@
                                         <connections>
                                             <outlet property="episodeArtworkImageView" destination="frS-52-J3b" id="FCR-gE-VMS"/>
                                             <outlet property="episodeTitleLabel" destination="Cs5-PX-9gd" id="HSZ-St-XSJ"/>
-                                            <outlet property="epsideSummaryLabel" destination="h1a-7x-raZ" id="UfL-uX-oNJ"/>
                                             <segue destination="pSj-aI-z6L" kind="show" id="u5f-1v-Mpn"/>
                                         </connections>
                                     </tableViewCell>
@@ -536,10 +524,10 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x12-7w-DUj">
-                                <rect key="frame" x="279" y="172" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x12-7w-DUj">
+                                <rect key="frame" x="161" y="172" width="279" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="42" id="3tp-MR-kkK"/>
+                                    <constraint firstAttribute="width" constant="279" id="3tp-MR-kkK"/>
                                     <constraint firstAttribute="height" constant="21" id="NTC-cs-sRF"/>
                                     <constraint firstAttribute="width" constant="42" id="xZL-qK-NpW"/>
                                 </constraints>
@@ -586,8 +574,8 @@
                                     <action selector="dictateButton:" destination="Z7o-YF-sHy" eventType="touchUpInside" id="yjG-bV-tI6"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Episode Description" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CQE-96-N0R">
-                                <rect key="frame" x="161" y="172" width="279" height="94"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Episode Description" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CQE-96-N0R">
+                                <rect key="frame" x="161" y="201" width="279" height="65"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="279" id="cBL-Wd-EWT"/>
                                 </constraints>
@@ -617,7 +605,7 @@
                             <constraint firstItem="goV-fm-zSM" firstAttribute="top" secondItem="Ofp-rx-s1O" secondAttribute="bottom" id="Knb-4c-fr0"/>
                             <constraint firstItem="rEC-fO-XPX" firstAttribute="top" secondItem="CQE-96-N0R" secondAttribute="bottom" constant="8" symbolic="YES" id="LYc-H7-N8j"/>
                             <constraint firstItem="Bxs-4U-5oJ" firstAttribute="leading" secondItem="yxx-v0-k7y" secondAttribute="leadingMargin" id="Mjm-8b-Em9"/>
-                            <constraint firstItem="CQE-96-N0R" firstAttribute="firstBaseline" secondItem="x12-7w-DUj" secondAttribute="firstBaseline" id="N2S-mh-rlz"/>
+                            <constraint firstItem="CQE-96-N0R" firstAttribute="firstBaseline" secondItem="x12-7w-DUj" secondAttribute="firstBaseline" constant="29" id="N2S-mh-rlz"/>
                             <constraint firstItem="Bxs-4U-5oJ" firstAttribute="leading" secondItem="gyx-w5-Dfy" secondAttribute="leading" id="NHl-Gh-dNI"/>
                             <constraint firstItem="gyx-w5-Dfy" firstAttribute="top" secondItem="x12-7w-DUj" secondAttribute="bottom" constant="81" id="Ns0-Ho-NeG"/>
                             <constraint firstItem="Bxs-4U-5oJ" firstAttribute="top" secondItem="gyx-w5-Dfy" secondAttribute="bottom" constant="8" symbolic="YES" id="PUd-iJ-dEi"/>
@@ -707,6 +695,9 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="artworkImageView" destination="gyx-w5-Dfy" id="7Ow-0d-a0K"/>
+                        <outlet property="episodeDescriptionLabel" destination="CQE-96-N0R" id="qQ6-0Z-Iqc"/>
+                        <outlet property="episodeTitleLabel" destination="CQE-96-N0R" id="BOa-OV-00t"/>
+                        <outlet property="playButton" destination="rEC-fO-XPX" id="2yF-xF-6xE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cjJ-fJ-ftv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -739,6 +730,7 @@
                                 <accessibility key="accessibilityConfiguration" hint="Press to give application a command" label="Dictate"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="Mbi-Pc-5JU"/>
+                                    <constraint firstAttribute="height" constant="100" id="mhs-YK-adb"/>
                                 </constraints>
                                 <state key="normal" title="Dictate" image="microphoneIcon">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1132,7 +1124,7 @@
         <image name="microphoneIcon" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="Tuj-Ip-fnn"/>
         <segue reference="n4P-50-qa4"/>
-        <segue reference="u5f-1v-Mpn"/>
     </inferredMetricsTieBreakers>
 </document>

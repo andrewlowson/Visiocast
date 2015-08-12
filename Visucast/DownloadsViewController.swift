@@ -15,7 +15,6 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
     
     var podcastArtwork = [String: UIImage]()
     
-    var myPlayer = AVAudioPlayer()
     let api = DownloadManager()
 
     
@@ -46,24 +45,9 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
         loadFiles()
     }
     
+    
+    // This searches the documents directory and grabs all the files in it.
     func loadFiles() {
-        
-        if api.duplicate == true {
-            var alert = UIAlertController(title: "Duplicate", message: "You've Already Downloaded This", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { action in
-                switch action.style{
-                case .Default:
-                    println("default")
-                    
-                case .Cancel:
-                    println("cancel")
-                    
-                case .Destructive:
-                    println("destructive")
-                }
-            }))
-            self.presentViewController(alert, animated: true, completion: nil)
-        }
         
         // We need just to get the documents folder url
         let documentsUrl =  NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as! NSURL
@@ -132,7 +116,6 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                 if title == nil {
                     title = file
                 }
-            
                 
                 var publishedDate: NSDate?
                 let dateFormatter = NSDateFormatter()
@@ -169,6 +152,9 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
         return 1
     }
     
+    // MARK: - Navigation
+    
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return podcasts.count
     }
@@ -194,46 +180,64 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
     }
     
 
-    // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-         //Get the new view controller using segue.destinationViewController.
-         //Pass the selected object to the new view controller.
+        
+        //Get the new view controller using segue.destinationViewController.
+        //Pass the selected object to the new view controller.
         let nav = segue.destinationViewController as! UINavigationController
         let nowPlaying = nav.topViewController as! NowPlayingViewController
         var fileIndex = episodesTableView!.indexPathForSelectedRow()!.row
         
-        var title = podcasts[fileIndex].episodeTitle!
-        println(title)
-        println(podcastArtwork)
-        //        nowPlaying.artworkImageView.image = podcastArtwork[podcasts[fileIndex].episodeTitle!]
-        
-        nowPlaying.episode = podcasts[fileIndex]
-        nowPlaying.episodeTitle = title
-        nowPlaying.artworkImageView?.image = podcastArtwork[title]
-    }
-
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
-    {
-        var thisFileName = podcasts[indexPath.row].episodeDescription!
+        var thisFileName = podcasts[fileIndex].episodeDescription!
         
         var paths:[AnyObject] = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
         
         let documentsUrl =  NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as! NSURL
         let documentsPath = documentsUrl.absoluteString
-        
+    
         var fileString = documentsPath!+thisFileName
         let fileURL = NSURL(string: fileString)
         var file = NSData(contentsOfURL: fileURL!)
         println(fileURL!)
         println()
         println(file!.length)
-        self.prepareAudio(file!)
-
-        self.myPlayer.play()
+//        self.prepareAudio(file!)
+//        self.myPlayer.play()
+//
+        var title = podcasts[fileIndex].episodeTitle!
+        println(title)
+        println(podcastArtwork[title])
+        //        nowPlaying.artworkImageView.image = podcastArtwork[podcasts[fileIndex].episodeTitle!]
+        nowPlaying.podcastFile = (file)
+        nowPlaying.episode = podcasts[fileIndex]
+        nowPlaying.episodeTitle = title
+        nowPlaying.episodeTitleLabel?.text = title
+        nowPlaying.podcastArtwork = podcastArtwork[title]!
+        nowPlaying.artworkImageView?.image = podcastArtwork[title]!
     }
+
+    
+//    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+//    {
+//        var thisFileName = podcasts[indexPath.row].episodeDescription!
+//        
+//        var paths:[AnyObject] = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+//        
+//        let documentsUrl =  NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as! NSURL
+//        let documentsPath = documentsUrl.absoluteString
+//        
+//        var fileString = documentsPath!+thisFileName
+//        let fileURL = NSURL(string: fileString)
+//        var file = NSData(contentsOfURL: fileURL!)
+//        println(fileURL!)
+//        println()
+//        println(file!.length)
+//        self.prepareAudio(file!)
+//
+//        self.myPlayer.play()
+//    }
     
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
@@ -242,7 +246,7 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.Delete) {
             
-            // grab the file path,
+            // allow user to delete the file
             var error:NSError?
             var manager = NSFileManager.defaultManager()
             var path = manager.documentsDirectoryPath()
@@ -254,15 +258,13 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                 println(filepath)
                 println(error?.localizedDescription)
             }
+            
+            //redraw the table with the file deleted
             podcasts.removeAll()
             loadFiles()
         }
     }
-    
-    func prepareAudio(myData: NSData) {
-        myPlayer = AVAudioPlayer(data: myData, error: nil)
-        myPlayer.prepareToPlay()
-    }
+
 }
 
 extension NSFileManager {
