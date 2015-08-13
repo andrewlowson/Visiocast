@@ -142,11 +142,9 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         
         return cell
     }
+    
 
-    
-    
     // MARK: - Navigation
-    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         var podcastFeed: PodcastFeedViewController = segue.destinationViewController as! PodcastFeedViewController
@@ -155,11 +153,6 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         var selectedPodcast = self.podcasts[podcastIndex]
         println("\(self.podcasts[podcastIndex].podcastTitle)")
         podcastFeed.setValues(selectedPodcast.podcastFeed!, podcastTitle: selectedPodcast.podcastTitle!, podcast: selectedPodcast)
-
-
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-        
     }
 
 }

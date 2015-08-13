@@ -7,7 +7,7 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>D82411B1-D845-4D40-820D-EC5E5A1EC0AE</string>
 	<key>IDESourceControlProjectName</key>
-	<string>Visiocast</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>21ED15B4976141362B71005F3DEA58600865D3F4</key>
@@ -18,7 +18,7 @@
 		<string>https://github.com/SwiftyJSON/SwiftyJSON.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Visiocast.xcodeproj</string>
+	<string>Visiocast.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>21ED15B4976141362B71005F3DEA58600865D3F4</key>

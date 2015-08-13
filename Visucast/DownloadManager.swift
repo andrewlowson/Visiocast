@@ -14,7 +14,6 @@ protocol DownloadManagerProtocol {
     func didReceiveDownload(PodcastEpisode)
 }
 
-
 class DownloadManager {
     
     var fileName: String?
@@ -27,46 +26,38 @@ class DownloadManager {
         println("I'm going to start downloading something now")
         episode = podcastEpisode
         
-        
         let pathString = "\(downloadURL)"
-        
         let path = split(pathString) {$0 == "/"}
         fileName = path[path.count-1]
         episode!.filePath = fileName
-        println("path: \(fileName!)") // [foo, bar, baz]
-        
-            if Reachability.isConnectedToNetwork() {
-                let destination = Alamofire.Request.suggestedDownloadDestination(directory: .DocumentDirectory, domain: .UserDomainMask)
-                println("Destination: \(destination)")
-                Alamofire.download(.GET, downloadURL, destination: destination)
-                    .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
-                        var inBytes = totalBytesExpectedToRead
-                        var inMBytes = Double( (totalBytesExpectedToRead / 1024) / 1024)
-                        
-                        var soFar = Double(totalBytesRead / 1024) / 1024
-                        var percentage = (soFar / inMBytes) * 100
-                        
-                        var someDoubleFormat = ".3"
-                        
-                        println("\(percentage.format(someDoubleFormat))% Complete. \(soFar.format(someDoubleFormat))MB of \(inMBytes)MB downloaded.")
-                    }
-                    .response { request, response, _, error in
-                        println("\(response!)")
-                        println(self.episode!.episodeTitle)
-                        //self.episode?.filePath =
-                        self.delegate?.didReceiveDownload(self.episode!)
+        println("path: \(fileName!)")
+        if Reachability.isConnectedToNetwork() {
+            let destination = Alamofire.Request.suggestedDownloadDestination(directory: .DocumentDirectory, domain: .UserDomainMask)
+            println("Destination: \(destination)")
+            Alamofire.download(.GET, downloadURL, destination: destination)
+                .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
+                    var inBytes = totalBytesExpectedToRead
+                    var inMBytes = Double( (totalBytesExpectedToRead / 1024) / 1024)
+                    var soFar = Double(totalBytesRead / 1024) / 1024
+                    var percentage = (soFar / inMBytes) * 100
+                    var someDoubleFormat = ".3"
+                    
+                    println("\(percentage.format(someDoubleFormat))% Complete. \(soFar.format(someDoubleFormat))MB of \(inMBytes)MB downloaded.")
                 }
+                .response { request, response, _, error in
+                    println("\(response!)")
+                    println(self.episode!.episodeTitle)
+                    //self.episode?.filePath =
+                    self.delegate?.didReceiveDownload(self.episode!)
             }
-        
+        }
     }
     
     func isDuplicate(fileURL: NSURL) -> Bool {
         
-        var urlAsString = "\(fileURL)"
-        
+        let urlAsString = "\(fileURL)"
         let path = split(urlAsString) {$0 == "/"}
-        var filename = path[path.count-1]
-        
+        let filename = path[path.count-1]
         let documentsUrl =  NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as! NSURL
         
         if let directoryUrls =  NSFileManager.defaultManager().contentsOfDirectoryAtURL(documentsUrl, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsSubdirectoryDescendants, error: nil) {

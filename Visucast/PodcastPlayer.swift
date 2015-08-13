@@ -16,8 +16,13 @@ class PodcastPlayer {
     private var player: AVAudioPlayer?
     private var isPlaying = false
     
+    var currentTime: NSTimeInterval = 0
     
     func play() {
+        println(isPlaying)
+        if isPlaying {
+            pause()
+        }
         player!.play()
         isPlaying = true
     }
@@ -25,6 +30,7 @@ class PodcastPlayer {
     func pause() {
         player!.pause()
         isPlaying = false
+        self.currentTime = player!.currentTime
     }
     
     func toggle() {
@@ -38,6 +44,8 @@ class PodcastPlayer {
     func prepareAudio(myData: NSData) {
         player = AVAudioPlayer(data: myData, error: nil)
         player!.prepareToPlay()
+        player!.play()
+        isPlaying = true
     }
     
     func currentlyPlaying() -> Bool {

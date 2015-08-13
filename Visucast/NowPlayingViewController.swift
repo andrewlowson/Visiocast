@@ -14,98 +14,20 @@ import MediaPlayer
 class NowPlayingViewController: UIViewController {
 
     var episode: PodcastEpisode?
+    var time: NSTimeInterval?
     var episodeTitle: String?
-    //var episodePath = NSFileManager.documentsDirectoryPath() + episodeTitle!
-    @IBOutlet weak var episodeTitleLabel: UILabel!
-    
-    @IBOutlet weak var episodeDescriptionLabel: UILabel!
-    //var ButtonAudioURL = NSURL(fileURLWithPath: NSSearchPathDirectory.DocumentDirectory
     var isAudioPlaying = false
-    
     var podcastFile: NSData?
-    
     var myPlayer = AVAudioPlayer()
     var podcastArtwork: UIImage?
     var podcastArtist: String?
-    
+
+    @IBOutlet weak var shareButton: UIButton!
+    @IBOutlet weak var episodeTitleLabel: UILabel!
+    @IBOutlet weak var episodeDescriptionLabel: UILabel!
+    @IBOutlet weak var amountPlayedLabel: UILabel!
+    @IBOutlet weak var timeRemainingLabel: UILabel!
     @IBOutlet weak var artworkImageView: UIImageView!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // remove this.
-        self.prepareAudio(podcastFile!)
-        self.myPlayer.play()
-        isAudioPlaying = true
-        playButton.setTitle("Pause", forState: UIControlState.Normal)
-        artworkImageView.image = podcastArtwork!
-        episodeTitleLabel.text = episodeTitle!
-        episodeDescriptionLabel.text = podcastArtist
-        
-        if NSClassFromString("MPNowPlayingInfoCenter") != nil {
-            let image: UIImage = podcastArtwork!
-            let albumArt = MPMediaItemArtwork(image: image)
-            println(albumArt)
-            var podcastInfo: NSMutableDictionary = [
-                MPMediaItemPropertyAlbumTitle: episodeTitle!,
-                MPMediaItemPropertyArtist: podcastArtist!,
-                MPMediaItemPropertyArtwork: albumArt
-            ]
-            MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = podcastInfo as [NSObject: AnyObject]
-            
-        } else {
-            println("error here")
-        }
-        
-        if (AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)) {
-            println("Receiving remote control")
-            UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
-        } else {
-            println("Audio session error")
-        }
-        
-        //ButtonAudioPlayer = AVAudioPlayer(contentsOfURL: self.ButtonAudioURL, error: nil)
-
-        
-        // Do any additional setup after loading the view.
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    func prepareAudio(myData: NSData) {
-        myPlayer = AVAudioPlayer(data: myData, error: nil)
-        myPlayer.prepareToPlay()
-    }
-    
-   
-    func toggle() {
-        if isAudioPlaying {
-            myPlayer.pause()
-            playButton.setTitle("Play", forState: UIControlState.Normal)
-            isAudioPlaying = false
-        } else {
-            myPlayer.play()
-            isAudioPlaying = true
-            playButton.setTitle("Pause", forState: UIControlState.Normal)
-        }
-    }
-    
-    @IBAction func PlayAudio(sender: UIButton) {
-        toggle()
-
-    }
-    
-    func playAudio() {
-        
-    }
-    
     @IBOutlet weak var playButton: UIButton!{
         didSet{
             if self.isAudioPlaying {
@@ -117,25 +39,79 @@ class NowPlayingViewController: UIViewController {
             }
         }
     }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        PodcastPlayer.sharedInstance.prepareAudio(podcastFile!)
+
+        playButton.setTitle("Pause", forState: UIControlState.Normal)
+        if podcastArtwork != nil {
+            artworkImageView.image = podcastArtwork!
+        }
+        episodeTitleLabel.text = episodeTitle!
+        episodeDescriptionLabel.text = podcastArtist
+        
+        if NSClassFromString("MPNowPlayingInfoCenter") != nil {
+            if podcastArtwork != nil {
+                let image: UIImage = podcastArtwork!
+                let albumArt = MPMediaItemArtwork(image: image)
+                println(albumArt)
+                var podcastInfo: NSMutableDictionary = [
+                    MPMediaItemPropertyAlbumTitle: episodeTitle!,
+                    MPMediaItemPropertyArtist: podcastArtist!,
+                    MPMediaItemPropertyArtwork: albumArt
+                ]
+                MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = podcastInfo as [NSObject: AnyObject]
+            } else {
+                var podcastInfo: NSMutableDictionary = [
+                    MPMediaItemPropertyAlbumTitle: episodeTitle!,
+                    MPMediaItemPropertyArtist: podcastArtist!
+                ]
+                MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = podcastInfo as [NSObject: AnyObject]
+            }
+        } else {
+            println("error here")
+        }
+        if (AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)) {
+            println("Receiving remote control")
+            UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
+        } else {
+            println("Audio session error")
+        }
+    }
+
+    func prepareAudio(myData: NSData) {
+        myPlayer = AVAudioPlayer(data: myData, error: nil)
+        myPlayer.prepareToPlay()
+    }
     
+    func toggle() {
+        if isAudioPlaying {
+            PodcastPlayer.sharedInstance.pause()
+            playButton.setTitle("Play", forState: UIControlState.Normal)
+            time = PodcastPlayer.sharedInstance.currentTime
+        } else {
+            PodcastPlayer.sharedInstance
+            playButton.setTitle("Pause", forState: UIControlState.Normal)
+        }
+    }
+    
+    @IBAction func PlayAudio(sender: UIButton) {
+        toggle()
+    }
     
     @IBAction func SkipForward(sender: UIButton) {
         
     }
     
-    
     @IBAction func SkipBack(sender: UIButton) {
         
-        
     }
-    
     
     @IBAction func shareButton(sender: UIBarButtonItem) {
+    
     }
-    
-    @IBOutlet weak var shareButton: UIButton!
-
-    
     
     @IBAction func shareButtonClicked(sender: UIButton)
     {

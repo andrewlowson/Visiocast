@@ -12,13 +12,13 @@ import AVFoundation
 class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPlayerDelegate, UITableViewDataSource , DownloadManagerProtocol {
 
     var podcasts = [PodcastEpisode]()
-    
     var podcastArtwork = [String: UIImage]()
     
     let api = DownloadManager()
 
-    
     @IBOutlet weak var episodesTableView: UITableView!
+    @IBOutlet weak var downloadsTableView: UITableView!
+    @IBOutlet weak var DownloadsTabBarItem: UITabBarItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,16 +36,13 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        
-        // Dispose of any resources that can be recreated.
     }
     
     override func viewDidAppear(animated: Bool) {
         podcasts.removeAll()
         loadFiles()
     }
-    
-    
+        
     // This searches the documents directory and grabs all the files in it.
     func loadFiles() {
         
@@ -60,7 +57,6 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
             for (file: String) in mp3Files {
 
                 var fileString = "\(documentsUrl)"+file
-                
                 var fileURL: NSURL! = NSURL(string: fileString)!
                 
                 let item = AVPlayerItem(URL: fileURL)
@@ -102,11 +98,13 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                 }
                 println()
                 if artwork == nil {
-                  // fix it.
+                  println("I got no artwork....")
+                    if title != nil {
+                        println(title)
+                    }
                 } else {
                     self.podcastArtwork[title!] = artwork!
                 }
-
                 if (artist == nil) {
                     artist = file
                 }
@@ -129,31 +127,22 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
             }
             episodesTableView.reloadData()
         }
-
         episodesTableView.reloadData()
     }
     
     func didReceiveDownload(episode: PodcastEpisode) {
         
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            println("I have received a download")
             self.podcasts.append(episode)
-            self.episodesTableView.reloadData()
+            self.loadFiles()
         }
     }
     
-    @IBOutlet weak var downloadsTableView: UITableView!
-    @IBOutlet weak var DownloadsTabBarItem: UITabBarItem!
-    
-    func addPodcast(podcast: PodcastEpisode, downloadURL: NSURL) {
-        
-    }
-    
+    // MARK: - Navigation
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
-    
-    // MARK: - Navigation
-    
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return podcasts.count
@@ -178,8 +167,6 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
 
         return cell
     }
-    
-
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -203,42 +190,22 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
         println(fileURL!)
         println()
         println(file!.length)
-//        self.prepareAudio(file!)
-//        self.myPlayer.play()
-//
+
         var title = podcasts[fileIndex].episodeTitle!
         println(title)
         println(podcastArtwork[title])
-        //        nowPlaying.artworkImageView.image = podcastArtwork[podcasts[fileIndex].episodeTitle!]
         nowPlaying.podcastFile = (file)
         nowPlaying.episode = podcasts[fileIndex]
         nowPlaying.episodeTitle = title
         nowPlaying.episodeTitleLabel?.text = title
-        nowPlaying.podcastArtwork = podcastArtwork[title]!
+    
+        if podcastArtwork[title] != nil {
+            nowPlaying.podcastArtwork = podcastArtwork[title]!
+        }
+
         nowPlaying.artworkImageView?.image = podcastArtwork[title]!
         nowPlaying.podcastArtist = podcasts[fileIndex].podcast?.podcastArtistName
     }
-
-    
-//    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
-//    {
-//        var thisFileName = podcasts[indexPath.row].episodeDescription!
-//        
-//        var paths:[AnyObject] = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
-//        
-//        let documentsUrl =  NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as! NSURL
-//        let documentsPath = documentsUrl.absoluteString
-//        
-//        var fileString = documentsPath!+thisFileName
-//        let fileURL = NSURL(string: fileString)
-//        var file = NSData(contentsOfURL: fileURL!)
-//        println(fileURL!)
-//        println()
-//        println(file!.length)
-//        self.prepareAudio(file!)
-//
-//        self.myPlayer.play()
-//    }
     
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true

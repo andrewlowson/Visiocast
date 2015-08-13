@@ -91,7 +91,8 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return podcastEpisodes.count
     }
-        override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellReuseIdentifier, forIndexPath: indexPath) as! PodcastEpisodeTableViewCell
         
@@ -115,7 +116,7 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
             let alertController = UIAlertController(title: "Download Error", message: "You have already downloaded this.", preferredStyle: .Alert)
             
             let OKAction = UIAlertAction(title: "OK", style: .Default) { (action) in
-                // ...
+                // alert action doesn't need to do anything
             }
             alertController.addAction(OKAction)
             
@@ -124,6 +125,5 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
             }
         }
         
-        //DownloadsViewController.addPodcast(selectedPodcast, downloadURL!)
     }
 }

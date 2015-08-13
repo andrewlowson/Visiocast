@@ -10,6 +10,7 @@ import UIKit
 
 class AboutViewController: UIViewController {
     
+    @IBOutlet weak var AboutTabBarItem: UITabBarItem!
     @IBOutlet weak var aboutParagraph: UITextView!
     @IBOutlet weak var imageLogoView = UIImageView()
     @IBOutlet weak var dictateButton: UIButton! {
@@ -18,6 +19,13 @@ class AboutViewController: UIViewController {
             let dictateButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton
             dictateButton.setImage(image, forState: .Normal)
             dictateButton.setTitle("Dictate", forState: .Normal)
+        }
+    }
+    
+    @IBOutlet weak var scrollView: UIScrollView!
+        {
+        didSet {
+            aboutParagraph.text = "Welcome to Visiocast. \n \nVisiocast is a Podcast application built for people who are visually impaired. \nThere is a global button at the top for you to dictate commands, like 'Download The Empire Podcast' or 'search for Back to Work.' \n \nVisiocast started as a Software Development Masters project out of the University of Glasgow in the summer of 2015.\n \nContact:\nAndrew Lowson: andrew@lowson.co \nChuan Chen: 2122015C@student.gla.ac.uk"
         }
     }
     
@@ -38,9 +46,7 @@ class AboutViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-    
     
     var aspectRatioConstraint: NSLayoutConstraint? {
         willSet {
@@ -54,17 +60,6 @@ class AboutViewController: UIViewController {
             }
         }  
     }
-    
-    
-    // About text
-    @IBOutlet weak var scrollView: UIScrollView!
-        {
-        didSet {
-            aboutParagraph.text = "Welcome to Visiocast. \n \nVisiocast is a Podcast application built for people who are visually impaired. \nThere is a global button at the top for you to dictate commands, like 'Download The Empire Podcast' or 'search for Back to Work.' \n \nVisiocast started as a Software Development Masters project out of the University of Glasgow in the summer of 2015.\n \nContact:\nAndrew Lowson: andrew@lowson.co \nChuan Chen: 2122015C@student.gla.ac.uk"
-        }
-    }
-
-    @IBOutlet weak var AboutTabBarItem: UITabBarItem!
 }
 
 extension UIImage {
