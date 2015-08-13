@@ -22,13 +22,11 @@ class NowPlayingViewController: UIViewController {
     //var ButtonAudioURL = NSURL(fileURLWithPath: NSSearchPathDirectory.DocumentDirectory
     var isAudioPlaying = false
     
-    // not in use
-    var nowPlaying: AVAsset?
-    
     var podcastFile: NSData?
     
     var myPlayer = AVAudioPlayer()
     var podcastArtwork: UIImage?
+    var podcastArtist: String?
     
     @IBOutlet weak var artworkImageView: UIImageView!
     
@@ -42,8 +40,29 @@ class NowPlayingViewController: UIViewController {
         playButton.setTitle("Pause", forState: UIControlState.Normal)
         artworkImageView.image = podcastArtwork!
         episodeTitleLabel.text = episodeTitle!
+        episodeDescriptionLabel.text = podcastArtist
         
+        if NSClassFromString("MPNowPlayingInfoCenter") != nil {
+            let image: UIImage = podcastArtwork!
+            let albumArt = MPMediaItemArtwork(image: image)
+            println(albumArt)
+            var podcastInfo: NSMutableDictionary = [
+                MPMediaItemPropertyAlbumTitle: episodeTitle!,
+                MPMediaItemPropertyArtist: podcastArtist!,
+                MPMediaItemPropertyArtwork: albumArt
+            ]
+            MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = podcastInfo as [NSObject: AnyObject]
+            
+        } else {
+            println("error here")
+        }
         
+        if (AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)) {
+            println("Receiving remote control")
+            UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
+        } else {
+            println("Audio session error")
+        }
         
         //ButtonAudioPlayer = AVAudioPlayer(contentsOfURL: self.ButtonAudioURL, error: nil)
 
@@ -65,18 +84,22 @@ class NowPlayingViewController: UIViewController {
         myPlayer.prepareToPlay()
     }
     
-    
-    @IBAction func PlayAudio(sender: UIButton) {
-        if (isAudioPlaying) {
-            println(isAudioPlaying)
+   
+    func toggle() {
+        if isAudioPlaying {
             myPlayer.pause()
+            playButton.setTitle("Play", forState: UIControlState.Normal)
             isAudioPlaying = false
-            sender.setTitle("Play", forState: UIControlState.Normal)
         } else {
             myPlayer.play()
             isAudioPlaying = true
-            sender.setTitle("Pause", forState: UIControlState.Normal)
+            playButton.setTitle("Pause", forState: UIControlState.Normal)
         }
+    }
+    
+    @IBAction func PlayAudio(sender: UIButton) {
+        toggle()
+
     }
     
     func playAudio() {
@@ -87,11 +110,15 @@ class NowPlayingViewController: UIViewController {
         didSet{
             if self.isAudioPlaying {
                 playButton.setTitle("Pause", forState: UIControlState.Normal)
+                // grab play location and store it
             } else {
+                // load play location
                 playButton.setTitle("Play", forState: UIControlState.Normal)
             }
         }
     }
+    
+    
     @IBAction func SkipForward(sender: UIButton) {
         
     }
@@ -122,15 +149,6 @@ class NowPlayingViewController: UIViewController {
             self.presentViewController(activityVC, animated: true, completion: nil)
         }
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 

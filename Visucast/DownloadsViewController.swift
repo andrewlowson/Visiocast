@@ -216,6 +216,7 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
         nowPlaying.episodeTitleLabel?.text = title
         nowPlaying.podcastArtwork = podcastArtwork[title]!
         nowPlaying.artworkImageView?.image = podcastArtwork[title]!
+        nowPlaying.podcastArtist = podcasts[fileIndex].podcast?.podcastArtistName
     }
 
     

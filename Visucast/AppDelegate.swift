@@ -13,6 +13,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    override func remoteControlReceivedWithEvent(event: UIEvent) {
+        if event.type == UIEventType.RemoteControl {
+            if event.subtype == UIEventSubtype.RemoteControlPlay {
+                println("received remote play")
+                NowPlayingViewController.myPlayer.play()
+                NowPlayingViewController.isAudioPlaying = true
+            } else if event.subtype == UIEventSubtype.RemoteControlPause {
+                println("received remote pause")
+                NowPlayingViewController.myPlayer.pause()
+                NowPlayingViewController.isAudioPlaying = false
+            } else if event.subtype == UIEventSubtype.RemoteControlTogglePlayPause {
+                println("received toggle")
+                NowPlayingViewController.toggle()
+            }
+        }
+    }
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.

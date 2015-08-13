@@ -7,7 +7,7 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>D82411B1-D845-4D40-820D-EC5E5A1EC0AE</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>Visiocast</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>21ED15B4976141362B71005F3DEA58600865D3F4</key>
@@ -18,15 +18,15 @@
 		<string>https://github.com/SwiftyJSON/SwiftyJSON.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Visiocast.xcodeproj/project.xcworkspace</string>
+	<string>Visiocast.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>21ED15B4976141362B71005F3DEA58600865D3F4</key>
 		<string>../..</string>
 		<key>67620B5EFA902936DF04070AF595B76AB0333747</key>
-		<string>../..Alamofire</string>
+		<string>../..Alamofire/</string>
 		<key>C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3</key>
-		<string>../..SwiftyJSON</string>
+		<string>../..SwiftyJSON/</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/andrewlowson/Visiocast.git</string>
@@ -40,17 +40,9 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>21ED15B4976141362B71005F3DEA58600865D3F4</string>
-			<key>IDESourceControlWCCName</key>
-			<string>Visucast</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>67620B5EFA902936DF04070AF595B76AB0333747</string>
 			<key>IDESourceControlWCCName</key>
-			<string>VisucastAlamofire</string>
+			<string>Alamofire</string>
 		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
@@ -58,7 +50,15 @@
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3</string>
 			<key>IDESourceControlWCCName</key>
-			<string>VisucastSwiftyJSON</string>
+			<string>SwiftyJSON</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>21ED15B4976141362B71005F3DEA58600865D3F4</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Visucast</string>
 		</dict>
 	</array>
 </dict>
