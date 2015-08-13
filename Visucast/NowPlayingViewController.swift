@@ -33,7 +33,7 @@ class NowPlayingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        // remove this.
         self.prepareAudio(podcastFile!)
         self.myPlayer.play()
         isAudioPlaying = true

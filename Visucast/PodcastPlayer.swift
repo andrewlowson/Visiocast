@@ -11,15 +11,11 @@ import AVFoundation
 
 class PodcastPlayer {
 
-    static let sharedInstance = PodcastPlayer(podcast: NSData())
+    static let sharedInstance = PodcastPlayer()
     
     private var player: AVAudioPlayer?
     private var isPlaying = false
-
     
-    init(podcast: NSData) {
-        prepareAudio(podcast)
-    }
     
     func play() {
         player!.play()
@@ -43,6 +39,7 @@ class PodcastPlayer {
         player = AVAudioPlayer(data: myData, error: nil)
         player!.prepareToPlay()
     }
+    
     func currentlyPlaying() -> Bool {
         return isPlaying
     }

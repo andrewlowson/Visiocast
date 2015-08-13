@@ -17,15 +17,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if event.type == UIEventType.RemoteControl {
             if event.subtype == UIEventSubtype.RemoteControlPlay {
                 println("received remote play")
-                NowPlayingViewController.myPlayer.play()
-                NowPlayingViewController.isAudioPlaying = true
+                PodcastPlayer.sharedInstance.play()
+
             } else if event.subtype == UIEventSubtype.RemoteControlPause {
                 println("received remote pause")
-                NowPlayingViewController.myPlayer.pause()
-                NowPlayingViewController.isAudioPlaying = false
+                PodcastPlayer.sharedInstance.pause()
+
             } else if event.subtype == UIEventSubtype.RemoteControlTogglePlayPause {
                 println("received toggle")
-                NowPlayingViewController.toggle()
+                PodcastPlayer.sharedInstance.toggle()
             }
         }
     }
