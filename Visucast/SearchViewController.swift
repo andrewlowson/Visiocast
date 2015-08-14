@@ -9,16 +9,13 @@
 import UIKit
 
 class SearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, PodcastManagerProtocol {
-
-    var podcasts = [Podcast]()
-    
-    // Dictionary with String, UIImage
-    var podcastArtwork = [NSURL: UIImage]()
-    
+    // MARK: - Instance Variables
     let api = PodcastManager()
+    var podcasts = [Podcast]()
+    var podcastArtwork = [NSURL: UIImage]()
+    var searchActive : Bool = false
     
     @IBOutlet weak var podcastTableView: UITableView!
-
     @IBOutlet private weak var searchBar: UISearchBar! {
         didSet {
             searchBar.isAccessibilityElement == true
@@ -26,12 +23,9 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
             searchBar.text = searchText
         }
     }
-    
-    var searchActive : Bool = false
-    
     @IBOutlet weak var waitingForResults: UIActivityIndicatorView!
     
-    
+    // MARK: - Initialiser Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         api.delegate = self
@@ -54,7 +48,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         }
     }
     
-    
+    // MARK: - SearchBar
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
         searchActive = true;
         searchBar.setShowsCancelButton(true, animated: true)
@@ -92,7 +86,8 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
             api.podcastSearch(self.searchBar.text)
         }
     }
-       
+ 
+    // MARK: - TableView
     private struct Storyboard {
         static let CellReuseIdentifier = "Podcast"
     }
@@ -110,8 +105,6 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellReuseIdentifier, forIndexPath: indexPath) as! PodcastTableViewCell
         
         cell.podcast = podcasts[indexPath.row]
-        
-        //  This imagecaching block was suggested on JamesonQuave.com, it dramatically improves scrolling performance
         if let artwork = podcastArtwork[cell.podcast!.podcastArtwork!] {
             cell.podcastArtworkImageView?.image = artwork
         }

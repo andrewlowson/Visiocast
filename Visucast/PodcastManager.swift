@@ -23,6 +23,7 @@ class PodcastManager {
     var feedString = "http://cloud.feedly.com/v3/search/feeds/"
     // set up protocol
     var delegate: PodcastManagerProtocol?
+    let defaults = NSUserDefaults.standardUserDefaults()
 
     
     /**
@@ -53,7 +54,7 @@ class PodcastManager {
                     let artistName = resultJSON["artistName"].string
                     var artworkURL = resultJSON["artworkUrl600"].string
                     var feedURL = resultJSON["feedUrl"].string
-                    
+
                     if (artworkURL == nil) {
                         var artworkURL = resultJSON["artworkUrl100"].string
                     }
@@ -110,7 +111,7 @@ class PodcastManager {
     
     /**
      * Method to parse a podcast RSS and pull out individual episodes.
-     * Episode Objecst are then created and all put into an Array passed back to the method caller
+     * Episode Objects are then created and all put into an Array passed back to the method caller
      */
     func episodes(feedURL: NSURL, podcast: Podcast) -> Array<PodcastEpisode> {
         
@@ -118,24 +119,8 @@ class PodcastManager {
         var podcastArtwork: UIImage?
         
         let data = NSData(contentsOfURL: feedURL)
-        
         let parser = HTMLParser(data: data, error: nil)
-        
         let doc = parser.doc()
-        
-        // We need to parse the Show Data to get
-        let showData = doc.findChildTags("channel")
-        
-        for key in showData {
-            let showNode = key as! HTMLNode
-            
-//            var artworkURL: String? = showNode.findChildTag("itunes:image").description
-            
-  //          podcastArtwork = getImageFromURL(NSURL(string:artworkURL!)!)
-            podcastArtwork = UIImage(named: "glasgowLogo")
-        }
-        
-        
         let items = doc.findChildTags("item")
         
         for item in items {
@@ -143,11 +128,14 @@ class PodcastManager {
             
             var title: String? = itemNode.findChildTag("title").contents()
             var subtitle: String? = itemNode.findChildTag("subtitle")?.contents()
-            var summary: String? = itemNode.findChildTag("summary")?.contents()
+            var summary: String? = itemNode.findChildTag("description")?.contents()
             var publishedDateString: String? = itemNode.findChildTag("pubdate")?.contents()
             var duration: String? = itemNode.findChildTag("duration")?.contents()
             var enclosureURL: String? = itemNode.findChildTag("enclosure")?.getAttributeNamed("url")
             var enclosureLengthString: String? = itemNode.findChildTag("enclosure")?.getAttributeNamed("length")
+            var imageTag:String? = itemNode.findChildTag("image")?.getAttributeNamed("href")
+            var guid: String? = itemNode.findChildTag("guid")?.contents()
+            
             var enclosureLength: Int? = enclosureLengthString?.toInt()
             
             var publishedDate: NSDate?
@@ -180,9 +168,9 @@ class PodcastManager {
             if (enclosureLength == nil) {
                 enclosureLength = 0
             }
-            
-            let episode = PodcastEpisode(title: title!,description:  summary!,date:  publishedDate!,duration:  duration!,download:  enclosureURL!,subtitle:  subtitle!,size:  enclosureLength!, podcast: podcast, artwork: podcastArtwork!)
-            
+          
+//            let episode = PodcastEpisode(title: title!,description:  summary!,date:  publishedDate!,duration:  duration!,download:  enclosureURL!,subtitle:  subtitle!,size:  enclosureLength!, podcast: podcast, artwork: imageTag!)
+            let episode = PodcastEpisode(title: title!,description:  summary!,date:  publishedDate!,duration:  duration!,download:  enclosureURL!,subtitle:  subtitle!,size:  enclosureLength!, podcast: podcast)
             episodes.append(episode)
         }
         return episodes

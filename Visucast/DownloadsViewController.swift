@@ -15,6 +15,7 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
     var podcastArtwork = [String: UIImage]()
     
     let api = DownloadManager()
+    let defaults = NSUserDefaults.standardUserDefaults()
 
     @IBOutlet weak var episodesTableView: UITableView!
     @IBOutlet weak var downloadsTableView: UITableView!
@@ -41,6 +42,8 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
     override func viewDidAppear(animated: Bool) {
         podcasts.removeAll()
         loadFiles()
+        var myThing: AnyObject? = defaults.objectForKey("userNameKey")
+        println("Printing from UserDefaults: \(myThing!)")
     }
         
     // This searches the documents directory and grabs all the files in it.
@@ -62,10 +65,17 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                 let item = AVPlayerItem(URL: fileURL)
                 let metadataList = item.asset.commonMetadata as! [AVMetadataItem]
                 
+                let stuff = item.asset.metadata as! [AVMetadataItem]
+                for thing in stuff {
+                    println("\(thing.commonKey) \(thing.stringValue)")
+                }
+                
+                
                 var title: String?
                 var artist: String?
                 var podcastTitle: String?
                 var artwork: UIImage?
+                
                 for item in metadataList {
                     
                     if item.commonKey == nil {
@@ -73,7 +83,7 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                     }
                     if let key = item.commonKey, let value = item.value {
                         if key != "artwork" {
-                            println("\(key)  \(value)")
+                    //        println("\(key)  \(value)")
                         }
                         if key == "title" {
                             title = value as? String
@@ -124,7 +134,8 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                 publishedDate = dateFormatter.dateFromString("Wed, 29 Jul 2015 13:52:35 +0000")
                 
                 var podcast = Podcast(title: podcastTitle!, artist: artist!, artwork: "", feedURL: "")
-                var episode = PodcastEpisode(title: title!, description: file as String, date: publishedDate!, duration: "", download: "", subtitle: "", size: 0, podcast: podcast, artwork: artwork!)
+//                var episode = PodcastEpisode(title: title!, description: file as String, date: publishedDate!, duration: "", download: "", subtitle: "", size: 0, podcast: podcast, artwork: "")
+                var episode = PodcastEpisode(title: title!, description: file as String, date: publishedDate!, duration: "", download: "", subtitle: "", size: 0, podcast: podcast)
                 podcasts.append(episode)
             }
             episodesTableView.reloadData()
@@ -172,6 +183,10 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        var myThing: AnyObject? = defaults.objectForKey("userNameKey")
+        println("Printing from UserDefaults: \(myThing!)")
+        
         
         //Get the new view controller using segue.destinationViewController.
         //Pass the selected object to the new view controller.

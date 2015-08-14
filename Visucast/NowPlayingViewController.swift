@@ -46,11 +46,15 @@ class NowPlayingViewController: UIViewController {
         PodcastPlayer.sharedInstance.prepareAudio(podcastFile!)
 
         playButton.setTitle("Pause", forState: UIControlState.Normal)
+        isAudioPlaying = true
         if podcastArtwork != nil {
             artworkImageView.image = podcastArtwork!
         }
-        episodeTitleLabel.text = episodeTitle!
-        episodeDescriptionLabel.text = podcastArtist
+        if episodeTitle != nil {
+            episodeTitleLabel.text = episodeTitle!
+        } else {
+            episodeTitleLabel.text = podcastArtist
+        }
         
         if NSClassFromString("MPNowPlayingInfoCenter") != nil {
             if podcastArtwork != nil {
@@ -86,17 +90,6 @@ class NowPlayingViewController: UIViewController {
         myPlayer.prepareToPlay()
     }
     
-    func toggle() {
-        if isAudioPlaying {
-            PodcastPlayer.sharedInstance.pause()
-            playButton.setTitle("Play", forState: UIControlState.Normal)
-            time = PodcastPlayer.sharedInstance.currentTime
-        } else {
-            PodcastPlayer.sharedInstance
-            playButton.setTitle("Pause", forState: UIControlState.Normal)
-        }
-    }
-
     @IBAction func shareButton(sender: UIBarButtonItem) {
         
         let sharingContents = "Listen to \(episodeTitle!). via Visiocast"
@@ -108,15 +101,20 @@ class NowPlayingViewController: UIViewController {
     
     
     @IBAction func PlayAudio(sender: UIButton) {
-        toggle()
+        PodcastPlayer.sharedInstance.toggle()
+        if (PodcastPlayer.sharedInstance.currentlyPlaying()) {
+            sender.setTitle("Pause", forState: UIControlState.Normal)
+        } else {
+            sender.setTitle("Play", forState: UIControlState.Normal)
+        }
     }
     
     @IBAction func SkipForward(sender: UIButton) {
-        
+        PodcastPlayer.sharedInstance.skipForward()
     }
     
     @IBAction func SkipBack(sender: UIButton) {
-        
+        PodcastPlayer.sharedInstance.skipBack()
     }
     
     

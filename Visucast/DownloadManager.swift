@@ -9,6 +9,7 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
+import AVFoundation
 
 protocol DownloadManagerProtocol {
     func didReceiveDownload(PodcastEpisode)
@@ -22,9 +23,19 @@ class DownloadManager {
     var delegate: DownloadManagerProtocol?
     var duplicate: Bool? = false
     
+    
+    /**
+     *
+     *
+     *
+     **/
     func initiateDownload(podcastEpisode: PodcastEpisode, downloadURL: NSURL) {
-        println("I'm going to start downloading something now")
         episode = podcastEpisode
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject("Coding Explorer", forKey: "userNameKey")
+        
+        var test = episode!.podcast!.podcastFeed!
+        
         
         let pathString = "\(downloadURL)"
         let path = split(pathString) {$0 == "/"}
@@ -48,9 +59,39 @@ class DownloadManager {
                     println("\(response!)")
                     println(self.episode!.episodeTitle)
                     //self.episode?.filePath =
+                   // self.writeMetaData(self.fileName!)
                     self.delegate?.didReceiveDownload(self.episode!)
             }
         }
+    }
+    
+    func writeMetaData(filename: String) {
+        var documentsPath = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as! String
+        var fileString = documentsPath+"/"+filename
+        var fileURL: NSURL! = NSURL(string: fileString)!
+        
+        
+        
+        let item = AVPlayerItem(URL: fileURL)
+        
+        var stuff = item.asset.metadata
+        for item in stuff {
+            println(item)
+        }
+        
+//        let newitem: AVMutableMetadataItem
+//        newitem.key = AVMetadataKeySpaceCommon
+//        newitem.keySpace = AVMetadataKeySpaceCommon
+//        
+        
+        let title = "Title"
+        
+        let metadataList = item.asset.commonMetadata as! [AVMetadataItem]
+        for item in metadataList {
+            
+        }
+        
+        
     }
     
     func isDuplicate(fileURL: NSURL) -> Bool {

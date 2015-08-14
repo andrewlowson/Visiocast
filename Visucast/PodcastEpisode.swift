@@ -24,8 +24,11 @@ class PodcastEpisode: NSObject {
     var filePath: String?
     var artwork: UIImage?
 
+//    init(title: String, description: String, date: NSDate,
+//        duration: String, download: String, subtitle: String, size: Int, podcast: Podcast, artwork: String)
     init(title: String, description: String, date: NSDate,
-        duration: String, download: String, subtitle: String, size: Int, podcast: Podcast, artwork: UIImage)
+        duration: String, download: String, subtitle: String, size: Int, podcast: Podcast)
+
     {
         self.episodeTitle = title
         self.episodeDownloadURL = NSURL(string: download)
@@ -35,6 +38,16 @@ class PodcastEpisode: NSObject {
         self.episodeSubtitle = subtitle
         self.episodeSize = size
         self.podcast = podcast
-        self.artwork = artwork
+        
+        
+//        if artwork == "" {
+//            var image = UIImage(named: "glasgowLogo")
+//            self.artwork = image
+//        } else {
+//            var image = UIImage(data: NSData(contentsOfURL: NSURL(string: artwork)!)!)
+//            self.artwork = image
+//        }
+//        
+        
     }
 }

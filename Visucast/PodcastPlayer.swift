@@ -52,4 +52,18 @@ class PodcastPlayer {
         return isPlaying
     }
     
+    func skipForward() {
+        "Hello"
+        currentTime = player!.currentTime
+        println(currentTime)
+        currentTime = currentTime + 30
+        player!.currentTime = currentTime
+    }
+    
+    func skipBack() {
+        currentTime = player!.currentTime
+        println(currentTime)
+        currentTime = currentTime - 30
+        player!.currentTime = currentTime
+    }
 }
