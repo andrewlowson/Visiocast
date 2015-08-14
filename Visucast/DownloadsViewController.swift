@@ -99,8 +99,10 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                 println()
                 if artwork == nil {
                   println("I got no artwork....")
+                    artwork =  UIImage(named: "glasgowLogo")
                     if title != nil {
                         println(title)
+
                     }
                 } else {
                     self.podcastArtwork[title!] = artwork!
@@ -122,7 +124,7 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                 publishedDate = dateFormatter.dateFromString("Wed, 29 Jul 2015 13:52:35 +0000")
                 
                 var podcast = Podcast(title: podcastTitle!, artist: artist!, artwork: "", feedURL: "")
-                var episode = PodcastEpisode(title: title!, description: file as String, date: publishedDate!, duration: "", download: "", subtitle: "", size: 0, podcast: podcast)
+                var episode = PodcastEpisode(title: title!, description: file as String, date: publishedDate!, duration: "", download: "", subtitle: "", size: 0, podcast: podcast, artwork: artwork!)
                 podcasts.append(episode)
             }
             episodesTableView.reloadData()

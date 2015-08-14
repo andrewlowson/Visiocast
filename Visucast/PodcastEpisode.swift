@@ -22,9 +22,10 @@ class PodcastEpisode: NSObject {
     var episodeSize: Int
     var podcast: Podcast?
     var filePath: String?
+    var artwork: UIImage?
 
     init(title: String, description: String, date: NSDate,
-        duration: String, download: String, subtitle: String, size: Int, podcast: Podcast)
+        duration: String, download: String, subtitle: String, size: Int, podcast: Podcast, artwork: UIImage)
     {
         self.episodeTitle = title
         self.episodeDownloadURL = NSURL(string: download)
@@ -34,5 +35,6 @@ class PodcastEpisode: NSObject {
         self.episodeSubtitle = subtitle
         self.episodeSize = size
         self.podcast = podcast
+        self.artwork = artwork
     }
 }

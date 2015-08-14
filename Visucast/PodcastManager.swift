@@ -9,6 +9,7 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
+import UIKit
 
 protocol PodcastManagerProtocol {
     func didReceiveResults(results: NSArray)
@@ -114,12 +115,26 @@ class PodcastManager {
     func episodes(feedURL: NSURL, podcast: Podcast) -> Array<PodcastEpisode> {
         
         var episodes: Array<PodcastEpisode> = []
+        var podcastArtwork: UIImage?
         
         let data = NSData(contentsOfURL: feedURL)
         
         let parser = HTMLParser(data: data, error: nil)
         
         let doc = parser.doc()
+        
+        // We need to parse the Show Data to get
+        let showData = doc.findChildTags("channel")
+        
+        for key in showData {
+            let showNode = key as! HTMLNode
+            
+//            var artworkURL: String? = showNode.findChildTag("itunes:image").description
+            
+  //          podcastArtwork = getImageFromURL(NSURL(string:artworkURL!)!)
+            podcastArtwork = UIImage(named: "glasgowLogo")
+        }
+        
         
         let items = doc.findChildTags("item")
         
@@ -166,11 +181,27 @@ class PodcastManager {
                 enclosureLength = 0
             }
             
-            let episode = PodcastEpisode(title: title!,description:  summary!,date:  publishedDate!,duration:  duration!,download:  enclosureURL!,subtitle:  subtitle!,size:  enclosureLength!, podcast: podcast)
+            let episode = PodcastEpisode(title: title!,description:  summary!,date:  publishedDate!,duration:  duration!,download:  enclosureURL!,subtitle:  subtitle!,size:  enclosureLength!, podcast: podcast, artwork: podcastArtwork!)
             
             episodes.append(episode)
         }
         return episodes
+    }
+    
+    func getImageFromURL (url: NSURL) -> UIImage {
+        var image: UIImage! = nil
+        let request: NSURLRequest = NSURLRequest(URL: url)
+        let mainQueue = NSOperationQueue.mainQueue()
+        NSURLConnection.sendAsynchronousRequest(request, queue: mainQueue, completionHandler: { (response, data, error) -> Void in
+            if error == nil {
+                // Convert the downloaded data in to a UIImage object
+                image = UIImage(data: data)
+            }
+            else {
+                println("Error: \(error.localizedDescription)")
+            }
+        })
+        return image
     }
     
     

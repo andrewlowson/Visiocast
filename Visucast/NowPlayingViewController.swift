@@ -96,6 +96,16 @@ class NowPlayingViewController: UIViewController {
             playButton.setTitle("Pause", forState: UIControlState.Normal)
         }
     }
+
+    @IBAction func shareButton(sender: UIBarButtonItem) {
+        
+        let sharingContents = "Listen to \(episodeTitle!). via Visiocast"
+        
+        let activityVC: UIActivityViewController = UIActivityViewController(activityItems: [sharingContents], applicationActivities: nil)
+        self.presentViewController(activityVC, animated: true, completion: nil)
+    }
+    
+    
     
     @IBAction func PlayAudio(sender: UIButton) {
         toggle()
@@ -109,22 +119,7 @@ class NowPlayingViewController: UIViewController {
         
     }
     
-    @IBAction func shareButton(sender: UIBarButtonItem) {
     
-    }
     
-    @IBAction func shareButtonClicked(sender: UIButton)
-    {
-        let textToShare = "Swift is awesome!  Check out this website about it!"
-        
-        if let myWebsite = NSURL(string: "http://www.codingexplorer.com/")
-        {
-            let objectsToShare = [textToShare, myWebsite]
-            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
-            
-            self.presentViewController(activityVC, animated: true, completion: nil)
-        }
-    }
-
 }
 

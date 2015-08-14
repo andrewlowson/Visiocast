@@ -14,8 +14,8 @@ class Podcast {
     
     var podcastTitle: String!
     var podcastArtistName: String!
-    var podcastArtwork = NSURL(string: "")
-    var podcastFeed = NSURL(string: "")
+    var podcastArtwork: NSURL!
+    var podcastFeed:    NSURL!
     
     var episodes = [PodcastEpisode]()
     

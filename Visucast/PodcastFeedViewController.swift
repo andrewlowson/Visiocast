@@ -17,6 +17,7 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
     let api = PodcastManager()
     let downloader = DownloadManager()
     var podcastEpisodes = [PodcastEpisode]()
+    var podcastFeedDetails = [String: String]()
     
     var podcast: Podcast?
     var podcastFeed: NSURL?
@@ -26,16 +27,18 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        isLoadingEpisodes.startAnimating()
+        
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true // activate the Network spinner in the menubar
+        isLoadingEpisodes.startAnimating() // activity spinner to show user that we're polling the feed for results
         tableView.estimatedRowHeight = tableView.rowHeight
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableViewAutomaticDimension // set the heights for the tableview cells
         
         api.delegate = self
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+
         tableView.delegate = self
         tableView.dataSource = self
     
-        title = podcastTitle!
+        title = podcastTitle! //set view title to be the name of the podcast the user selected
         tableView.reloadData()
     }
 
@@ -56,10 +59,6 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
         self.podcastFeed = podcastFeed
         self.podcastTitle = podcastTitle
     }
-//    func setValues(feed: NSURL, title: String) {
-//        self.podcastFeed = feed
-//        self.podcastTitle = title
-//    }
     
     @IBOutlet weak var SearchTabBarItem: UITabBarItem!
     /*
@@ -89,7 +88,7 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return podcastEpisodes.count
+        return podcastEpisodes.count // we want one cell for each podcast episode we get in the feed
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
@@ -109,20 +108,16 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
         var selectedPodcast = self.podcastEpisodes[podcastIndex]
         var downloadURL = selectedPodcast.episodeDownloadURL
         
-        // check to see if we already have the episode, if we don't then download it.
+        // check to see if user already downloaded the episode, if we don't then download it.
         if !downloader.isDuplicate(downloadURL!) {
             downloader.initiateDownload(selectedPodcast ,downloadURL: downloadURL!)
         } else {
+            // if we already have the episode display an information box alerting the user to that fact
             let alertController = UIAlertController(title: "Download Error", message: "You have already downloaded this.", preferredStyle: .Alert)
-            
-            let OKAction = UIAlertAction(title: "OK", style: .Default) { (action) in
-                // alert action doesn't need to do anything
-            }
+            alertController.isAccessibilityElement = true
+
+            let OKAction = UIAlertAction(title: "OK", style: .Default) { (action) in } // Set up default OK action for user to dismiss alert
             alertController.addAction(OKAction)
-            
-            self.presentViewController(alertController, animated: true) {
-                // ...
-            }
         }
         
     }
