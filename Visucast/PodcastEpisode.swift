@@ -38,16 +38,5 @@ class PodcastEpisode: NSObject {
         self.episodeSubtitle = subtitle
         self.episodeSize = size
         self.podcast = podcast
-        
-        
-//        if artwork == "" {
-//            var image = UIImage(named: "glasgowLogo")
-//            self.artwork = image
-//        } else {
-//            var image = UIImage(data: NSData(contentsOfURL: NSURL(string: artwork)!)!)
-//            self.artwork = image
-//        }
-//        
-        
     }
 }

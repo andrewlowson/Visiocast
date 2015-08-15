@@ -53,7 +53,6 @@ class PodcastPlayer {
     }
     
     func skipForward() {
-        "Hello"
         currentTime = player!.currentTime
         println(currentTime)
         currentTime = currentTime + 30

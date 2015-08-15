@@ -18,7 +18,8 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
     let downloader = DownloadManager()
     var podcastEpisodes = [PodcastEpisode]()
     var podcastFeedDetails = [String: String]()
-    
+    let defaults = NSUserDefaults.standardUserDefaults()
+
     var podcast: Podcast?
     var podcastFeed: NSURL?
     var podcastTitle: String?
@@ -103,14 +104,26 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         // trigger download
-        println("Selected")
         var podcastIndex = tableView.indexPathForSelectedRow()!.row
         var selectedPodcast = self.podcastEpisodes[podcastIndex]
         var downloadURL = selectedPodcast.episodeDownloadURL
         
         // check to see if user already downloaded the episode, if we don't then download it.
         if !downloader.isDuplicate(downloadURL!) {
-            downloader.initiateDownload(selectedPodcast ,downloadURL: downloadURL!)
+            
+            // Add the podcast to NSUserDefaults so we can have podcast information in the Player
+            var storage = api.getEpisodeData(podcastFeed!, item: podcastIndex)
+            
+            let pathString = "\(downloadURL!)"
+            let path = split(pathString) {$0 == "/"}
+            let fileName = path[path.count-1]
+            println("Filename: \(fileName)")
+            defaults.setObject(storage, forKey: fileName)
+            println("Unique Key: \(fileName)")
+            println("Value: \(defaults.objectForKey(fileName))")
+            
+            downloader.initiateDownload(selectedPodcast ,downloadURL: downloadURL!,storage: storage)
+            
         } else {
             // if we already have the episode display an information box alerting the user to that fact
             let alertController = UIAlertController(title: "Download Error", message: "You have already downloaded this.", preferredStyle: .Alert)

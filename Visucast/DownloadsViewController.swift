@@ -43,6 +43,7 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
         podcasts.removeAll()
         loadFiles()
         var myThing: AnyObject? = defaults.objectForKey("userNameKey")
+        
         println("Printing from UserDefaults: \(myThing!)")
     }
         
@@ -58,7 +59,13 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
             let mp3Files = directoryUrls.map(){ $0.lastPathComponent }.filter(){ $0.pathExtension == "mp3" }
             
             for (file: String) in mp3Files {
-
+                
+                var thing: String = file
+                var found: AnyObject? = defaults.objectForKey(thing)
+                if found != nil {
+                    println("loading files entry \(found!)")
+                }
+                
                 var fileString = "\(documentsUrl)"+file
                 var fileURL: NSURL! = NSURL(string: fileString)!
                 
@@ -70,6 +77,9 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                     println("\(thing.commonKey) \(thing.stringValue)")
                 }
                 
+                if let podcastInfo = found as? [String : String] {
+                    
+                }
                 
                 var title: String?
                 var artist: String?
@@ -82,9 +92,6 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                         continue
                     }
                     if let key = item.commonKey, let value = item.value {
-                        if key != "artwork" {
-                    //        println("\(key)  \(value)")
-                        }
                         if key == "title" {
                             title = value as? String
                         }
@@ -121,7 +128,11 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                     artist = file
                 }
                 if (podcastTitle == nil) {
-                    podcastTitle = file
+                    if let podcastInfo = found as? [String : String] {
+                            podcastTitle = found!["title"] as? String
+                    } else {
+                        podcastTitle = ""
+                    }
                 }
                 if title == nil {
                     title = file

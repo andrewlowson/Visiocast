@@ -176,6 +176,41 @@ class PodcastManager {
         return episodes
     }
     
+    func getEpisodeData(feed:NSURL, item: Int) -> [String: String] {
+        var episodeData = [String: String]()
+
+        
+        let data = NSData(contentsOfURL: feed)
+        let parser = HTMLParser(data: data, error: nil)
+        let doc = parser.doc()
+        let items = doc.findChildTags("item")
+
+        var itemNode = items[item] as! HTMLNode
+        
+        var title: String? = itemNode.findChildTag("title").contents()
+        var subtitle: String? = itemNode.findChildTag("subtitle")?.contents()
+        var summary: String? = itemNode.findChildTag("description")?.contents()
+        var publishedDateString: String? = itemNode.findChildTag("pubdate")?.contents()
+        var duration: String? = itemNode.findChildTag("duration")?.contents()
+        var enclosureURL: String? = itemNode.findChildTag("enclosure")?.getAttributeNamed("url")
+        var enclosureLengthString: String? = itemNode.findChildTag("enclosure")?.getAttributeNamed("length")
+        var imageTag:String? = itemNode.findChildTag("image")?.getAttributeNamed("href")
+        var guid: String? = itemNode.findChildTag("guid")?.contents()
+        
+        episodeData.updateValue(title!, forKey: "title")
+        episodeData.updateValue(subtitle!, forKey: "subtitle")
+        episodeData.updateValue(summary!, forKey: "description")
+        episodeData.updateValue(imageTag!, forKey: "artwork")
+        episodeData.updateValue(guid!, forKey: "guid")
+        
+        println(episodeData)
+        
+        return episodeData
+        
+        
+    }
+    
+    
     func getImageFromURL (url: NSURL) -> UIImage {
         var image: UIImage! = nil
         let request: NSURLRequest = NSURLRequest(URL: url)
