@@ -122,7 +122,7 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
             println("Unique Key: \(fileName)")
             println("Value: \(defaults.objectForKey(fileName))")
             
-            downloader.initiateDownload(selectedPodcast ,downloadURL: downloadURL!,storage: storage)
+            downloader.initiateDownload(selectedPodcast ,downloadURL: downloadURL!, episodeData: storage)
             
         } else {
             // if we already have the episode display an information box alerting the user to that fact

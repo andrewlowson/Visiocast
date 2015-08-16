@@ -32,23 +32,13 @@ class DownloadManager {
      *
      *
      **/
-    func initiateDownload(podcastEpisode: PodcastEpisode, downloadURL: NSURL, storage: [String: String]) {
+    func initiateDownload(podcastEpisode: PodcastEpisode, downloadURL: NSURL, episodeData: [String: String]) {
         episode = podcastEpisode
-        let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.setObject("Coding Explorer", forKey: "userNameKey")
-        
-        var test = episode!.podcast!.podcastFeed!
-        
         buildFileArray()
         
-        let pathString = "\(downloadURL)"
-        let path = split(pathString) {$0 == "/"}
-        fileName = path[path.count-1]
-        episode!.filePath = fileName
-        println("path: \(fileName!)")
         if Reachability.isConnectedToNetwork() {
             let destination = Alamofire.Request.suggestedDownloadDestination(directory: .DocumentDirectory, domain: .UserDomainMask)
-            println("Destination: \(destination)")
+
             Alamofire.download(.GET, downloadURL, destination: destination)
                 .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
                     var inBytes = totalBytesExpectedToRead
@@ -59,33 +49,36 @@ class DownloadManager {
                     
                     println("\(percentage.format(someDoubleFormat))% Complete. \(soFar.format(someDoubleFormat))MB of \(inMBytes)MB downloaded.")
                 }
-                .response { request, response, _, error in
+                .responseJSON { request, response, jsonDict, error in
                     println("\(response!)")
                     println(self.episode!.episodeTitle)
-                    let jsonValue = JSON(response!)
-                    let anotherThing = jsonValue["NSHTTPURLResponse"].string
-                    println(anotherThing)
-                    println(jsonValue)
-//                    let url = jsonValue["URL"].string
-//                    let statuscode = jsonValue["status code"].int
-//                    println("Status Code: \(statuscode)")
-//                    println("URL: \(url!)")
-//                        let path = split(url!) {$0 == "/"}
-//                        let filename = path[path.count-1]
-//                        println("Filename: \(filename)")
-                    
+                    let httpresponse: NSHTTPURLResponse = response!
+                    let statusCode = httpresponse.statusCode
+                    if (statusCode == 200) {
+                        let url = httpresponse.URL!
                         self.delegate?.didReceiveDownload(self.episode!)
-//                        self.updateUserDefaults(storage, url: url!, filename: filename)
-                    
-                    
+                        self.updateUserDefaults(episodeData, url: url)
+                    } else {
+                        println("Download Errror")
+                    }
             }
         }
     }
     
-    func updateUserDefaults(storage: [String : String], url: String, filename: String) {
+    func updateUserDefaults(episodeData: [String : String], url: NSURL) {
         
-        defaults.setObject(storage, forKey: url)
-        defaults.setObject(url, forKey: filename)
+        var fullURL = "\(url)"
+        
+        var seperate = fullURL.componentsSeparatedByString("/")
+        var fileslug = seperate[seperate.count-1]
+        var split = fileslug.componentsSeparatedByString("?")
+        
+        var filename: String! = split[0]
+        println("Filename after split: \(filename)")
+        println("URL after split: \(fileslug)")
+        println("Episode Data For Download: \(episodeData)")
+        defaults.setObject(episodeData, forKey: filename)
+        defaults.setObject(filename, forKey: fullURL)
     }
     
     func writeMetaData(filename: String) {

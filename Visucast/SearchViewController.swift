@@ -65,7 +65,6 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        
         searchActive = false;
         searchText = searchBar.text
         podcasts.removeAll()
@@ -76,7 +75,6 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         println("back to search")
         searchBar.resignFirstResponder()
         searchBar.setShowsCancelButton(false, animated: true)
-        
     }
     
     var searchText: String? = "" {

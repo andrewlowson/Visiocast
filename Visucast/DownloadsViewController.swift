@@ -42,9 +42,6 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
     override func viewDidAppear(animated: Bool) {
         podcasts.removeAll()
         loadFiles()
-        var myThing: AnyObject? = defaults.objectForKey("userNameKey")
-        
-        println("Printing from UserDefaults: \(myThing!)")
     }
         
     // This searches the documents directory and grabs all the files in it.
@@ -60,11 +57,7 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
             
             for (file: String) in mp3Files {
                 
-                var thing: String = file
-                var found: AnyObject? = defaults.objectForKey(thing)
-                if found != nil {
-                    println("loading files entry \(found!)")
-                }
+                var backup = defaults.objectForKey(file) as? [String : String]
                 
                 var fileString = "\(documentsUrl)"+file
                 var fileURL: NSURL! = NSURL(string: fileString)!
@@ -72,22 +65,16 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                 let item = AVPlayerItem(URL: fileURL)
                 let metadataList = item.asset.commonMetadata as! [AVMetadataItem]
                 
-                let stuff = item.asset.metadata as! [AVMetadataItem]
-                for thing in stuff {
-                    println("\(thing.commonKey) \(thing.stringValue)")
-                }
-                
-                if let podcastInfo = found as? [String : String] {
-                    
-                }
+                let metaDataItem = item.asset.metadata as! [AVMetadataItem]
+
                 
                 var title: String?
                 var artist: String?
                 var podcastTitle: String?
                 var artwork: UIImage?
+                var artworkString: String?
                 
                 for item in metadataList {
-                    
                     if item.commonKey == nil {
                         continue
                     }
@@ -101,11 +88,6 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                         if key == "albumName" {
                             podcastTitle = value as? String
                         }
-                        if key == "artwork" {
-                            if let image = UIImage(data: value as! NSData) {
-                                artwork = image
-                            }
-                        }
                     } else {
                         println("I'm getting no metadata for this file")
                         title = file
@@ -113,29 +95,34 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                         podcastTitle = file
                     }
                 }
-                println()
-                if artwork == nil {
-                  println("I got no artwork....")
-                    artwork =  UIImage(named: "glasgowLogo")
-                    if title != nil {
-                        println(title)
+                
 
-                    }
-                } else {
-                    self.podcastArtwork[title!] = artwork!
+                if let backup = defaults.objectForKey(file) as? [String : String] {
+                        
+                    title = backup["title"]
+                    artworkString = backup["artwork"]
+                    var artworkURL = NSURL(string: backup["artwork"]!)
+                    
+                    var artworkData = NSData(contentsOfURL: artworkURL!)
+                    artwork = UIImage(data: artworkData!)
+                    self.podcastArtwork[title!] = artwork
                 }
+                if title != nil {
+                    println(title)
+                }
+
                 if (artist == nil) {
                     artist = file
                 }
                 if (podcastTitle == nil) {
-                    if let podcastInfo = found as? [String : String] {
-                            podcastTitle = found!["title"] as? String
-                    } else {
-                        podcastTitle = ""
+                    if let backup = defaults.objectForKey(file) as? [String : String] {
+                        podcastTitle = backup["title"]!
                     }
                 }
                 if title == nil {
-                    title = file
+                    if let backup = defaults.objectForKey(file) as? [String : String] {
+                        title = backup["title"]!
+                    }
                 }
                 
                 var publishedDate: NSDate?
@@ -144,7 +131,7 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                 
                 publishedDate = dateFormatter.dateFromString("Wed, 29 Jul 2015 13:52:35 +0000")
                 
-                var podcast = Podcast(title: podcastTitle!, artist: artist!, artwork: "", feedURL: "")
+                var podcast = Podcast(title: podcastTitle!, artist: artist!, artwork: artworkString!, feedURL: "")
 //                var episode = PodcastEpisode(title: title!, description: file as String, date: publishedDate!, duration: "", download: "", subtitle: "", size: 0, podcast: podcast, artwork: "")
                 var episode = PodcastEpisode(title: title!, description: file as String, date: publishedDate!, duration: "", download: "", subtitle: "", size: 0, podcast: podcast)
                 podcasts.append(episode)
@@ -180,23 +167,13 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
         let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellReuseIdentifier, forIndexPath: indexPath) as! DownloadsTableViewCell
         
         cell.episode = podcasts[indexPath.row]
-        var podcast = podcasts[indexPath.row]
-        var title = podcast.episodeTitle!
-        var description = podcast.episodeDescription!
-        var artwork = podcastArtwork[title]
         
-        if let artwork = podcastArtwork[podcast.episodeTitle!] {
-            cell.episodeArtworkImageView?.image = artwork
-        }
-
         return cell
     }
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        var myThing: AnyObject? = defaults.objectForKey("userNameKey")
-        println("Printing from UserDefaults: \(myThing!)")
         
         
         //Get the new view controller using segue.destinationViewController.
@@ -260,7 +237,6 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
             loadFiles()
         }
     }
-
 }
 
 extension NSFileManager {

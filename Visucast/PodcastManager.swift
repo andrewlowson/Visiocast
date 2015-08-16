@@ -103,11 +103,8 @@ class PodcastManager {
                     }
             }
         } else {
-            
         }
-        
     }
-    
     
     /**
      * Method to parse a podcast RSS and pull out individual episodes.
@@ -188,7 +185,7 @@ class PodcastManager {
         var itemNode = items[item] as! HTMLNode
         
         var title: String? = itemNode.findChildTag("title").contents()
-        var subtitle: String? = itemNode.findChildTag("subtitle")?.contents()
+        //var subtitle: String? = itemNode.findChildTag("subtitle")?.contents()
         var summary: String? = itemNode.findChildTag("description")?.contents()
         var publishedDateString: String? = itemNode.findChildTag("pubdate")?.contents()
         var duration: String? = itemNode.findChildTag("duration")?.contents()
@@ -198,18 +195,23 @@ class PodcastManager {
         var guid: String? = itemNode.findChildTag("guid")?.contents()
         
         episodeData.updateValue(title!, forKey: "title")
-        episodeData.updateValue(subtitle!, forKey: "subtitle")
+        //episodeData.updateValue(subtitle!, forKey: "subtitle")
         episodeData.updateValue(summary!, forKey: "description")
-        episodeData.updateValue(imageTag!, forKey: "artwork")
+        
         episodeData.updateValue(guid!, forKey: "guid")
         
+        if (imageTag != nil) {
+            episodeData.updateValue(imageTag!, forKey: "artwork")
+        } else {
+            var image: String? = doc.findChildTag("image")?.getAttributeNamed("href")
+            if image != nil {
+                episodeData.updateValue(image!, forKey: "artwork")
+            }
+        }
+        
         println(episodeData)
-        
         return episodeData
-        
-        
     }
-    
     
     func getImageFromURL (url: NSURL) -> UIImage {
         var image: UIImage! = nil
@@ -226,7 +228,4 @@ class PodcastManager {
         })
         return image
     }
-    
-    
-    
 }
