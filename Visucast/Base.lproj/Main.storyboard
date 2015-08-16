@@ -484,6 +484,9 @@
                                 <rect key="frame" x="0.0" y="64" width="600" height="100"/>
                                 <color key="backgroundColor" red="0.43812830320000001" green="0.48216619900000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <accessibility key="accessibilityConfiguration" hint="Press to give application a command" label="Dictate"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="4Cn-HW-ctf"/>
+                                </constraints>
                                 <state key="normal" title="Dictate" image="microphoneIcon">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -521,6 +524,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gyx-w5-Dfy">
                                 <rect key="frame" x="175" y="205" width="252" height="252"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" secondItem="gyx-w5-Dfy" secondAttribute="height" multiplier="1:1" id="TvD-IG-wvd"/>
                                     <constraint firstAttribute="width" constant="146" id="qV7-X0-Oqu"/>
                                     <constraint firstAttribute="width" constant="252" id="xA2-g5-Eam"/>
                                 </constraints>
@@ -565,7 +569,6 @@
                             <constraint firstItem="x12-7w-DUj" firstAttribute="centerX" secondItem="goV-fm-zSM" secondAttribute="centerX" id="ZEn-Hc-H03"/>
                             <constraint firstItem="rEC-fO-XPX" firstAttribute="top" secondItem="2pY-9h-7Ff" secondAttribute="bottom" constant="22" id="cUT-fM-4OA"/>
                             <constraint firstItem="gyx-w5-Dfy" firstAttribute="top" secondItem="x12-7w-DUj" secondAttribute="bottom" constant="12" id="eEV-VL-4bA"/>
-                            <constraint firstItem="qyw-Ju-rkE" firstAttribute="top" secondItem="Bxs-4U-5oJ" secondAttribute="bottom" constant="13" id="eV7-1T-z1c"/>
                             <constraint firstItem="rEC-fO-XPX" firstAttribute="leading" secondItem="Bxs-4U-5oJ" secondAttribute="trailing" constant="8" symbolic="YES" id="gYH-C4-tGe"/>
                             <constraint firstItem="Bxs-4U-5oJ" firstAttribute="leading" secondItem="LNS-Tv-ejl" secondAttribute="leading" constant="-1" id="hAf-xo-1Hp"/>
                             <constraint firstItem="gyx-w5-Dfy" firstAttribute="centerX" secondItem="rEC-fO-XPX" secondAttribute="centerX" id="hR8-L5-TBI"/>

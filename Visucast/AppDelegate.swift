@@ -26,6 +26,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } else if event.subtype == UIEventSubtype.RemoteControlTogglePlayPause {
                 println("received toggle")
                 PodcastPlayer.sharedInstance.toggle()
+            } else if event.subtype == UIEventSubtype.RemoteControlBeginSeekingForward {
+                println("received skip forward")
+                PodcastPlayer.sharedInstance.skipForward()
+            } else if event.subtype == UIEventSubtype.RemoteControlBeginSeekingBackward {
+                println("received skip back")
+                PodcastPlayer.sharedInstance.skipBack()
             }
         }
     }

@@ -28,15 +28,16 @@ class DownloadManager {
     let documentsUrl =  NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as! NSURL
 
     /**
-     *
-     *
-     *
+     * Main method to download an episode of a podcast.
+     * Prints out the progress state as a percentage and as a total
+     * 
      **/
     func initiateDownload(podcastEpisode: PodcastEpisode, downloadURL: NSURL, episodeData: [String: String]) {
         episode = podcastEpisode
         if Reachability.isConnectedToNetwork() {
             let destination = Alamofire.Request.suggestedDownloadDestination(directory: .DocumentDirectory, domain: .UserDomainMask)
             
+            // start the download off the main thread so UI still remains responsive
             let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
             dispatch_async(dispatch_get_global_queue(priority, 0)) {
                 Alamofire.download(.GET, downloadURL, destination: destination)
