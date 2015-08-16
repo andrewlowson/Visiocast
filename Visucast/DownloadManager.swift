@@ -34,33 +34,37 @@ class DownloadManager {
      **/
     func initiateDownload(podcastEpisode: PodcastEpisode, downloadURL: NSURL, episodeData: [String: String]) {
         episode = podcastEpisode
-        buildFileArray()
-        
         if Reachability.isConnectedToNetwork() {
             let destination = Alamofire.Request.suggestedDownloadDestination(directory: .DocumentDirectory, domain: .UserDomainMask)
-
-            Alamofire.download(.GET, downloadURL, destination: destination)
-                .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
-                    var inBytes = totalBytesExpectedToRead
-                    var inMBytes = Double( (totalBytesExpectedToRead / 1024) / 1024)
-                    var soFar = Double(totalBytesRead / 1024) / 1024
-                    var percentage = (soFar / inMBytes) * 100
-                    var someDoubleFormat = ".3"
-                    
-                    println("\(percentage.format(someDoubleFormat))% Complete. \(soFar.format(someDoubleFormat))MB of \(inMBytes)MB downloaded.")
-                }
-                .responseJSON { request, response, jsonDict, error in
-                    println("\(response!)")
-                    println(self.episode!.episodeTitle)
-                    let httpresponse: NSHTTPURLResponse = response!
-                    let statusCode = httpresponse.statusCode
-                    if (statusCode == 200) {
-                        let url = httpresponse.URL!
-                        self.delegate?.didReceiveDownload(self.episode!)
-                        self.updateUserDefaults(episodeData, url: url)
-                    } else {
-                        println("Download Errror")
+            
+            let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+            dispatch_async(dispatch_get_global_queue(priority, 0)) {
+                Alamofire.download(.GET, downloadURL, destination: destination)
+                    .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
+                        var inBytes = totalBytesExpectedToRead
+                        var inMBytes = Double( (totalBytesExpectedToRead / 1024) / 1024)
+                        var soFar = Double(totalBytesRead / 1024) / 1024
+                        var percentage = (soFar / inMBytes) * 100
+                        var someDoubleFormat = ".3"
+                        
+                        println("\(percentage.format(someDoubleFormat))% Complete. \(soFar.format(someDoubleFormat))MB of \(inMBytes)MB downloaded.")
                     }
+                    .responseJSON { request, response, jsonDict, error in
+                        println("\(response!)")
+                        println(self.episode!.episodeTitle)
+                        let httpresponse: NSHTTPURLResponse = response!
+                        let statusCode = httpresponse.statusCode
+                        if (statusCode == 200) {
+                            let url = httpresponse.URL!
+                            self.delegate?.didReceiveDownload(self.episode!)
+                            self.updateUserDefaults(episodeData, url: url)
+                        } else {
+                            println("Download Errror")
+                        }
+                dispatch_async(dispatch_get_main_queue()) {
+                    // update some UI
+                }
+            }
             }
         }
     }
@@ -72,7 +76,6 @@ class DownloadManager {
         var seperate = fullURL.componentsSeparatedByString("/")
         var fileslug = seperate[seperate.count-1]
         var split = fileslug.componentsSeparatedByString("?")
-        
         var filename: String! = split[0]
         println("Filename after split: \(filename)")
         println("URL after split: \(fileslug)")
@@ -124,17 +127,6 @@ class DownloadManager {
         }
         return self.duplicate!
     }
-    
-    func buildFileArray() {
-        
-        if let directoryUrls =  NSFileManager.defaultManager().contentsOfDirectoryAtURL(documentsUrl, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsSubdirectoryDescendants, error: nil) {
-            
-            let mp3Files = directoryUrls.map(){ $0.lastPathComponent }.filter(){ $0.pathExtension == "mp3" }
-            for file: String in mp3Files {
-                    podcasts.append(file)
-                }
-            }
-        }
 }
 
 extension Double {

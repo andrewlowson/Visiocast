@@ -12,7 +12,7 @@ import AVFoundation
 class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPlayerDelegate, UITableViewDataSource , DownloadManagerProtocol {
 
     var podcasts = [PodcastEpisode]()
-    var podcastArtwork = [String: UIImage]()
+    var podcastArtwork = [NSURL: UIImage]()
     
     let api = DownloadManager()
     let defaults = NSUserDefaults.standardUserDefaults()
@@ -102,10 +102,9 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                     title = backup["title"]
                     artworkString = backup["artwork"]
                     var artworkURL = NSURL(string: backup["artwork"]!)
-                    
                     var artworkData = NSData(contentsOfURL: artworkURL!)
                     artwork = UIImage(data: artworkData!)
-                    self.podcastArtwork[title!] = artwork
+                    self.podcastArtwork[artworkURL!] = artwork
                 }
                 if title != nil {
                     println(title)
@@ -168,13 +167,37 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
         
         cell.episode = podcasts[indexPath.row]
         
+        if let artwork = podcastArtwork[cell.episode!.podcast!.podcastArtwork!] {
+            cell.episodeArtworkImageView?.image = artwork
+        }
+        else {
+            // The image isn't cached, download the image data
+            // We should perform this in a background thread
+            let request: NSURLRequest = NSURLRequest(URL: cell.episode!.podcast!.podcastArtwork!)
+            let mainQueue = NSOperationQueue.mainQueue()
+            NSURLConnection.sendAsynchronousRequest(request, queue: mainQueue, completionHandler: { (response, data, error) -> Void in
+                if error == nil {
+                    // Convert the downloaded data in to a UIImage object
+                    let artwork = UIImage(data: data)
+                    // Store the image in to our cache
+                    self.podcastArtwork[cell.episode!.podcast!.podcastArtwork!] = artwork
+                    // Update the cell
+                    
+                    dispatch_async(dispatch_get_main_queue(), {
+                        cell.episodeArtworkImageView?.image = artwork
+                    })
+                }
+                else {
+                    println("Error: \(error.localizedDescription)")
+                }
+            })
+        }
+        
         return cell
     }
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        
         
         //Get the new view controller using segue.destinationViewController.
         //Pass the selected object to the new view controller.
@@ -197,18 +220,18 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
         println(file!.length)
 
         var title = podcasts[fileIndex].episodeTitle!
-        println(title)
-        println(podcastArtwork[title])
+        var podcast = podcasts[fileIndex].podcast
+
         nowPlaying.podcastFile = (file)
         nowPlaying.episode = podcasts[fileIndex]
         nowPlaying.episodeTitle = title
         nowPlaying.episodeTitleLabel?.text = title
     
-        if podcastArtwork[title] != nil {
-            nowPlaying.podcastArtwork = podcastArtwork[title]!
+        if podcastArtwork[podcast!.podcastArtwork] != nil {
+            nowPlaying.podcastArtwork = podcastArtwork[podcast!.podcastArtwork]!
         }
 
-        nowPlaying.artworkImageView?.image = podcastArtwork[title]!
+        nowPlaying.artworkImageView?.image = podcastArtwork[podcast!.podcastArtwork]!
         nowPlaying.podcastArtist = podcasts[fileIndex].podcast?.podcastArtistName
     }
     
