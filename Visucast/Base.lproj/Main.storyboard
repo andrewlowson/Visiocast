@@ -962,21 +962,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="Z3E-uU-w9Q">
-                        <barButtonItem key="rightBarButtonItem" style="done" id="0cG-ui-jc5">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ppa-6W-dqb">
-                                <rect key="frame" x="-23" y="-15" width="133" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <accessibility key="accessibilityConfiguration" label="Now Playing"/>
-                                <state key="normal" title="Now Playing">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="pSj-aI-z6L" kind="show" id="Tuj-Ip-fnn"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="Z3E-uU-w9Q"/>
                     <connections>
                         <outlet property="podcastTableView" destination="4EI-ba-yHg" id="m1B-o3-Gpd"/>
                         <outlet property="searchBar" destination="3e8-nt-E6n" id="zBW-sB-WCD"/>
@@ -1069,6 +1055,5 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="OEb-jH-zv9"/>
-        <segue reference="Tuj-Ip-fnn"/>
     </inferredMetricsTieBreakers>
 </document>

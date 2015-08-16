@@ -40,6 +40,7 @@ class PodcastPlayer {
     
     func stop() {
         player!.stop()
+        isPlaying = false
     }
     
     func toggle() {
