@@ -107,7 +107,7 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                     self.podcastArtwork[artworkURL!] = artwork
                 }
                 if title != nil {
-                    println(title)
+                    println(title!)
                 }
 
                 if (artist == nil) {
@@ -213,9 +213,6 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
         var fileString = documentsPath!+thisFileName
         let fileURL = NSURL(string: fileString)
         var file = NSData(contentsOfURL: fileURL!)
-        println(fileURL!)
-        println()
-        println(file!.length)
 
         var title = podcasts[fileIndex].episodeTitle!
         var podcast = podcasts[fileIndex].podcast

@@ -22,12 +22,13 @@ class PodcastPlayer {
     
     
     func play() {
-        println(isPlaying)
         if isPlaying {
             pause()
+        } else {
+            player!.prepareToPlay()
+            player!.play()
+            isPlaying = true
         }
-        player!.play()
-        isPlaying = true
     }
     
     func pause() {
@@ -35,6 +36,10 @@ class PodcastPlayer {
         isPlaying = false
         self.currentTime = player!.currentTime
         defaults.setObject(currentTime, forKey: filename!)
+    }
+    
+    func stop() {
+        player!.stop()
     }
     
     func toggle() {
@@ -73,5 +78,18 @@ class PodcastPlayer {
         println(currentTime)
         currentTime = currentTime - 30
         player!.currentTime = currentTime
+    }
+    
+    func getTime() -> NSTimeInterval {
+        return player!.currentTime
+    }
+    
+    func setTime(newTime: NSTimeInterval) {
+        currentTime = newTime
+        player!.currentTime = newTime
+    }
+    
+    func duration() -> NSTimeInterval {
+        return player!.duration
     }
 }

@@ -475,8 +475,8 @@
                                 </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LNS-Tv-ejl">
-                                <rect key="frame" x="175" y="484" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="174" y="496" width="31" height="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -496,8 +496,11 @@
                                 </connections>
                             </button>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="2pY-9h-7Ff">
-                                <rect key="frame" x="220" y="461" width="161" height="31"/>
+                                <rect key="frame" x="162" y="461" width="277" height="31"/>
                                 <accessibility key="accessibilityConfiguration" label="adjust current play location"/>
+                                <connections>
+                                    <action selector="changeTrackTime:" destination="2dm-jV-lh3" eventType="valueChanged" id="Vug-Iw-2vI"/>
+                                </connections>
                             </slider>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2h6-wk-ScX">
                                 <rect key="frame" x="369" y="513" width="57" height="30"/>
@@ -539,9 +542,9 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Wy-dU-R9b">
-                                <rect key="frame" x="384" y="484" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Wy-dU-R9b">
+                                <rect key="frame" x="395" y="496" width="31" height="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -570,22 +573,22 @@
                             <constraint firstItem="rEC-fO-XPX" firstAttribute="top" secondItem="2pY-9h-7Ff" secondAttribute="bottom" constant="22" id="cUT-fM-4OA"/>
                             <constraint firstItem="gyx-w5-Dfy" firstAttribute="top" secondItem="x12-7w-DUj" secondAttribute="bottom" constant="12" id="eEV-VL-4bA"/>
                             <constraint firstItem="rEC-fO-XPX" firstAttribute="leading" secondItem="Bxs-4U-5oJ" secondAttribute="trailing" constant="8" symbolic="YES" id="gYH-C4-tGe"/>
-                            <constraint firstItem="Bxs-4U-5oJ" firstAttribute="leading" secondItem="LNS-Tv-ejl" secondAttribute="leading" constant="-1" id="hAf-xo-1Hp"/>
+                            <constraint firstItem="Bxs-4U-5oJ" firstAttribute="leading" secondItem="LNS-Tv-ejl" secondAttribute="leading" id="hAf-xo-1Hp"/>
                             <constraint firstItem="gyx-w5-Dfy" firstAttribute="centerX" secondItem="rEC-fO-XPX" secondAttribute="centerX" id="hR8-L5-TBI"/>
                             <constraint firstItem="goV-fm-zSM" firstAttribute="leading" secondItem="yxx-v0-k7y" secondAttribute="leading" id="iLs-nJ-iWv"/>
                             <constraint firstAttribute="trailingMargin" secondItem="x12-7w-DUj" secondAttribute="trailing" constant="92" id="j9m-AZ-83p"/>
                             <constraint firstItem="rEC-fO-XPX" firstAttribute="leading" secondItem="Bxs-4U-5oJ" secondAttribute="trailing" constant="77" id="jsC-46-9j3"/>
                             <constraint firstItem="2h6-wk-ScX" firstAttribute="leading" secondItem="rEC-fO-XPX" secondAttribute="trailing" constant="-162" id="lzX-8I-0Fv"/>
                             <constraint firstItem="2h6-wk-ScX" firstAttribute="leading" secondItem="rEC-fO-XPX" secondAttribute="trailing" constant="53" id="oLG-lD-30i"/>
-                            <constraint firstItem="7Wy-dU-R9b" firstAttribute="leading" secondItem="2pY-9h-7Ff" secondAttribute="trailing" constant="5" id="oxs-af-3sA"/>
+                            <constraint firstItem="7Wy-dU-R9b" firstAttribute="leading" secondItem="2pY-9h-7Ff" secondAttribute="trailing" constant="-42" id="oxs-af-3sA"/>
                             <constraint firstAttribute="trailing" secondItem="goV-fm-zSM" secondAttribute="trailing" id="qre-bg-7h8"/>
                             <constraint firstItem="rEC-fO-XPX" firstAttribute="baseline" secondItem="2h6-wk-ScX" secondAttribute="baseline" id="sBe-F1-BMg"/>
-                            <constraint firstItem="LNS-Tv-ejl" firstAttribute="top" secondItem="gyx-w5-Dfy" secondAttribute="bottom" constant="27" id="u1X-b3-kxU"/>
+                            <constraint firstItem="LNS-Tv-ejl" firstAttribute="top" secondItem="gyx-w5-Dfy" secondAttribute="bottom" constant="39" id="u1X-b3-kxU"/>
                             <constraint firstItem="7Wy-dU-R9b" firstAttribute="trailing" secondItem="2h6-wk-ScX" secondAttribute="trailing" id="umO-Ik-80Q"/>
                             <constraint firstItem="x12-7w-DUj" firstAttribute="top" secondItem="goV-fm-zSM" secondAttribute="bottom" constant="8" symbolic="YES" id="v0v-po-NBI"/>
                             <constraint firstItem="gyx-w5-Dfy" firstAttribute="centerY" secondItem="rEC-fO-XPX" secondAttribute="centerY" constant="-201" id="v6P-rA-kuD"/>
                             <constraint firstItem="2h6-wk-ScX" firstAttribute="trailing" secondItem="yxx-v0-k7y" secondAttribute="trailingMargin" id="wWf-i6-hNi"/>
-                            <constraint firstItem="2pY-9h-7Ff" firstAttribute="leading" secondItem="LNS-Tv-ejl" secondAttribute="trailing" constant="5" id="xbe-Od-jQz"/>
+                            <constraint firstItem="2pY-9h-7Ff" firstAttribute="leading" secondItem="LNS-Tv-ejl" secondAttribute="trailing" constant="-41" id="xbe-Od-jQz"/>
                             <constraint firstItem="rEC-fO-XPX" firstAttribute="centerX" secondItem="goV-fm-zSM" secondAttribute="centerX" id="y9Q-Fm-l4G"/>
                         </constraints>
                         <variation key="default">
@@ -646,6 +649,7 @@
                         <outlet property="episodeTitleLabel" destination="x12-7w-DUj" id="Qx1-RX-MYG"/>
                         <outlet property="playButton" destination="rEC-fO-XPX" id="2yF-xF-6xE"/>
                         <outlet property="timeRemainingLabel" destination="7Wy-dU-R9b" id="DJ0-PQ-576"/>
+                        <outlet property="trackSlider" destination="2pY-9h-7Ff" id="V9e-sB-spU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cjJ-fJ-ftv" userLabel="First Responder" sceneMemberID="firstResponder"/>
