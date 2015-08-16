@@ -140,10 +140,8 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
         episodesTableView.reloadData()
     }
     
-    func didReceiveDownload(episode: PodcastEpisode) {
-        
+    func didReceiveDownload(episode: PodcastEpisode) {        
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            println("I have received a download")
             self.podcasts.append(episode)
             self.loadFiles()
         }
@@ -221,7 +219,7 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
 
         var title = podcasts[fileIndex].episodeTitle!
         var podcast = podcasts[fileIndex].podcast
-
+        nowPlaying.filename = fileString
         nowPlaying.podcastFile = (file)
         nowPlaying.episode = podcasts[fileIndex]
         nowPlaying.episodeTitle = title

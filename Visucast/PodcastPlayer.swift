@@ -15,8 +15,11 @@ class PodcastPlayer {
     
     private var player: AVAudioPlayer?
     private var isPlaying = false
+    let defaults = NSUserDefaults.standardUserDefaults()
+    var filename: String?
     
     var currentTime: NSTimeInterval = 0
+    
     
     func play() {
         println(isPlaying)
@@ -31,6 +34,7 @@ class PodcastPlayer {
         player!.pause()
         isPlaying = false
         self.currentTime = player!.currentTime
+        defaults.setObject(currentTime, forKey: filename!)
     }
     
     func toggle() {
@@ -41,9 +45,14 @@ class PodcastPlayer {
         }
     }
     
-    func prepareAudio(myData: NSData) {
+    func prepareAudio(myData: NSData, filename: String) {
+        self.filename = filename
         player = AVAudioPlayer(data: myData, error: nil)
         player!.prepareToPlay()
+        if let time = defaults.objectForKey(filename) as? NSTimeInterval {
+            currentTime = time
+            player!.currentTime = time
+        } 
         player!.play()
         isPlaying = true
     }

@@ -72,7 +72,6 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         
         api.podcastSearch(self.searchBar.text)
         self.waitingForResults.startAnimating()
-        println("back to search")
         searchBar.resignFirstResponder()
         searchBar.setShowsCancelButton(false, animated: true)
     }

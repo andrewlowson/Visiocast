@@ -18,6 +18,7 @@ class NowPlayingViewController: UIViewController {
     var episodeTitle: String?
     var isAudioPlaying = false
     var podcastFile: NSData?
+    var filename: String?
     var myPlayer = AVAudioPlayer()
     var podcastArtwork: UIImage?
     var podcastArtist: String?
@@ -43,7 +44,7 @@ class NowPlayingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        PodcastPlayer.sharedInstance.prepareAudio(podcastFile!)
+        PodcastPlayer.sharedInstance.prepareAudio(podcastFile!, filename: filename!)
 
         playButton.setTitle("Pause", forState: UIControlState.Normal)
         isAudioPlaying = true
@@ -116,8 +117,6 @@ class NowPlayingViewController: UIViewController {
     @IBAction func SkipBack(sender: UIButton) {
         PodcastPlayer.sharedInstance.skipBack()
     }
-    
-    
-    
+
 }
 

@@ -42,6 +42,7 @@ class DownloadManager {
             dispatch_async(dispatch_get_global_queue(priority, 0)) {
                 Alamofire.download(.GET, downloadURL, destination: destination)
                     .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
+                        
                         var inBytes = totalBytesExpectedToRead
                         var inMBytes = Double( (totalBytesExpectedToRead / 1024) / 1024)
                         var soFar = Double(totalBytesRead / 1024) / 1024

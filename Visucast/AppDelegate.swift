@@ -18,11 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if event.subtype == UIEventSubtype.RemoteControlPlay {
                 println("received remote play")
                 PodcastPlayer.sharedInstance.play()
-
             } else if event.subtype == UIEventSubtype.RemoteControlPause {
                 println("received remote pause")
                 PodcastPlayer.sharedInstance.pause()
-
             } else if event.subtype == UIEventSubtype.RemoteControlTogglePlayPause {
                 println("received toggle")
                 PodcastPlayer.sharedInstance.toggle()
