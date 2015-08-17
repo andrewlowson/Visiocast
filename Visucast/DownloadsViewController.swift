@@ -88,23 +88,19 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                         if key == "albumName" {
                             podcastTitle = value as? String
                         }
-                    } else {
-                        println("I'm getting no metadata for this file")
-                        title = file
-                        artist = file
-                        podcastTitle = file
                     }
                 }
                 
-
                 if let backup = defaults.objectForKey(file) as? [String : String] {
-                        
                     title = backup["title"]
                     artworkString = backup["artwork"]
                     var artworkURL = NSURL(string: backup["artwork"]!)
-                    var artworkData = NSData(contentsOfURL: artworkURL!)
-                    artwork = UIImage(data: artworkData!)
-                    self.podcastArtwork[artworkURL!] = artwork
+                    if Reachability.isConnectedToNetwork() {
+                        var artworkData = NSData(contentsOfURL: artworkURL!)
+                        artwork = UIImage(data: artworkData!)
+                        self.podcastArtwork[artworkURL!] = artwork
+                    }
+                    
                 }
                 if title != nil {
                     println(title!)

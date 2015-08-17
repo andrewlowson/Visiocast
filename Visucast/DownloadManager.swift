@@ -10,6 +10,7 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 import AVFoundation
+import UIKit
 
 protocol DownloadManagerProtocol {
     func didReceiveDownload(PodcastEpisode)
@@ -28,7 +29,7 @@ class DownloadManager {
     let documentsUrl =  NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as! NSURL
 
     /**
-     * Main method to download an episode of a podcast.
+     * Main function to download an episode of a podcast.
      * Prints out the progress state as a percentage and as a total
      * 
      **/
@@ -63,10 +64,7 @@ class DownloadManager {
                         } else {
                             println("Download Errror")
                         }
-                dispatch_async(dispatch_get_main_queue()) {
-                    // update some UI
-                }
-            }
+                    }
             }
         }
     }
@@ -79,9 +77,16 @@ class DownloadManager {
         var fileslug = seperate[seperate.count-1]
         var split = fileslug.componentsSeparatedByString("?")
         var filename: String! = split[0]
+        
+        var artworkURL = NSURL(string: episodeData["artwork"]!)
+        var artworkData = NSData(contentsOfURL: artworkURL!)
+        var artwork = UIImage(data: artworkData!)
+        
+        
         println("Filename after split: \(filename)")
         println("URL after split: \(fileslug)")
         println("Episode Data For Download: \(episodeData)")
+        
         defaults.setObject(episodeData, forKey: filename)
         defaults.setObject(filename, forKey: fullURL)
     }

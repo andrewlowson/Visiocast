@@ -185,7 +185,6 @@ class PodcastManager {
         var itemNode = items[item] as! HTMLNode
         
         var title: String? = itemNode.findChildTag("title").contents()
-        //var subtitle: String? = itemNode.findChildTag("subtitle")?.contents()
         var summary: String? = itemNode.findChildTag("description")?.contents()
         var publishedDateString: String? = itemNode.findChildTag("pubdate")?.contents()
         var duration: String? = itemNode.findChildTag("duration")?.contents()
@@ -198,7 +197,10 @@ class PodcastManager {
         //episodeData.updateValue(subtitle!, forKey: "subtitle")
         episodeData.updateValue(summary!, forKey: "description")
         
-        episodeData.updateValue(guid!, forKey: "guid")
+        if guid != nil {
+            episodeData.updateValue(guid!, forKey: "guid")
+        }
+        
         
         if (imageTag != nil) {
             episodeData.updateValue(imageTag!, forKey: "artwork")
