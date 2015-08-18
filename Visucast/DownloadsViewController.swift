@@ -14,9 +14,10 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
     var podcasts = [PodcastEpisode]()
     var podcastArtwork = [NSURL: UIImage]()
     
-    let api = DownloadManager()
-    let defaults = NSUserDefaults.standardUserDefaults()
+    let api = DownloadManager() // Needs to be delegate so we can get information about new shows when they're downloaded
+    let defaults = NSUserDefaults.standardUserDefaults() // Storage area for Podcast Information
 
+    // Main UI elements in View
     @IBOutlet weak var episodesTableView: UITableView!
     @IBOutlet weak var downloadsTableView: UITableView!
     @IBOutlet weak var DownloadsTabBarItem: UITabBarItem!
@@ -24,14 +25,16 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // layout the TableView rows
         episodesTableView.estimatedRowHeight = episodesTableView.rowHeight
         episodesTableView.rowHeight = UITableViewAutomaticDimension
 
+        // set up delegates to all things that receive data
         episodesTableView.delegate = self
         episodesTableView.dataSource = self
         api.delegate = self
         
-        loadFiles()
+        loadFiles() //method to layout the files
         episodesTableView.reloadData()
     }
 
@@ -39,6 +42,7 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
         super.didReceiveMemoryWarning()
     }
     
+    // Method to make sure data changed between view changes are known to the UI
     override func viewDidAppear(animated: Bool) {
         podcasts.removeAll()
         loadFiles()
@@ -55,6 +59,7 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
 
             let mp3Files = directoryUrls.map(){ $0.lastPathComponent }.filter(){ $0.pathExtension == "mp3" }
             
+            // for each MP3 file in the Documents directory we want all the data on it and to create objecst for the podcasts
             for (file: String) in mp3Files {
                 
                 var backup = defaults.objectForKey(file) as? [String : String]
@@ -74,6 +79,8 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                 var artwork: UIImage?
                 var artworkString: String?
                 
+                
+                // This block deals with MetaData in the MP3 File
                 for item in metadataList {
                     if item.commonKey == nil {
                         continue
@@ -96,6 +103,7 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                     }
                 }
                 
+                //This block from line 106 - 149 exists for cases where metadata is missing (often)
                 if let backup = defaults.objectForKey(file) as? [String : String] {
                     title = backup["title"]
                     artworkString = backup["artwork"]
@@ -145,7 +153,6 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                 publishedDate = dateFormatter.dateFromString("Wed, 29 Jul 2015 13:52:35 +0000")
                 
                 var podcast = Podcast(title: podcastTitle!, artist: artist!, artwork: artworkString!, feedURL: "")
-//                var episode = PodcastEpisode(title: title!, description: file as String, date: publishedDate!, duration: "", download: "", subtitle: "", size: 0, podcast: podcast, artwork: "")
                 var episode = PodcastEpisode(title: title!, description: file as String, date: publishedDate!, duration: "", download: "", subtitle: "", size: 0, podcast: podcast)
                 podcasts.append(episode)
             }
@@ -154,10 +161,12 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
         episodesTableView.reloadData()
     }
     
+    // if an episode is downloaded during the lifecycle of the application and I'm in this view, load the episode
     func didReceiveDownload(episode: PodcastEpisode) {        
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             self.podcasts.append(episode)
             self.loadFiles()
+            self.episodesTableView.reloadData()
         }
     }
     
@@ -208,7 +217,7 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
         return cell
     }
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    // NowPlaying Segue. Set up the Player and podcast details for NowPlayingViewController
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         //Get the new view controller using segue.destinationViewController.
@@ -248,19 +257,24 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
         nowPlaying.podcastArtist = podcasts[fileIndex].podcast?.podcastArtistName
     }
     
+    
+    // Allow the ability to slide to delete a row.
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
     }
     
+    //On Slide to delete, make sure that the file is removed from Downloads Folder
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.Delete) {
             
-            // allow user to delete the file
+            // Find the file
             var error:NSError?
             var manager = NSFileManager.defaultManager()
             var path = manager.documentsDirectoryPath()
             var filename = podcasts[indexPath.row].episodeDescription!
             var filepath = path+"/"+filename
+
+            // remove the file from the array, the row, the array
             manager.removeItemAtPath(filepath, error: &error)
             podcasts.removeAtIndex(indexPath.row)
             if error != nil {
