@@ -16,6 +16,7 @@ class DownloadsTableViewCell: UITableViewCell {
         }
     }
     
+    @IBOutlet weak var podcastNameLabel: UILabel!
     @IBOutlet weak var episodeArtworkImageView: UIImageView!
     @IBOutlet weak var episodeTitleLabel: UILabel!
     @IBOutlet weak var epsideSummaryLabel: UILabel!
@@ -23,7 +24,10 @@ class DownloadsTableViewCell: UITableViewCell {
     func updateUI() {
         episodeTitleLabel?.text = self.episode!.episodeTitle!
         var artworkURL = self.episode!.podcast?.podcastArtwork!
+        podcastNameLabel?.text = self.episode!.podcast!.podcastArtistName
         
+        println(self.episode!.podcast!.podcastArtistName)
+
     }
     
     override func awakeFromNib() {

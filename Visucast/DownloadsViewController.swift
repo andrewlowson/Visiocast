@@ -94,13 +94,20 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                 if let backup = defaults.objectForKey(file) as? [String : String] {
                     title = backup["title"]
                     artworkString = backup["artwork"]
-                    var artworkURL = NSURL(string: backup["artwork"]!)
-                    if Reachability.isConnectedToNetwork() {
-                        var artworkData = NSData(contentsOfURL: artworkURL!)
-                        artwork = UIImage(data: artworkData!)
-                        self.podcastArtwork[artworkURL!] = artwork
+
+                    let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+                    dispatch_async(dispatch_get_global_queue(priority, 0)) {
+                        var artworkURL = NSURL(string: backup["artwork"]!)
+                        if Reachability.isConnectedToNetwork() {
+                            var artworkData = NSData(contentsOfURL: artworkURL!)
+                            artwork = UIImage(data: artworkData!)
+                            self.podcastArtwork[artworkURL!] = artwork
+                        }
+                        // do some task
+                        dispatch_async(dispatch_get_main_queue()) {
+                            // update some UI
+                        }
                     }
-                    
                 }
                 if title != nil {
                     println(title!)
@@ -111,8 +118,13 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                 }
                 if (podcastTitle == nil) {
                     if let backup = defaults.objectForKey(file) as? [String : String] {
-                        podcastTitle = backup["title"]!
+                        if let podcastName = backup["podcast"] {
+                            podcastTitle = podcastName
+                        } else {
+                            podcastTitle = backup["title"]!
+                        }
                     }
+                    
                 }
                 if title == nil {
                     if let backup = defaults.objectForKey(file) as? [String : String] {

@@ -126,7 +126,7 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
         if !downloader.isDuplicate(downloadURL!) {
             
             // Add the podcast to NSUserDefaults so we can have podcast information in the Player
-            var storage = api.getEpisodeData(podcastFeed!, item: podcastIndex)
+            var storage = api.getEpisodeData(podcastFeed!, item: podcastIndex, podcast: podcastTitle!)
             
             let pathString = "\(downloadURL!)"
             let path = split(pathString) {$0 == "/"}

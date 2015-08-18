@@ -15,10 +15,7 @@
 		11175B821B68DAF100A652CB /* PodcastEpisodeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11175B811B68DAF100A652CB /* PodcastEpisodeTableViewCell.swift */; };
 		112990E91B832E19005FD5AB /* AcousticModelEnglish.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 112990E51B832E19005FD5AB /* AcousticModelEnglish.bundle */; };
 		112990EA1B832E19005FD5AB /* AcousticModelSpanish.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 112990E61B832E19005FD5AB /* AcousticModelSpanish.bundle */; };
-		112990EB1B832E19005FD5AB /* OpenEars.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 112990E71B832E19005FD5AB /* OpenEars.framework */; };
 		112990EC1B832E19005FD5AB /* Slt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 112990E81B832E19005FD5AB /* Slt.framework */; };
-		112990ED1B833563005FD5AB /* OpenEars.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 112990E71B832E19005FD5AB /* OpenEars.framework */; };
-		112990EE1B833563005FD5AB /* OpenEars.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 112990E71B832E19005FD5AB /* OpenEars.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		113AA6C71B6E481B0061FFB2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 113AA6C61B6E481B0061FFB2 /* AVFoundation.framework */; };
 		116B123C1B7A953500CED1AE /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116B123B1B7A953500CED1AE /* Reachability.swift */; };
 		116B123F1B7B760C00CED1AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 116B123D1B7B760C00CED1AE /* Main.storyboard */; };
@@ -149,7 +146,6 @@
 			files = (
 				11E22D8F1B662EBC00EB6A6C /* SwiftyJSON.framework in Embed Frameworks */,
 				11E22D4E1B6509BB00EB6A6C /* Alamofire.framework in Embed Frameworks */,
-				112990EE1B833563005FD5AB /* OpenEars.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -209,11 +205,9 @@
 				116B12411B7BA70300CED1AE /* AudioToolbox.framework in Frameworks */,
 				112990EC1B832E19005FD5AB /* Slt.framework in Frameworks */,
 				113AA6C71B6E481B0061FFB2 /* AVFoundation.framework in Frameworks */,
-				112990ED1B833563005FD5AB /* OpenEars.framework in Frameworks */,
 				11037EE61B6973C8000F88EF /* libxml2.dylib in Frameworks */,
 				11E22D8E1B662EBC00EB6A6C /* SwiftyJSON.framework in Frameworks */,
 				11E22D4D1B6509BB00EB6A6C /* Alamofire.framework in Frameworks */,
-				112990EB1B832E19005FD5AB /* OpenEars.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

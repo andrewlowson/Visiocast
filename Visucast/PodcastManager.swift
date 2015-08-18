@@ -171,7 +171,7 @@ class PodcastManager {
         return episodes
     }
     
-    func getEpisodeData(feed:NSURL, item: Int) -> [String: String] {
+    func getEpisodeData(feed:NSURL, item: Int, podcast: String) -> [String: String] {
         var episodeData = [String: String]()
 
         
@@ -181,7 +181,7 @@ class PodcastManager {
         let items = doc.findChildTags("item")
 
         var itemNode = items[item] as! HTMLNode
-        
+        var podcast: String? = podcast
         var title: String? = itemNode.findChildTag("title").contents()
         var summary: String? = itemNode.findChildTag("description")?.contents()
         var publishedDateString: String? = itemNode.findChildTag("pubdate")?.contents()
@@ -190,7 +190,8 @@ class PodcastManager {
         var enclosureLengthString: String? = itemNode.findChildTag("enclosure")?.getAttributeNamed("length")
         var imageTag:String? = itemNode.findChildTag("image")?.getAttributeNamed("href")
         var guid: String? = itemNode.findChildTag("guid")?.contents()
-        
+
+        episodeData.updateValue(podcast!, forKey: "podcast")
         episodeData.updateValue(title!, forKey: "title")
         //episodeData.updateValue(subtitle!, forKey: "subtitle")
         episodeData.updateValue(summary!, forKey: "description")
