@@ -78,9 +78,10 @@ class DownloadManager {
         var filename: String! = split[0]
         
         if Reachability.isConnectedToNetwork() {
-            var artworkURL = NSURL(string: episodeData["artwork"]!)
-            var artworkData = NSData(contentsOfURL: artworkURL!)
-            var artwork = UIImage(data: artworkData!)
+            if let artworkURL = NSURL(string: episodeData["artwork"]!) {
+                var artworkData = NSData(contentsOfURL: artworkURL)
+                var artwork = UIImage(data: artworkData!)
+            }
         }
         println("Filename after split: \(filename)")
         println("URL after split: \(fileslug)")

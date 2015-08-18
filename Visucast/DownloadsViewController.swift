@@ -88,24 +88,29 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                         if key == "albumName" {
                             podcastTitle = value as? String
                         }
+                        if key == "artwork" {
+                            if let image = UIImage(data: value as! NSData) {
+                                artwork = image
+                            }
+                        }
                     }
                 }
                 
                 if let backup = defaults.objectForKey(file) as? [String : String] {
                     title = backup["title"]
                     artworkString = backup["artwork"]
-
                     let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+                    
                     dispatch_async(dispatch_get_global_queue(priority, 0)) {
-                        var artworkURL = NSURL(string: backup["artwork"]!)
-                        if Reachability.isConnectedToNetwork() {
-                            var artworkData = NSData(contentsOfURL: artworkURL!)
-                            artwork = UIImage(data: artworkData!)
-                            self.podcastArtwork[artworkURL!] = artwork
-                        }
-                        // do some task
-                        dispatch_async(dispatch_get_main_queue()) {
-                            // update some UI
+                        if let artworkURLAsString = backup["artwork"] {
+                            var  artworkURL = NSURL(string: artworkURLAsString)
+                            if Reachability.isConnectedToNetwork() {
+                                var artworkData = NSData(contentsOfURL: artworkURL!)
+                                if artwork == nil {
+                                    artwork = UIImage(data: artworkData!)
+                                }
+                                self.podcastArtwork[artworkURL!] = artwork
+                            }
                         }
                     }
                 }
@@ -124,14 +129,15 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                             podcastTitle = backup["title"]!
                         }
                     }
-                    
                 }
                 if title == nil {
                     if let backup = defaults.objectForKey(file) as? [String : String] {
                         title = backup["title"]!
                     }
                 }
-                
+                if artworkString == nil {
+                    artworkString = ""
+                }
                 var publishedDate: NSDate?
                 let dateFormatter = NSDateFormatter()
                 dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss ZZ"

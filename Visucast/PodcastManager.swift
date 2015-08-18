@@ -164,7 +164,6 @@ class PodcastManager {
             
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss zzz"
-                println(publishedDateString!)
             publishedDate = dateFormatter.dateFromString(publishedDateString!)
             
 //            let episode = PodcastEpisode(title: title!,description:  summary!,date:  publishedDate!,duration:  duration!,download:  enclosureURL!,subtitle:  subtitle!,size:  enclosureLength!, podcast: podcast, artwork: imageTag!)
