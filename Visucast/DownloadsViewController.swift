@@ -209,6 +209,7 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
         //Pass the selected object to the new view controller.
         let nav = segue.destinationViewController as! UINavigationController
         let nowPlaying = nav.topViewController as! NowPlayingViewController
+        
         var fileIndex = episodesTableView!.indexPathForSelectedRow()!.row
         
         var thisFileName = podcasts[fileIndex].episodeDescription!
@@ -224,6 +225,9 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
 
         var title = podcasts[fileIndex].episodeTitle!
         var podcast = podcasts[fileIndex].podcast
+        if PodcastPlayer.sharedInstance.currentlyPlaying() {
+            PodcastPlayer.sharedInstance.pause()
+        }
         nowPlaying.filename = fileString
         nowPlaying.podcastFile = (file)
         nowPlaying.episode = podcasts[fileIndex]

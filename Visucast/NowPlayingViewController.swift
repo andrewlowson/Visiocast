@@ -89,11 +89,6 @@ class NowPlayingViewController: UIViewController {
         var timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector:Selector("updateAudioTime"), userInfo: nil, repeats: true )
     }
 
-    func prepareAudio(myData: NSData) {
-        myPlayer = AVAudioPlayer(data: myData, error: nil)
-        myPlayer.prepareToPlay()
-    }
-    
     @IBAction func shareButton(sender: UIBarButtonItem) {
         
         let sharingContents = "Listen to \(episodeTitle!). via Visiocast"
@@ -104,7 +99,6 @@ class NowPlayingViewController: UIViewController {
     
     
     @IBAction func changeTrackTime(sender: AnyObject) {
-        
         PodcastPlayer.sharedInstance.stop()
         PodcastPlayer.sharedInstance.setTime(NSTimeInterval(trackSlider.value))
         PodcastPlayer.sharedInstance.play()
