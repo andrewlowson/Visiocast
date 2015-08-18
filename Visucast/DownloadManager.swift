@@ -77,10 +77,11 @@ class DownloadManager {
         var split = fileslug.componentsSeparatedByString("?")
         var filename: String! = split[0]
         
-        var artworkURL = NSURL(string: episodeData["artwork"]!)
-        var artworkData = NSData(contentsOfURL: artworkURL!)
-        var artwork = UIImage(data: artworkData!)
-        
+        if Reachability.isConnectedToNetwork() {
+            var artworkURL = NSURL(string: episodeData["artwork"]!)
+            var artworkData = NSData(contentsOfURL: artworkURL!)
+            var artwork = UIImage(data: artworkData!)
+        }
         println("Filename after split: \(filename)")
         println("URL after split: \(fileslug)")
         println("Episode Data For Download: \(episodeData)")

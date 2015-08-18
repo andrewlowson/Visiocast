@@ -133,22 +133,15 @@ class PodcastManager {
             
             var enclosureLength: Int? = enclosureLengthString?.toInt()
             
-            var publishedDate: NSDate?
-            
-            if publishedDateString != nil {
-                let dateFormatter = NSDateFormatter()
-                dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss ZZ"
-            
-                publishedDate = dateFormatter.dateFromString(publishedDateString!)
+            if title == nil {
+                title = podcast.podcastTitle
+                println(feedURL)
             }
             if (subtitle == nil) {
                 subtitle = ""
             }
             if (summary == nil) {
                 summary = ""
-            }
-            if (publishedDateString == nil) {
-                publishedDateString = ""
             }
             if (duration == nil) {
                 duration = ""
@@ -163,7 +156,17 @@ class PodcastManager {
             if (enclosureLength == nil) {
                 enclosureLength = 0
             }
-          
+            
+            var publishedDate: NSDate?
+            if (publishedDateString == nil) {
+                publishedDateString = ""
+            }
+            
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss zzz"
+                println(publishedDateString!)
+            publishedDate = dateFormatter.dateFromString(publishedDateString!)
+            
 //            let episode = PodcastEpisode(title: title!,description:  summary!,date:  publishedDate!,duration:  duration!,download:  enclosureURL!,subtitle:  subtitle!,size:  enclosureLength!, podcast: podcast, artwork: imageTag!)
             let episode = PodcastEpisode(title: title!,description:  summary!,date:  publishedDate!,duration:  duration!,download:  enclosureURL!,subtitle:  subtitle!,size:  enclosureLength!, podcast: podcast)
             episodes.append(episode)
@@ -194,7 +197,10 @@ class PodcastManager {
         episodeData.updateValue(podcast!, forKey: "podcast")
         episodeData.updateValue(title!, forKey: "title")
         //episodeData.updateValue(subtitle!, forKey: "subtitle")
-        episodeData.updateValue(summary!, forKey: "description")
+        if summary != nil {
+            episodeData.updateValue(summary!, forKey: "description")
+        }
+        
         
         if guid != nil {
             episodeData.updateValue(guid!, forKey: "guid")
