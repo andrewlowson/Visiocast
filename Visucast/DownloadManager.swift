@@ -72,7 +72,6 @@ class DownloadManager {
     func updateUserDefaults(episodeData: [String : String], url: NSURL) {
         
         var fullURL = "\(url)"
-        
         var seperate = fullURL.componentsSeparatedByString("/")
         var fileslug = seperate[seperate.count-1]
         var split = fileslug.componentsSeparatedByString("?")
@@ -82,7 +81,6 @@ class DownloadManager {
         var artworkData = NSData(contentsOfURL: artworkURL!)
         var artwork = UIImage(data: artworkData!)
         
-        
         println("Filename after split: \(filename)")
         println("URL after split: \(fileslug)")
         println("Episode Data For Download: \(episodeData)")
@@ -91,6 +89,7 @@ class DownloadManager {
         defaults.setObject(filename, forKey: fullURL)
     }
     
+    // Not in use, for future version when I figure out how writing MetaData works
     func writeMetaData(filename: String) {
         // get location and path of downloaded file
         var documentsPath = "\(documentsUrl)"
@@ -115,17 +114,24 @@ class DownloadManager {
         
     }
     
+    /**
+     * Function to check the file has not been downloaded already
+     * Does not work for RelayFM files & podcasts using a similar delivery method
+     * where download link mp3 is not the actual filename.
+    **/
     func isDuplicate(fileURL: NSURL) -> Bool {
         
+        // strip out filename from the URL
         let urlAsString = "\(fileURL)"
         let path = split(urlAsString) {$0 == "/"}
         let filename = path[path.count-1]
         
+        // Find the Documents directory
         if let directoryUrls =  NSFileManager.defaultManager().contentsOfDirectoryAtURL(documentsUrl, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsSubdirectoryDescendants, error: nil) {
             
+            // for all mp3 files inthe documents directory, match them against our target filename. If they match, send back true
             let mp3Files = directoryUrls.map(){ $0.lastPathComponent }.filter(){ $0.pathExtension == "mp3" }
             for file: String in mp3Files {
-                println(file + " " + filename)
                 if filename == file {
                     self.duplicate = true
                     return self.duplicate!

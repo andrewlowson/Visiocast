@@ -66,11 +66,25 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
+    */
+    
+    private struct Download {
+        static let SegueIdentifier = "Show Download Progress"
+        static let DefaultsKey = "DownloadProgressViewController.Progress"
+    }
+    
+    
+    // TODO: Come back to this!
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if let dpvc = segue.destinationViewController as? DownloadProgressViewController {
+            if let ppc = dpvc.popoverPresentationController {
+//                ppc.delegate = self // this popover delegate alllows you to take control of what's displayed
+            }
+        }
     }
-    */
+    
     
     func didReceiveResults(results: NSArray) {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in

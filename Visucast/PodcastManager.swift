@@ -31,13 +31,11 @@ class PodcastManager {
     * Results are then turn into Podcast Objects, put in an Array and passed back to method caller.
     */
     func podcastSearch(searchText: String) -> Array<Podcast> {
-        println("Search was called")
         var podcasts = [Podcast]()
         var search = searchText
         let result = search.lowercaseString.stringByReplacingOccurrencesOfString(" ", withString: "+")
         var searchTerm = defaultSearchTerm + result
         
-        println("Networking was called")
         if Reachability.isConnectedToNetwork() {
             // Alamofire is the Networking library used.
             // Give request type (GET), url and then decide what to do with results.

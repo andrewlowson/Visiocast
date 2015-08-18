@@ -13,6 +13,10 @@
 		11037EF71B697B5E000F88EF /* HTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 11037EF51B697B5E000F88EF /* HTMLParser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		11175B7A1B68CE9D00A652CB /* PodcastEpisode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11175B791B68CE9D00A652CB /* PodcastEpisode.swift */; };
 		11175B821B68DAF100A652CB /* PodcastEpisodeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11175B811B68DAF100A652CB /* PodcastEpisodeTableViewCell.swift */; };
+		112990E91B832E19005FD5AB /* AcousticModelEnglish.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 112990E51B832E19005FD5AB /* AcousticModelEnglish.bundle */; };
+		112990EA1B832E19005FD5AB /* AcousticModelSpanish.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 112990E61B832E19005FD5AB /* AcousticModelSpanish.bundle */; };
+		112990EB1B832E19005FD5AB /* OpenEars.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 112990E71B832E19005FD5AB /* OpenEars.framework */; };
+		112990EC1B832E19005FD5AB /* Slt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 112990E81B832E19005FD5AB /* Slt.framework */; };
 		113AA6C71B6E481B0061FFB2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 113AA6C61B6E481B0061FFB2 /* AVFoundation.framework */; };
 		116B123C1B7A953500CED1AE /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116B123B1B7A953500CED1AE /* Reachability.swift */; };
 		116B123F1B7B760C00CED1AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 116B123D1B7B760C00CED1AE /* Main.storyboard */; };
@@ -29,6 +33,7 @@
 		118D2F3B1B5AD9370005F577 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 118D2F391B5AD9370005F577 /* LaunchScreen.xib */; };
 		118D2F471B5AD9370005F577 /* VisucastTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118D2F461B5AD9370005F577 /* VisucastTests.swift */; };
 		11BCCD8D1B6A4716002D7DE9 /* DownloadsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BCCD8C1B6A4716002D7DE9 /* DownloadsTableViewCell.swift */; };
+		11C0065B1B8253BF0084AA5B /* DownloadProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C0065A1B8253BF0084AA5B /* DownloadProgressViewController.swift */; };
 		11C9781F1B6B90AC00EFDA95 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C9781E1B6B90AC00EFDA95 /* DownloadManager.swift */; };
 		11D8ED5B1B7CC298003B261C /* PodcastPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D8ED5A1B7CC298003B261C /* PodcastPlayer.swift */; };
 		11D8ED631B7CC79C003B261C /* DictationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D8ED621B7CC79C003B261C /* DictationManager.swift */; };
@@ -158,6 +163,10 @@
 		11037EF81B697C11000F88EF /* Visucast-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Visucast-Bridging-Header.h"; sourceTree = "<group>"; };
 		11175B791B68CE9D00A652CB /* PodcastEpisode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastEpisode.swift; sourceTree = "<group>"; };
 		11175B811B68DAF100A652CB /* PodcastEpisodeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastEpisodeTableViewCell.swift; sourceTree = "<group>"; };
+		112990E51B832E19005FD5AB /* AcousticModelEnglish.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AcousticModelEnglish.bundle; sourceTree = "<group>"; };
+		112990E61B832E19005FD5AB /* AcousticModelSpanish.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AcousticModelSpanish.bundle; sourceTree = "<group>"; };
+		112990E71B832E19005FD5AB /* OpenEars.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenEars.framework; sourceTree = "<group>"; };
+		112990E81B832E19005FD5AB /* Slt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Slt.framework; sourceTree = "<group>"; };
 		113AA6C61B6E481B0061FFB2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		116B123B1B7A953500CED1AE /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		116B123E1B7B760C00CED1AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -178,6 +187,7 @@
 		118D2F451B5AD9370005F577 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		118D2F461B5AD9370005F577 /* VisucastTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisucastTests.swift; sourceTree = "<group>"; };
 		11BCCD8C1B6A4716002D7DE9 /* DownloadsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadsTableViewCell.swift; sourceTree = "<group>"; };
+		11C0065A1B8253BF0084AA5B /* DownloadProgressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadProgressViewController.swift; sourceTree = "<group>"; };
 		11C9781E1B6B90AC00EFDA95 /* DownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		11D8ED5A1B7CC298003B261C /* PodcastPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastPlayer.swift; sourceTree = "<group>"; };
 		11D8ED621B7CC79C003B261C /* DictationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictationManager.swift; sourceTree = "<group>"; };
@@ -194,10 +204,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				116B12411B7BA70300CED1AE /* AudioToolbox.framework in Frameworks */,
+				112990EC1B832E19005FD5AB /* Slt.framework in Frameworks */,
 				113AA6C71B6E481B0061FFB2 /* AVFoundation.framework in Frameworks */,
 				11037EE61B6973C8000F88EF /* libxml2.dylib in Frameworks */,
 				11E22D8E1B662EBC00EB6A6C /* SwiftyJSON.framework in Frameworks */,
 				11E22D4D1B6509BB00EB6A6C /* Alamofire.framework in Frameworks */,
+				112990EB1B832E19005FD5AB /* OpenEars.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,12 +234,24 @@
 			path = HTMLParser;
 			sourceTree = "<group>";
 		};
+		112990E41B832E19005FD5AB /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				112990E51B832E19005FD5AB /* AcousticModelEnglish.bundle */,
+				112990E61B832E19005FD5AB /* AcousticModelSpanish.bundle */,
+				112990E71B832E19005FD5AB /* OpenEars.framework */,
+				112990E81B832E19005FD5AB /* Slt.framework */,
+			);
+			path = Framework;
+			sourceTree = "<group>";
+		};
 		118D2F221B5AD9370005F577 = {
 			isa = PBXGroup;
 			children = (
 				116B12401B7BA70300CED1AE /* AudioToolbox.framework */,
 				113AA6C61B6E481B0061FFB2 /* AVFoundation.framework */,
 				11037EE51B6973C8000F88EF /* libxml2.dylib */,
+				112990E41B832E19005FD5AB /* Framework */,
 				11E22D7F1B662EB400EB6A6C /* SwiftyJSON.xcodeproj */,
 				11E22D3E1B6509B200EB6A6C /* Alamofire.xcodeproj */,
 				118D2F2D1B5AD9370005F577 /* Visucast */,
@@ -262,6 +286,7 @@
 				116CF05A1B5B205E0056FCA0 /* SearchViewController.swift */,
 				116CF05E1B5B208A0056FCA0 /* PodcastFeedViewController.swift */,
 				11175B811B68DAF100A652CB /* PodcastEpisodeTableViewCell.swift */,
+				11C0065A1B8253BF0084AA5B /* DownloadProgressViewController.swift */,
 				11BCCD8C1B6A4716002D7DE9 /* DownloadsTableViewCell.swift */,
 				116CF0561B5B203E0056FCA0 /* DownloadsViewController.swift */,
 				11037EF81B697C11000F88EF /* Visucast-Bridging-Header.h */,
@@ -478,6 +503,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				116B123F1B7B760C00CED1AE /* Main.storyboard in Resources */,
+				112990EA1B832E19005FD5AB /* AcousticModelSpanish.bundle in Resources */,
+				112990E91B832E19005FD5AB /* AcousticModelEnglish.bundle in Resources */,
 				118D2F3B1B5AD9370005F577 /* LaunchScreen.xib in Resources */,
 				118D2F381B5AD9370005F577 /* Images.xcassets in Resources */,
 			);
@@ -515,6 +542,7 @@
 				11E22D5C1B6565F400EB6A6C /* Podcast.swift in Sources */,
 				116CF05D1B5B207A0056FCA0 /* NowPlayingViewController.swift in Sources */,
 				116B123C1B7A953500CED1AE /* Reachability.swift in Sources */,
+				11C0065B1B8253BF0084AA5B /* DownloadProgressViewController.swift in Sources */,
 				116CF05F1B5B208A0056FCA0 /* PodcastFeedViewController.swift in Sources */,
 				11175B7A1B68CE9D00A652CB /* PodcastEpisode.swift in Sources */,
 				116CF0571B5B203E0056FCA0 /* DownloadsViewController.swift in Sources */,
@@ -656,6 +684,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Framework",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -672,6 +704,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Framework",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
