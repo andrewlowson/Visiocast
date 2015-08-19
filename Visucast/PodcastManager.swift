@@ -56,12 +56,16 @@ class PodcastManager {
                     if (artworkURL == nil) {
                         var artworkURL = resultJSON["artworkUrl100"].string
                     }
+                    if collectionName != nil && artistName != nil && artworkURL != nil && feedURL != nil {
+                        var podcast = Podcast(title: collectionName!, artist: artistName!, artwork: artworkURL!,feedURL: feedURL!)
+                        
+                        // populate array set delegate result to this array
+                        podcasts.append(podcast)
+                        self.delegate?.didReceiveResults(podcasts)
+                    }
+
                     
-                    var podcast = Podcast(title: collectionName!, artist: artistName!, artwork: artworkURL!,feedURL: feedURL!)
-                    
-                    // populate array set delegate result to this array
-                    podcasts.append(podcast)
-                    self.delegate?.didReceiveResults(podcasts)
+
                 }
             }
         }

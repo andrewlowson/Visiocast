@@ -36,11 +36,11 @@ class DownloadManager {
     func initiateDownload(podcastEpisode: PodcastEpisode, downloadURL: NSURL, episodeData: [String: String]) {
         episode = podcastEpisode
         if Reachability.isConnectedToNetwork() {
-            let destination = Alamofire.Request.suggestedDownloadDestination(directory: .DocumentDirectory, domain: .UserDomainMask)
             
-            // start the download off the main thread so UI still remains responsive
             let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
             dispatch_async(dispatch_get_global_queue(priority, 0)) {
+                // start the download off the main thread so UI still remains responsive
+                let destination = Alamofire.Request.suggestedDownloadDestination(directory: .DocumentDirectory, domain: .UserDomainMask)
                 Alamofire.download(.GET, downloadURL, destination: destination)
                     .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
                         
@@ -78,8 +78,9 @@ class DownloadManager {
         var filename: String! = split[0]
         
         if Reachability.isConnectedToNetwork() {
-            if let artworkURL = NSURL(string: episodeData["artwork"]!) {
-                var artworkData = NSData(contentsOfURL: artworkURL)
+            if let artworkString = episodeData["artwork"] {
+                var artworkURL = NSURL(string: artworkString)
+                var artworkData = NSData(contentsOfURL: artworkURL!)
                 var artwork = UIImage(data: artworkData!)
             }
         }

@@ -10,12 +10,12 @@ import UIKit
 
 class SearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, PodcastManagerProtocol {
     // MARK: - Instance Variables
-    let api = PodcastManager()
-    var podcasts = [Podcast]()
-    var podcastArtwork = [NSURL: UIImage]()
+    let api = PodcastManager() // We will call this to carry out search functions and get arrays of podcasts.
+    var podcasts = [Podcast]() // An array of podcast search results to be displayed in the table view
+    var podcastArtwork = [NSURL: UIImage]() // An image cache of the artwork so we don't need to download it more than once
     var searchActive : Bool = false
     
-    @IBOutlet weak var podcastTableView: UITableView!
+    @IBOutlet weak var podcastTableView: UITableView! // Our table containing search results
     @IBOutlet private weak var searchBar: UISearchBar! {
         didSet {
             searchBar.isAccessibilityElement == true
@@ -28,8 +28,10 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     // MARK: - Initialiser Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         api.delegate = self
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true // show the network activity spinner in menu
         podcastTableView.delegate = self
         podcastTableView.dataSource = self
         
@@ -40,11 +42,12 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         podcastTableView.reloadData()
     }
     
+    // function for the PodcastManagerProtocol
     func didReceiveResults(results: NSArray) {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            self.podcasts = results as! [(Podcast)]
-            self.waitingForResults.stopAnimating()
-            self.podcastTableView.reloadData()
+            self.podcasts = results as! [(Podcast)] // create a podcast array of the results
+            self.waitingForResults.stopAnimating() // stop the activity spinner spinner that
+            self.podcastTableView.reloadData() // reload the table data
         }
     }
     
@@ -56,6 +59,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     
     func searchBarTextDidEndEditing(searchBar: UISearchBar) {
         searchActive = false;
+        
     }
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
@@ -71,11 +75,12 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         podcastTableView.reloadData()
         
         api.podcastSearch(self.searchBar.text)
-        self.waitingForResults.startAnimating()
-        searchBar.resignFirstResponder()
+        self.waitingForResults.startAnimating() // make activity spinner start spinning
+        searchBar.resignFirstResponder() // lower the keyboard
         searchBar.setShowsCancelButton(false, animated: true)
     }
     
+    // text in the Search bar
     var searchText: String? = "" {
         didSet {
             podcasts.removeAll()
@@ -89,10 +94,12 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         static let CellReuseIdentifier = "Podcast"
     }
     
+    // we only need one section because we only have one type of result
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
+    // we need the same number of cells as there are podcasts
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return podcasts.count
     }
@@ -117,7 +124,6 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
                     // Store the image in to our cache
                     self.podcastArtwork[self.podcasts[indexPath.row].podcastArtwork!] = artwork
                     // Update the cell
-                    
                     dispatch_async(dispatch_get_main_queue(), {
                         cell.podcastArtworkImageView?.image = artwork
                     })
