@@ -14,7 +14,6 @@ import UIKit
 
 protocol DownloadManagerProtocol {
     func didReceiveDownload(PodcastEpisode)
-
 }
 
 class DownloadManager {
@@ -52,9 +51,14 @@ class DownloadManager {
                         var soFar = Double(totalBytesRead / 1024) / 1024
                         var percentage = (soFar / inMBytes) * 100
                         var someDoubleFormat = ".2"
-                        var currentProgress = "\(percentage.format(someDoubleFormat))% Complete. \(soFar.format(someDoubleFormat))MB of \(inMBytes)MB downloaded."
-                        counter++
-                        self.setProgress(currentProgress, counter: counter)
+                        var podcastTitle = podcastEpisode.episodeTitle
+                        if percentage <= 100 {
+                            var currentProgress = "\(podcastTitle!): \(percentage.format(someDoubleFormat))% Complete."
+                            self.defaults.setObject(currentProgress, forKey: podcastEpisode.episodeTitle!)
+                        } else {
+                            var currentProgress = "\(podcastTitle!): 100% Complete."
+                            self.defaults.setObject(currentProgress, forKey: podcastEpisode.episodeTitle!)
+                        }
                     }
                     .responseJSON { request, response, jsonDict, error in
                         println("\(response!)")
@@ -71,15 +75,6 @@ class DownloadManager {
                     }
             }
         }
-    }
-    
-    func setProgress(currentProgress: String, counter: Int) {
-        progress = currentProgress
-    }
-    
-    func currentProgress() -> String {
-        println(progress)
-        return progress
     }
     
     func updateUserDefaults(episodeData: [String : String], url: NSURL) {

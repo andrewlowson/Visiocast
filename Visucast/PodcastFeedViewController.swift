@@ -90,8 +90,20 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
             case Download.SegueIdentifier:
                 if let dpvc = segue.destinationViewController as? DownloadProgressViewController {
                     if let ppc = dpvc.popoverPresentationController {
+                        if tableView.indexPathForSelectedRow() != nil {
+                            var podcastIndex: Int? = tableView.indexPathForSelectedRow()!.row
+                            if podcastIndex != nil {
+                                var selectedPodcast = self.podcastEpisodes[podcastIndex!]
+                                var podcastTitle = selectedPodcast.episodeTitle!
+                                if !podcastTitle.isEmpty {
+                                    dpvc.episodeTitle = podcastTitle
+                                }
+                            }
+                        }
                         ppc.permittedArrowDirections = UIPopoverArrowDirection.Any
                         ppc.delegate = self // this popover delegate alllows you to take control of what's displayed
+
+                        
                     }
                 }
             default: break
@@ -158,6 +170,7 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
             println("Value: \(defaults.objectForKey(fileName))")
             
             downloader.initiateDownload(selectedPodcast ,downloadURL: downloadURL!, episodeData: storage)
+           // updateBarButtonItem(selectedPodcast.episodeTitle)
             
         } else {
             // if we already have the episode display an information box alerting the user to that fact
@@ -167,6 +180,13 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
             let OKAction = UIAlertAction(title: "OK", style: .Default) { (action) in } // Set up default OK action for user to dismiss alert
             alertController.addAction(OKAction)
         }
+    
+    }
+    func updateBarButtonItem(episodeTitle: String?) {
+        
+        self.navigationItem.rightBarButtonItem?.title = "0%"
         
     }
+    
+
 }

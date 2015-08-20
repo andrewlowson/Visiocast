@@ -10,12 +10,16 @@ import UIKit
 
 class DownloadProgressViewController: UIViewController {
     
+    
     @IBOutlet weak var textView: UITextView! {
         didSet {
             textView.text = text
         }
     }
+    @IBOutlet weak var downloadProgressLabel: UILabel!
     
+    var episodeTitle: String?
+    let defaults = NSUserDefaults.standardUserDefaults()
     var text: String = "" {
         didSet {
             textView?.text = text
@@ -30,9 +34,15 @@ class DownloadProgressViewController: UIViewController {
     
     override func viewDidDisappear(animated: Bool) {
         timer.invalidate()
+        textView.text = ""
     }
     
     func updateProgress() {
-        textView.text = downloader.currentProgress()
+        if episodeTitle != nil {
+            if let progress = defaults.objectForKey(episodeTitle!) as? String {
+                //textView.text = progress
+                downloadProgressLabel.text = progress
+            }
+        }
     }
 }
