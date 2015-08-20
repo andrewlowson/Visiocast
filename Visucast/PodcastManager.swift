@@ -195,17 +195,12 @@ class PodcastManager {
 
         episodeData.updateValue(podcast!, forKey: "podcast")
         episodeData.updateValue(title!, forKey: "title")
-        //episodeData.updateValue(subtitle!, forKey: "subtitle")
         if summary != nil {
             episodeData.updateValue(summary!, forKey: "description")
         }
-        
-        
         if guid != nil {
             episodeData.updateValue(guid!, forKey: "guid")
         }
-        
-        
         if (imageTag != nil) {
             episodeData.updateValue(imageTag!, forKey: "artwork")
         } else {

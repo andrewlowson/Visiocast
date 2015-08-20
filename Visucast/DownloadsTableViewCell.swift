@@ -24,10 +24,7 @@ class DownloadsTableViewCell: UITableViewCell {
     func updateUI() {
         episodeTitleLabel?.text = self.episode!.episodeTitle!
         var artworkURL = self.episode!.podcast?.podcastArtwork!
-        podcastNameLabel?.text = self.episode!.podcast!.podcastArtistName
-        
-        println(self.episode!.podcast!.podcastArtistName)
-
+        podcastNameLabel?.text = self.episode!.podcast!.podcastTitle!
     }
     
     override func awakeFromNib() {

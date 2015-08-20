@@ -32,8 +32,7 @@ class PodcastTableViewCell: UITableViewCell {
         podcastArtistNameLabel.text = nil
         podcastArtworkImageView.image = nil
         
-        if let podcast = self.podcast {
-            
+        if let podcast = self.podcast {    
             podcastTitleLabel?.text = podcast.podcastTitle
             podcastArtistNameLabel.text = podcast.podcastArtistName
 

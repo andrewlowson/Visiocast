@@ -26,7 +26,8 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
     var podcastTitle: String?
     var filteredAppleProducts = [String]()
     var resultSearchController = UISearchController()
-
+    var timer: NSTimer = NSTimer()
+    var episodeTitle: String?
     
     
     override func viewDidLoad() {
@@ -179,8 +180,7 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
         }
     
     }
-    var timer: NSTimer = NSTimer()
-    var episodeTitle: String?
+
     
     func updateProgress() {
         
