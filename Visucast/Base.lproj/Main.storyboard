@@ -418,7 +418,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="XvI-yg-4t7">
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Downloading" id="6n7-kq-enb">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Download" id="6n7-kq-enb">
                             <connections>
                                 <segue destination="vKk-rl-ugw" kind="popoverPresentation" identifier="Show Download Progress" popoverAnchorBarButtonItem="6n7-kq-enb" id="i6i-Hc-QXn">
                                     <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
@@ -513,7 +513,7 @@
                                 </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LNS-Tv-ejl">
-                                <rect key="frame" x="174" y="496" width="25" height="15"/>
+                                <rect key="frame" x="174" y="496" width="84" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -536,14 +536,14 @@
                                 </connections>
                             </button>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="2pY-9h-7Ff">
-                                <rect key="frame" x="156" y="461" width="289" height="31"/>
+                                <rect key="frame" x="173" y="461" width="255" height="31"/>
                                 <accessibility key="accessibilityConfiguration" label="adjust current play location"/>
                                 <connections>
                                     <action selector="changeTrackTime:" destination="2dm-jV-lh3" eventType="valueChanged" id="Vug-Iw-2vI"/>
                                 </connections>
                             </slider>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2h6-wk-ScX">
-                                <rect key="frame" x="369" y="513" width="57" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2h6-wk-ScX">
+                                <rect key="frame" x="341" y="513" width="85" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="81" id="2tl-32-fb1">
                                         <variation key="heightClass=compact-widthClass=compact" constant="59"/>
@@ -594,11 +594,20 @@
                                 </variation>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Wy-dU-R9b">
-                                <rect key="frame" x="401" y="496" width="25" height="15"/>
+                                <rect key="frame" x="341" y="496" width="85" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bxs-4U-5oJ">
+                                <rect key="frame" x="175" y="513" width="50" height="30"/>
+                                <state key="normal" title="Back">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="SkipBack:" destination="2dm-jV-lh3" eventType="touchUpInside" id="opQ-f9-UJa"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rEC-fO-XPX">
                                 <rect key="frame" x="286" y="513" width="30" height="30"/>
                                 <state key="normal" title="Play">
@@ -606,15 +615,6 @@
                                 </state>
                                 <connections>
                                     <action selector="PlayAudio:" destination="2dm-jV-lh3" eventType="touchUpInside" id="ucT-1v-hc5"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bxs-4U-5oJ">
-                                <rect key="frame" x="174" y="513" width="35" height="30"/>
-                                <state key="normal" title="Back">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="SkipBack:" destination="2dm-jV-lh3" eventType="touchUpInside" id="opQ-f9-UJa"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -629,6 +629,7 @@
                                 <variation key="heightClass=compact-widthClass=compact" constant="48"/>
                             </constraint>
                             <constraint firstItem="LNS-Tv-ejl" firstAttribute="baseline" secondItem="7Wy-dU-R9b" secondAttribute="baseline" id="3Jn-mZ-uxz"/>
+                            <constraint firstItem="gyx-w5-Dfy" firstAttribute="trailing" secondItem="7Wy-dU-R9b" secondAttribute="trailing" constant="1" id="3jr-Jw-Zxp"/>
                             <constraint firstItem="rEC-fO-XPX" firstAttribute="baseline" secondItem="2h6-wk-ScX" secondAttribute="baseline" id="5nJ-zk-AJX">
                                 <variation key="heightClass=compact-widthClass=compact" constant="-1"/>
                             </constraint>
@@ -645,7 +646,9 @@
                             <constraint firstItem="x12-7w-DUj" firstAttribute="leading" secondItem="yxx-v0-k7y" secondAttribute="leadingMargin" id="Hz6-tC-WTb">
                                 <variation key="heightClass=compact-widthClass=compact" constant="176"/>
                             </constraint>
+                            <constraint firstItem="gyx-w5-Dfy" firstAttribute="leading" secondItem="2pY-9h-7Ff" secondAttribute="leading" id="ICG-jb-7bC"/>
                             <constraint firstItem="goV-fm-zSM" firstAttribute="leading" secondItem="yxx-v0-k7y" secondAttribute="leading" id="ImE-8K-C1r"/>
+                            <constraint firstItem="LNS-Tv-ejl" firstAttribute="trailing" secondItem="gyx-w5-Dfy" secondAttribute="trailing" constant="-169" id="LT9-MT-wOW"/>
                             <constraint firstItem="x12-7w-DUj" firstAttribute="centerX" secondItem="2pY-9h-7Ff" secondAttribute="centerX" id="MNE-aQ-Pnt"/>
                             <constraint firstItem="Bxs-4U-5oJ" firstAttribute="leading" secondItem="gyx-w5-Dfy" secondAttribute="leading" id="NHl-Gh-dNI">
                                 <variation key="heightClass=compact-widthClass=compact" constant="176"/>
@@ -663,6 +666,7 @@
                                 <variation key="heightClass=compact-widthClass=compact" constant="88"/>
                             </constraint>
                             <constraint firstItem="Bxs-4U-5oJ" firstAttribute="leading" secondItem="gyx-w5-Dfy" secondAttribute="trailing" constant="8" id="Zcc-zJ-Nh5"/>
+                            <constraint firstItem="gyx-w5-Dfy" firstAttribute="trailing" secondItem="2pY-9h-7Ff" secondAttribute="trailing" constant="1" id="bNq-qD-8fP"/>
                             <constraint firstItem="rEC-fO-XPX" firstAttribute="top" secondItem="2pY-9h-7Ff" secondAttribute="bottom" constant="22" id="cUT-fM-4OA">
                                 <variation key="heightClass=compact-widthClass=compact" constant="30"/>
                             </constraint>
@@ -675,7 +679,7 @@
                             <constraint firstItem="rEC-fO-XPX" firstAttribute="leading" secondItem="Bxs-4U-5oJ" secondAttribute="trailing" constant="8" symbolic="YES" id="gYH-C4-tGe">
                                 <variation key="heightClass=compact-widthClass=compact" constant="37"/>
                             </constraint>
-                            <constraint firstItem="Bxs-4U-5oJ" firstAttribute="leading" secondItem="LNS-Tv-ejl" secondAttribute="leading" id="hAf-xo-1Hp"/>
+                            <constraint firstItem="Bxs-4U-5oJ" firstAttribute="leading" secondItem="LNS-Tv-ejl" secondAttribute="leading" constant="1" id="hAf-xo-1Hp"/>
                             <constraint firstItem="gyx-w5-Dfy" firstAttribute="centerX" secondItem="rEC-fO-XPX" secondAttribute="centerX" id="hR8-L5-TBI">
                                 <variation key="heightClass=compact-widthClass=compact" constant="-188"/>
                             </constraint>
@@ -683,14 +687,15 @@
                             <constraint firstAttribute="trailingMargin" secondItem="x12-7w-DUj" secondAttribute="trailing" constant="92" id="j9m-AZ-83p">
                                 <variation key="heightClass=compact-widthClass=compact" constant="0.0"/>
                             </constraint>
-                            <constraint firstItem="rEC-fO-XPX" firstAttribute="leading" secondItem="Bxs-4U-5oJ" secondAttribute="trailing" constant="77" id="jsC-46-9j3">
+                            <constraint firstItem="rEC-fO-XPX" firstAttribute="leading" secondItem="Bxs-4U-5oJ" secondAttribute="trailing" constant="61" id="jsC-46-9j3">
                                 <variation key="heightClass=compact-widthClass=compact" constant="37"/>
                             </constraint>
                             <constraint firstItem="2h6-wk-ScX" firstAttribute="leading" secondItem="rEC-fO-XPX" secondAttribute="trailing" constant="-162" id="lzX-8I-0Fv"/>
-                            <constraint firstItem="2h6-wk-ScX" firstAttribute="leading" secondItem="rEC-fO-XPX" secondAttribute="trailing" constant="53" id="oLG-lD-30i">
+                            <constraint firstItem="2h6-wk-ScX" firstAttribute="leading" secondItem="rEC-fO-XPX" secondAttribute="trailing" constant="25" id="oLG-lD-30i">
                                 <variation key="heightClass=compact-widthClass=compact" constant="15"/>
                             </constraint>
-                            <constraint firstItem="7Wy-dU-R9b" firstAttribute="leading" secondItem="2pY-9h-7Ff" secondAttribute="trailing" constant="-42" id="oxs-af-3sA">
+                            <constraint firstItem="Bxs-4U-5oJ" firstAttribute="leading" secondItem="gyx-w5-Dfy" secondAttribute="leading" id="ort-6z-Rgm"/>
+                            <constraint firstItem="7Wy-dU-R9b" firstAttribute="leading" secondItem="2pY-9h-7Ff" secondAttribute="trailing" constant="-85" id="oxs-af-3sA">
                                 <variation key="heightClass=compact-widthClass=compact" constant="-37"/>
                             </constraint>
                             <constraint firstAttribute="trailing" secondItem="goV-fm-zSM" secondAttribute="trailing" id="qre-bg-7h8"/>
@@ -704,7 +709,7 @@
                             <constraint firstItem="x12-7w-DUj" firstAttribute="top" secondItem="goV-fm-zSM" secondAttribute="bottom" constant="8" symbolic="YES" id="v0v-po-NBI"/>
                             <constraint firstItem="gyx-w5-Dfy" firstAttribute="centerY" secondItem="rEC-fO-XPX" secondAttribute="centerY" constant="-201" id="v6P-rA-kuD"/>
                             <constraint firstItem="2h6-wk-ScX" firstAttribute="trailing" secondItem="yxx-v0-k7y" secondAttribute="trailingMargin" id="wWf-i6-hNi"/>
-                            <constraint firstItem="2pY-9h-7Ff" firstAttribute="leading" secondItem="LNS-Tv-ejl" secondAttribute="trailing" constant="-41" id="xbe-Od-jQz">
+                            <constraint firstItem="2pY-9h-7Ff" firstAttribute="leading" secondItem="LNS-Tv-ejl" secondAttribute="trailing" constant="-83" id="xbe-Od-jQz">
                                 <variation key="heightClass=compact-widthClass=compact" constant="-31"/>
                             </constraint>
                             <constraint firstItem="rEC-fO-XPX" firstAttribute="centerX" secondItem="goV-fm-zSM" secondAttribute="centerX" id="y9Q-Fm-l4G">
@@ -784,7 +789,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cjJ-fJ-ftv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3931.5" y="489"/>
+            <point key="canvasLocation" x="3931" y="489"/>
         </scene>
         <!--SearchViewController-->
         <scene sceneID="uI4-gB-XK3">

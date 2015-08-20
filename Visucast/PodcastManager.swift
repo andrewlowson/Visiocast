@@ -166,7 +166,6 @@ class PodcastManager {
             dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss zzz"
             publishedDate = dateFormatter.dateFromString(publishedDateString!)
             
-//            let episode = PodcastEpisode(title: title!,description:  summary!,date:  publishedDate!,duration:  duration!,download:  enclosureURL!,subtitle:  subtitle!,size:  enclosureLength!, podcast: podcast, artwork: imageTag!)
             let episode = PodcastEpisode(title: title!,description:  summary!,date:  publishedDate!,duration:  duration!,download:  enclosureURL!,subtitle:  subtitle!,size:  enclosureLength!, podcast: podcast)
             episodes.append(episode)
         }
