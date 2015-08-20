@@ -420,7 +420,7 @@
                     <navigationItem key="navigationItem" id="XvI-yg-4t7">
                         <barButtonItem key="rightBarButtonItem" title="Downloading" id="6n7-kq-enb">
                             <connections>
-                                <segue destination="vKk-rl-ugw" kind="popoverPresentation" popoverAnchorBarButtonItem="6n7-kq-enb" id="i6i-Hc-QXn">
+                                <segue destination="vKk-rl-ugw" kind="popoverPresentation" identifier="Show Download Progress" popoverAnchorBarButtonItem="6n7-kq-enb" id="i6i-Hc-QXn">
                                     <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                 </segue>
                             </connections>
@@ -450,26 +450,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="e8H-5t-LZa">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mmx-ja-UPO">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Download" id="ZTb-0l-KHR">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZTb-0l-KHR" id="ejU-Ot-IxZ">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="textView" destination="mmx-ja-UPO" id="CIx-I8-LdR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V0b-ly-sdh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3930" y="-516"/>
+            <point key="canvasLocation" x="3888" y="-598"/>
         </scene>
         <!--Now Playing-->
         <scene sceneID="omk-83-h3o">
@@ -712,11 +709,11 @@
                             <mask key="constraints">
                                 <exclude reference="ImE-8K-C1r"/>
                                 <exclude reference="qre-bg-7h8"/>
+                                <exclude reference="WCz-bI-Ouf"/>
+                                <exclude reference="j9m-AZ-83p"/>
                                 <exclude reference="1C5-Kz-xDk"/>
                                 <exclude reference="CnJ-55-iBh"/>
                                 <exclude reference="v6P-rA-kuD"/>
-                                <exclude reference="WCz-bI-Ouf"/>
-                                <exclude reference="j9m-AZ-83p"/>
                                 <exclude reference="fFG-lc-ouo"/>
                                 <exclude reference="gWj-JX-wfa"/>
                                 <exclude reference="PPr-Zb-Yh0"/>
@@ -739,10 +736,10 @@
                             <mask key="constraints">
                                 <include reference="ImE-8K-C1r"/>
                                 <include reference="qre-bg-7h8"/>
-                                <include reference="1C5-Kz-xDk"/>
-                                <include reference="CnJ-55-iBh"/>
                                 <include reference="WCz-bI-Ouf"/>
                                 <include reference="j9m-AZ-83p"/>
+                                <include reference="1C5-Kz-xDk"/>
+                                <include reference="CnJ-55-iBh"/>
                                 <include reference="fFG-lc-ouo"/>
                                 <include reference="gWj-JX-wfa"/>
                                 <include reference="PPr-Zb-Yh0"/>
@@ -1138,10 +1135,10 @@
             </objects>
             <point key="canvasLocation" x="1380" y="-292"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--More Information-->
         <scene sceneID="92r-0L-jg1">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ge1-dp-gXV" sceneMemberID="viewController">
+                <navigationController title="More Information" automaticallyAdjustsScrollViewInsets="NO" id="ge1-dp-gXV" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" systemItem="more" id="w6F-b6-IcS"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="QRJ-Wl-kNW">

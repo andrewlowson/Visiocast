@@ -43,6 +43,7 @@
 		11E22D8E1B662EBC00EB6A6C /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11E22D871B662EB400EB6A6C /* SwiftyJSON.framework */; };
 		11E22D8F1B662EBC00EB6A6C /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 11E22D871B662EB400EB6A6C /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		11E22D951B663C8300EB6A6C /* PodcastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E22D941B663C8300EB6A6C /* PodcastTableViewCell.swift */; };
+		11F6DCA41B85DE4C007613BA /* EpisodeDownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F6DCA31B85DE4C007613BA /* EpisodeDownloadViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -195,6 +196,7 @@
 		11E22D5B1B6565F400EB6A6C /* Podcast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Podcast.swift; sourceTree = "<group>"; };
 		11E22D7F1B662EB400EB6A6C /* SwiftyJSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftyJSON.xcodeproj; path = SwiftyJSON/SwiftyJSON.xcodeproj; sourceTree = "<group>"; };
 		11E22D941B663C8300EB6A6C /* PodcastTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastTableViewCell.swift; sourceTree = "<group>"; };
+		11F6DCA31B85DE4C007613BA /* EpisodeDownloadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EpisodeDownloadViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -278,6 +280,7 @@
 				11037ED61B697111000F88EF /* PodcastManager.swift */,
 				11D8ED621B7CC79C003B261C /* DictationManager.swift */,
 				11C9781E1B6B90AC00EFDA95 /* DownloadManager.swift */,
+				11F6DCA31B85DE4C007613BA /* EpisodeDownloadViewController.swift */,
 				116CF0581B5B204E0056FCA0 /* AboutViewController.swift */,
 				116CF05C1B5B207A0056FCA0 /* NowPlayingViewController.swift */,
 				11E22D941B663C8300EB6A6C /* PodcastTableViewCell.swift */,
@@ -539,6 +542,7 @@
 				11037ED71B697111000F88EF /* PodcastManager.swift in Sources */,
 				11E22D5C1B6565F400EB6A6C /* Podcast.swift in Sources */,
 				116CF05D1B5B207A0056FCA0 /* NowPlayingViewController.swift in Sources */,
+				11F6DCA41B85DE4C007613BA /* EpisodeDownloadViewController.swift in Sources */,
 				116B123C1B7A953500CED1AE /* Reachability.swift in Sources */,
 				11C0065B1B8253BF0084AA5B /* DownloadProgressViewController.swift in Sources */,
 				116CF05F1B5B208A0056FCA0 /* PodcastFeedViewController.swift in Sources */,

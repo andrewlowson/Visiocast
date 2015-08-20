@@ -14,6 +14,7 @@ import UIKit
 
 protocol DownloadManagerProtocol {
     func didReceiveDownload(PodcastEpisode)
+
 }
 
 class DownloadManager {
@@ -24,6 +25,7 @@ class DownloadManager {
     var delegate: DownloadManagerProtocol?
     var duplicate: Bool? = false
     var api = PodcastManager()
+    var progress: String = "Nothing Currently Downloading"
     var podcasts = [String]()
     let defaults = NSUserDefaults.standardUserDefaults()
     let documentsUrl =  NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as! NSURL
@@ -40,6 +42,7 @@ class DownloadManager {
             let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
             dispatch_async(dispatch_get_global_queue(priority, 0)) {
                 // start the download off the main thread so UI still remains responsive
+                var counter = 0
                 let destination = Alamofire.Request.suggestedDownloadDestination(directory: .DocumentDirectory, domain: .UserDomainMask)
                 Alamofire.download(.GET, downloadURL, destination: destination)
                     .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
@@ -48,9 +51,10 @@ class DownloadManager {
                         var inMBytes = Double( (totalBytesExpectedToRead / 1024) / 1024)
                         var soFar = Double(totalBytesRead / 1024) / 1024
                         var percentage = (soFar / inMBytes) * 100
-                        var someDoubleFormat = ".3"
-                        
-                        println("\(percentage.format(someDoubleFormat))% Complete. \(soFar.format(someDoubleFormat))MB of \(inMBytes)MB downloaded.")
+                        var someDoubleFormat = ".2"
+                        var currentProgress = "\(percentage.format(someDoubleFormat))% Complete. \(soFar.format(someDoubleFormat))MB of \(inMBytes)MB downloaded."
+                        counter++
+                        self.setProgress(currentProgress, counter: counter)
                     }
                     .responseJSON { request, response, jsonDict, error in
                         println("\(response!)")
@@ -67,6 +71,15 @@ class DownloadManager {
                     }
             }
         }
+    }
+    
+    func setProgress(currentProgress: String, counter: Int) {
+        progress = currentProgress
+    }
+    
+    func currentProgress() -> String {
+        println(progress)
+        return progress
     }
     
     func updateUserDefaults(episodeData: [String : String], url: NSURL) {
@@ -127,17 +140,19 @@ class DownloadManager {
         // strip out filename from the URL
         let urlAsString = "\(fileURL)"
         let path = split(urlAsString) {$0 == "/"}
-        let filename = path[path.count-1]
-        
-        // Find the Documents directory
-        if let directoryUrls =  NSFileManager.defaultManager().contentsOfDirectoryAtURL(documentsUrl, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsSubdirectoryDescendants, error: nil) {
+        if path.count > 0 {
+            let filename = path[path.count-1]
             
-            // for all mp3 files inthe documents directory, match them against our target filename. If they match, send back true
-            let mp3Files = directoryUrls.map(){ $0.lastPathComponent }.filter(){ $0.pathExtension == "mp3" }
-            for file: String in mp3Files {
-                if filename == file {
-                    self.duplicate = true
-                    return self.duplicate!
+            // Find the Documents directory
+            if let directoryUrls =  NSFileManager.defaultManager().contentsOfDirectoryAtURL(documentsUrl, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsSubdirectoryDescendants, error: nil) {
+                
+                // for all mp3 files inthe documents directory, match them against our target filename. If they match, send back true
+                let mp3Files = directoryUrls.map(){ $0.lastPathComponent }.filter(){ $0.pathExtension == "mp3" }
+                for file: String in mp3Files {
+                    if filename == file {
+                        self.duplicate = true
+                        return self.duplicate!
+                    }
                 }
             }
         }

@@ -58,6 +58,8 @@ class NowPlayingViewController: UIViewController {
             episodeTitleLabel.text = podcastArtist
         }
         trackSlider.maximumValue = Float(PodcastPlayer.sharedInstance.duration())
+        
+        
         if NSClassFromString("MPNowPlayingInfoCenter") != nil {
             if podcastArtwork != nil {
                 let image: UIImage = podcastArtwork!
@@ -79,6 +81,7 @@ class NowPlayingViewController: UIViewController {
         } else {
             println("error here")
         }
+        
         if (AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)) {
             println("Receiving remote control")
             UIApplication.sharedApplication().beginReceivingRemoteControlEvents()

@@ -17,13 +17,12 @@ protocol PodcastManagerProtocol {
 
 class PodcastManager {
     
-    // prefix to search term, used for scraping iTunes directory
-    var defaultSearchTerm = "https://itunes.apple.com/search?term=podcast+"
-    // Feedly RSS Service URL
-    var feedString = "http://cloud.feedly.com/v3/search/feeds/"
-    // set up protocol
-    var delegate: PodcastManagerProtocol?
-    let defaults = NSUserDefaults.standardUserDefaults()
+    // Constants and Instance Variables
+    let defaultSearchTerm = "https://itunes.apple.com/search?term=podcast+"     // prefix to search term, used for scraping iTunes directory
+    let feedString = "http://cloud.feedly.com/v3/search/feeds/"     // Feedly RSS Service URL
+    let defaults = NSUserDefaults.standardUserDefaults() // persistent storage setup
+    var delegate: PodcastManagerProtocol?     // set up protocol
+    
 
     
     /**
@@ -63,9 +62,6 @@ class PodcastManager {
                         podcasts.append(podcast)
                         self.delegate?.didReceiveResults(podcasts)
                     }
-
-                    
-
                 }
             }
         }
