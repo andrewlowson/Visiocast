@@ -79,8 +79,6 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
         static let DefaultsKey = "DownloadProgressViewController.Progress"
     }
     
-    
-    
     // TODO: Come back to this!
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
@@ -102,8 +100,6 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
                         }
                         ppc.permittedArrowDirections = UIPopoverArrowDirection.Any
                         ppc.delegate = self // this popover delegate alllows you to take control of what's displayed
-
-                        
                     }
                 }
             default: break
@@ -170,7 +166,8 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
             println("Value: \(defaults.objectForKey(fileName))")
             
             downloader.initiateDownload(selectedPodcast ,downloadURL: downloadURL!, episodeData: storage)
-           // updateBarButtonItem(selectedPodcast.episodeTitle)
+            episodeTitle = selectedPodcast.episodeTitle!
+            timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector:Selector("updateProgress"), userInfo: nil, repeats: true )
             
         } else {
             // if we already have the episode display an information box alerting the user to that fact
@@ -182,11 +179,22 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
         }
     
     }
-    func updateBarButtonItem(episodeTitle: String?) {
+    var timer: NSTimer = NSTimer()
+    var episodeTitle: String?
+    
+    func updateProgress() {
         
-        self.navigationItem.rightBarButtonItem?.title = "0%"
-        
+        if !episodeTitle!.isEmpty {
+            if let progress = defaults.objectForKey(episodeTitle!) as? Int {
+                self.navigationItem.rightBarButtonItem?.title = "\(progress)%"
+                if progress >= 100 {
+                    timer.invalidate()
+                    self.navigationItem.rightBarButtonItem?.title = "Downloaded"
+                }
+            }
+        }
     }
+    
     
 
 }

@@ -50,13 +50,12 @@ class DownloadManager {
                         var inMBytes = Double( (totalBytesExpectedToRead / 1024) / 1024)
                         var soFar = Double(totalBytesRead / 1024) / 1024
                         var percentage = (soFar / inMBytes) * 100
-                        var someDoubleFormat = ".2"
                         var podcastTitle = podcastEpisode.episodeTitle
                         if percentage <= 100 {
-                            var currentProgress = "\(podcastTitle!): \(percentage.format(someDoubleFormat))% Complete."
+                            var currentProgress = percentage
                             self.defaults.setObject(currentProgress, forKey: podcastEpisode.episodeTitle!)
                         } else {
-                            var currentProgress = "\(podcastTitle!): 100% Complete."
+                            var currentProgress = percentage
                             self.defaults.setObject(currentProgress, forKey: podcastEpisode.episodeTitle!)
                         }
                     }
@@ -76,7 +75,9 @@ class DownloadManager {
             }
         }
     }
-    
+    /**
+     * Function to update persistant storage with data on the podcast
+     **/
     func updateUserDefaults(episodeData: [String : String], url: NSURL) {
         
         var fullURL = "\(url)"
@@ -152,11 +153,5 @@ class DownloadManager {
             }
         }
         return self.duplicate!
-    }
-}
-
-extension Double {
-    func format(f: String) -> String {
-        return NSString(format: "%\(f)f", self) as String
     }
 }
