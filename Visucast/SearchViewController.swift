@@ -8,9 +8,9 @@
 
 import UIKit
 
-class SearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, PodcastManagerProtocol {
+class SearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, SearchManagerProtocol {
     // MARK: - Instance Variables
-    let api = PodcastManager() // We will call this to carry out search functions and get arrays of podcasts.
+    let api = SearchManager() // We will call this to carry out search functions and get arrays of podcasts.
     var podcasts = [Podcast]() // An array of podcast search results to be displayed in the table view
     var podcastArtwork = [NSURL: UIImage]() // An image cache of the artwork so we don't need to download it more than once
     var searchActive : Bool = false
@@ -147,7 +147,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         var podcastIndex = podcastTableView!.indexPathForSelectedRow()!.row
         
         var selectedPodcast = self.podcasts[podcastIndex]
-        println("\(self.podcasts[podcastIndex].podcastTitle)")
+        println("\(selectedPodcast.podcastFeed!)")
         podcastFeed.setValues(selectedPodcast.podcastFeed!, podcastTitle: selectedPodcast.podcastTitle!, podcast: selectedPodcast)
     }
 

@@ -74,7 +74,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sij-Nk-8iL">
                                 <rect key="frame" x="0.0" y="64" width="600" height="100"/>
                                 <color key="backgroundColor" red="0.43812830320000001" green="0.48216619900000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <accessibility key="accessibilityConfiguration" hint="Press to give application a command" label="Dictate"/>
+                                <accessibility key="accessibilityConfiguration" hint="Press to give application a command" label="Dictate">
+                                    <accessibilityTraits key="traits" none="YES" button="YES"/>
+                                </accessibility>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="gmP-Vj-vnc"/>
                                     <constraint firstAttribute="height" constant="45" id="pru-DA-Vyg"/>
@@ -94,9 +96,6 @@
                                         <include reference="pru-DA-Vyg"/>
                                     </mask>
                                 </variation>
-                                <connections>
-                                    <action selector="dictateButton:" destination="Z7o-YF-sHy" eventType="touchUpInside" id="VsX-oK-jLL"/>
-                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="glasgowLogo" translatesAutoresizingMaskIntoConstraints="NO" id="ljB-Yv-l2d">
                                 <rect key="frame" x="165" y="429" width="271" height="122"/>
@@ -189,7 +188,6 @@
                     <connections>
                         <outlet property="AboutTabBarItem" destination="w6F-b6-IcS" id="uBD-b4-pXT"/>
                         <outlet property="aboutParagraph" destination="4qz-S1-5Hn" id="BAN-l6-88k"/>
-                        <outlet property="dictateButton" destination="sij-Nk-8iL" id="nGB-94-gaN"/>
                         <outlet property="imageLogoView" destination="ljB-Yv-l2d" id="4Nn-df-gac"/>
                         <outlet property="scrollView" destination="jmb-JJ-Yvt" id="ye8-Uc-V39"/>
                     </connections>

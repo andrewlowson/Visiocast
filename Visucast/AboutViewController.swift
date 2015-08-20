@@ -13,14 +13,14 @@ class AboutViewController: UIViewController {
     @IBOutlet weak var AboutTabBarItem: UITabBarItem!
     @IBOutlet weak var aboutParagraph: UITextView!
     @IBOutlet weak var imageLogoView = UIImageView()
-    @IBOutlet weak var dictateButton: UIButton! {
-        didSet{
-            let image = UIImage(named: "microphoneIcon") as UIImage!
-            let dictateButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton
-            dictateButton.setImage(image, forState: .Normal)
-            dictateButton.setTitle("Dictate", forState: .Normal)
-        }
-    }
+//    @IBOutlet weak var dictateButton: UIButton! {
+//        didSet{
+//            let image = UIImage(named: "microphoneIcon") as UIImage!
+//            let dictateButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton
+//            dictateButton.setImage(image, forState: .Normal)
+//            dictateButton.setTitle("Dictate", forState: .Normal)
+//        }
+//    }
     
     @IBOutlet weak var scrollView: UIScrollView!
         {

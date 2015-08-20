@@ -16,7 +16,7 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
     
     let api = DownloadManager() // Needs to be delegate so we can get information about new shows when they're downloaded
     let defaults = NSUserDefaults.standardUserDefaults() // Storage area for Podcast Information
-
+    var counter = 0
     // Main UI elements in View
     @IBOutlet weak var episodesTableView: UITableView!
     @IBOutlet weak var downloadsTableView: UITableView!
@@ -24,7 +24,7 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // layout the TableView rows
         episodesTableView.estimatedRowHeight = episodesTableView.rowHeight
         episodesTableView.rowHeight = UITableViewAutomaticDimension
@@ -34,14 +34,10 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
         episodesTableView.dataSource = self
         api.delegate = self
         
-        loadFiles() //method to layout the files
+     //   loadFiles() //method to layout the files
         episodesTableView.reloadData()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
     // Method to make sure data changed between view changes are known to the UI
     override func viewDidAppear(animated: Bool) {
         podcasts.removeAll()
@@ -50,7 +46,8 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
         
     // This searches the documents directory and grabs all the files in it.
     func loadFiles() {
-        
+        counter++
+        println("Counter: \(counter)")
         // We need just to get the documents folder url
         let documentsUrl =  NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as! NSURL
         
@@ -122,10 +119,6 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                         }
                     }
                 }
-                if title != nil {
-                    println(title!)
-                }
-
                 if (artist == nil) {
                     artist = file
                 }
@@ -209,7 +202,9 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                     })
                 }
                 else {
-                    println("Error: \(error.localizedDescription)")
+                    println("Error 1: \(cell.episode!.episodeTitle!)")
+                    println("Error 2: \(cell.episode!.podcast!.podcastFeed!)")
+                    println("Error 3: \(error.localizedDescription)")
                 }
             })
         }

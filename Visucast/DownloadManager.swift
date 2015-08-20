@@ -23,7 +23,7 @@ class DownloadManager {
     var episode: PodcastEpisode?
     var delegate: DownloadManagerProtocol?
     var duplicate: Bool? = false
-    var api = PodcastManager()
+    var api = SearchManager()
     var progress: String = "Nothing Currently Downloading"
     var podcasts = [String]()
     let defaults = NSUserDefaults.standardUserDefaults()

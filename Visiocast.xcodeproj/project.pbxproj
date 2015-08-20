@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		11037ED71B697111000F88EF /* PodcastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11037ED61B697111000F88EF /* PodcastManager.swift */; };
+		11037ED71B697111000F88EF /* SearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11037ED61B697111000F88EF /* SearchManager.swift */; };
 		11037EE61B6973C8000F88EF /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 11037EE51B6973C8000F88EF /* libxml2.dylib */; };
 		11037EF61B697B5E000F88EF /* HTMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 11037EF31B697B5E000F88EF /* HTMLNode.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		11037EF71B697B5E000F88EF /* HTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 11037EF51B697B5E000F88EF /* HTMLParser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -153,7 +153,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		11037ED61B697111000F88EF /* PodcastManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastManager.swift; sourceTree = "<group>"; };
+		11037ED61B697111000F88EF /* SearchManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchManager.swift; sourceTree = "<group>"; };
 		11037EE51B6973C8000F88EF /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		11037EF21B697B5E000F88EF /* HTMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLNode.h; sourceTree = "<group>"; };
 		11037EF31B697B5E000F88EF /* HTMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLNode.m; sourceTree = "<group>"; };
@@ -275,7 +275,7 @@
 				116B123B1B7A953500CED1AE /* Reachability.swift */,
 				11D8ED5A1B7CC298003B261C /* PodcastPlayer.swift */,
 				11175B791B68CE9D00A652CB /* PodcastEpisode.swift */,
-				11037ED61B697111000F88EF /* PodcastManager.swift */,
+				11037ED61B697111000F88EF /* SearchManager.swift */,
 				11D8ED621B7CC79C003B261C /* DictationManager.swift */,
 				11C9781E1B6B90AC00EFDA95 /* DownloadManager.swift */,
 				116CF0581B5B204E0056FCA0 /* AboutViewController.swift */,
@@ -536,7 +536,7 @@
 				11D8ED5B1B7CC298003B261C /* PodcastPlayer.swift in Sources */,
 				116CF0591B5B204E0056FCA0 /* AboutViewController.swift in Sources */,
 				11E22D531B650D1300EB6A6C /* SearchTableView.swift in Sources */,
-				11037ED71B697111000F88EF /* PodcastManager.swift in Sources */,
+				11037ED71B697111000F88EF /* SearchManager.swift in Sources */,
 				11E22D5C1B6565F400EB6A6C /* Podcast.swift in Sources */,
 				116CF05D1B5B207A0056FCA0 /* NowPlayingViewController.swift in Sources */,
 				116B123C1B7A953500CED1AE /* Reachability.swift in Sources */,

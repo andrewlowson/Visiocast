@@ -10,11 +10,11 @@
 
 import UIKit
 
-class PodcastFeedViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate, UIPopoverPresentationControllerDelegate, PodcastManagerProtocol
+class PodcastFeedViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate, UIPopoverPresentationControllerDelegate, SearchManagerProtocol
 {
     
     @IBOutlet weak var isLoadingEpisodes: UIActivityIndicatorView!
-    let api = PodcastManager() // used
+    let api = SearchManager() // used
     let downloader = DownloadManager()
     var podcastEpisodes = [PodcastEpisode]()
     var downloadProgress = [String]()
@@ -174,8 +174,8 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
             // if we already have the episode display an information box alerting the user to that fact
             let alertController = UIAlertController(title: "Download Error", message: "You have already downloaded this.", preferredStyle: .Alert)
             alertController.isAccessibilityElement = true
-
-            let OKAction = UIAlertAction(title: "OK", style: .Default) { (action) in } // Set up default OK action for user to dismiss alert
+            // Set up default OK action for user to dismiss alert
+            let OKAction = UIAlertAction(title: "OK", style: .Default) { (action) in }
             alertController.addAction(OKAction)
         }
     

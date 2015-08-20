@@ -11,17 +11,17 @@ import Alamofire
 import SwiftyJSON
 import UIKit
 
-protocol PodcastManagerProtocol {
+protocol SearchManagerProtocol {
     func didReceiveResults(results: NSArray)
 }
 
-class PodcastManager {
+class SearchManager {
     
     // Constants and Instance Variables
     let defaultSearchTerm = "https://itunes.apple.com/search?term=podcast+"     // prefix to search term, used for scraping iTunes directory
     let feedString = "http://cloud.feedly.com/v3/search/feeds/"     // Feedly RSS Service URL
     let defaults = NSUserDefaults.standardUserDefaults() // persistent storage setup
-    var delegate: PodcastManagerProtocol?     // set up protocol
+    var delegate: SearchManagerProtocol?     // set up protocol
     
 
     
