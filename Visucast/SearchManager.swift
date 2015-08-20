@@ -201,11 +201,14 @@ class SearchManager {
             episodeData.updateValue(guid!, forKey: "guid")
         }
         if (imageTag != nil) {
+            println("\(podcast) \(feed)")
+            println(imageTag)
             episodeData.updateValue(imageTag!, forKey: "artwork")
         } else {
-            var image: String? = doc.findChildTag("image")?.getAttributeNamed("href")
-            if image != nil {
-                episodeData.updateValue(image!, forKey: "artwork")
+            var image = doc.findChildTag("image") as HTMLNode
+            var imageURL: String? = image.findChildTag("url").contents()
+            if imageURL != nil {
+                episodeData.updateValue(imageURL!, forKey: "artwork")
             }
         }
         

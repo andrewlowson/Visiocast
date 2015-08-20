@@ -168,7 +168,7 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
             
             downloader.initiateDownload(selectedPodcast ,downloadURL: downloadURL!, episodeData: storage)
             episodeTitle = selectedPodcast.episodeTitle!
-            timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector:Selector("updateProgress"), userInfo: nil, repeats: true )
+            timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector:Selector("updateProgress"), userInfo: nil, repeats: true )
             
         } else {
             // if we already have the episode display an information box alerting the user to that fact
