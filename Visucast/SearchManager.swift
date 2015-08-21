@@ -143,8 +143,10 @@ class SearchManager {
             if (summary == nil) {
                 summary = ""
             }
-            if (duration == nil) {
+            if (duration == nil) {  
                 duration = ""
+            } else {
+                println(duration)
             }
             if (enclosureURL == nil) {
                 println("ERROR NO DOWNLOAD URL FOR \(title)")
@@ -206,9 +208,10 @@ class SearchManager {
             episodeData.updateValue(imageTag!, forKey: "artwork")
         } else {
             var image = doc.findChildTag("image") as HTMLNode
-            var imageURL: String? = image.findChildTag("url").contents()
-            if imageURL != nil {
-                episodeData.updateValue(imageURL!, forKey: "artwork")
+                var imageURL: String? = image.findChildTag("url").contents()
+                println(imageURL!)
+                if imageURL != nil {
+                    episodeData.updateValue(imageURL!, forKey: "    artwork")
             }
         }
         

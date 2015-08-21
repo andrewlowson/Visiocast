@@ -133,9 +133,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
                 }
             })
         }
-        
-        cell.isAccessibilityElement == true
-        
+        cell.isAccessibilityElement == true        
         return cell
     }
     

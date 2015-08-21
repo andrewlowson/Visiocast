@@ -16,7 +16,7 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
     
     let api = DownloadManager() // Needs to be delegate so we can get information about new shows when they're downloaded
     let defaults = NSUserDefaults.standardUserDefaults() // Storage area for Podcast Information
-    var counter = 0
+
     // Main UI elements in View
     @IBOutlet weak var episodesTableView: UITableView!
     @IBOutlet weak var downloadsTableView: UITableView!
@@ -46,8 +46,6 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
         
     // This searches the documents directory and grabs all the files in it.
     func loadFiles() {
-        counter++
-        println("Counter: \(counter)")
         // We need just to get the documents folder url
         let documentsUrl =  NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as! NSURL
         

@@ -34,9 +34,30 @@ class PodcastEpisodeTableViewCell: UITableViewCell {
             let formatter = NSDateFormatter()
             formatter.dateStyle = NSDateFormatterStyle.LongStyle
             var date = formatter.stringFromDate(podcastEpisode.episodeDate!)
-            var descriptionText = "\(date) · \(podcastEpisode.episodeDuration!)"
             
-            episodeInformation?.text = descriptionText
+            // I want to make sure that the duration displayed is in HH:MM:SS
+            // Some shows give the duration in a string like that, others are in seconds.
+            
+            let durationArray = split(podcastEpisode.episodeDuration!) {$0 == ":"} // split the string on :
+            if durationArray.count > 1 {
+                // if there are more than one elements in the array, then it was already in HH:MM:SS so use that
+                var descriptionText = "\(date) · \(podcastEpisode.episodeDuration!)"
+                episodeInformation?.text = descriptionText
+            } else {
+                // otherwise, we need to convert SS to HH:MM:SS
+                // this won't work in Swift 2, have to use Int(string)
+                if let duration: Int? = durationArray[0].toInt() {
+                    let (h,m,s) = secondsToHoursMinutesSeconds(duration!)
+                    var formattedDuration = "\(h):\(m):\(s)"
+                    var descriptionText = "\(date) · \(formattedDuration)"
+                    
+                    episodeInformation?.text = descriptionText
+                }
+            }
         }
+    }
+    
+    func secondsToHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int) {
+        return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
     }
 }

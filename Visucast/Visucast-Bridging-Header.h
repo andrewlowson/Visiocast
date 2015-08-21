@@ -3,3 +3,5 @@
 //
 
 #import "HTMLParser.h"
+#import <OpenEars/OELanguageModelGenerator.h>
+#import <OpenEars/OEAcousticModel.h>

@@ -7,3 +7,10 @@
 //
 
 import Foundation
+
+class DictationManager {
+    var lmGenerator = ["thing","other thing","third thing"]
+    
+//    var test = lmGenerator as OELanguageModelGenerator
+    
+}
