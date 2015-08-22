@@ -52,12 +52,7 @@ class NowPlayingViewController: UIViewController {
         if podcastArtwork != nil {
             artworkImageView.image = podcastArtwork!
         }
-        if episodeTitle != nil {
-            episodeTitleLabel.text = episodeTitle!
-        } else {
-            episodeTitleLabel.text = podcastArtist
-        }
-        trackSlider.maximumValue = Float(PodcastPlayer.sharedInstance.duration())
+                trackSlider.maximumValue = Float(PodcastPlayer.sharedInstance.duration())
         
         
         if NSClassFromString("MPNowPlayingInfoCenter") != nil {
@@ -66,14 +61,12 @@ class NowPlayingViewController: UIViewController {
                 let albumArt = MPMediaItemArtwork(image: image)
                 println(albumArt)
                 var podcastInfo: NSMutableDictionary = [
-                    MPMediaItemPropertyAlbumTitle: episodeTitle!,
                     MPMediaItemPropertyArtist: podcastArtist!,
                     MPMediaItemPropertyArtwork: albumArt
                 ]
                 MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = podcastInfo as [NSObject: AnyObject]
             } else {
                 var podcastInfo: NSMutableDictionary = [
-                    MPMediaItemPropertyAlbumTitle: episodeTitle!,
                     MPMediaItemPropertyArtist: podcastArtist!
                 ]
                 MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = podcastInfo as [NSObject: AnyObject]
