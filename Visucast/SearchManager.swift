@@ -194,6 +194,7 @@ class SearchManager {
 
         episodeData.updateValue(podcast!, forKey: "podcast")
         episodeData.updateValue(title!, forKey: "title")
+        println(title!)
         if summary != nil {
             episodeData.updateValue(summary!, forKey: "description")
         }

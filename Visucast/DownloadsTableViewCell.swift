@@ -24,6 +24,7 @@ class DownloadsTableViewCell: UITableViewCell {
     func updateUI() {
         var artworkURL = self.episode!.podcast?.podcastArtwork!
         podcastNameLabel?.text = self.episode!.podcast!.podcastTitle!
+        episodeTitleLabel?.text = self.episode!.episodeTitle!
     }
     
     override func awakeFromNib() {

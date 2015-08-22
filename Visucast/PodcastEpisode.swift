@@ -7,22 +7,19 @@
 //  Created by Andrew Lowson on 29/07/2015.
 //  Copyright (c) 2015 Andrew Lowson. All rights reserved.
 //
-
-import UIKit
+import Foundation
 
 class PodcastEpisode: NSObject {
     
-    var episodeTitle: String?
+    var episodeTitle: String? // Title of particular episode
     var episodeDownloadURL: NSURL?
-    var episodeSubtitle: String?
-    var episodeDescription: String?
-    var episodeDate: NSDate?
-    var episodeDuration: String?
-    var episodeID: String?
-    var episodeSize: Int
-    var podcast: Podcast?
-    var filePath: String?
-    var artwork: UIImage?
+    var episodeSubtitle: String? // Brief summary of episode
+    var episodeDescription: String? // longer summary of show
+    var episodeDate: NSDate? // release date
+    var episodeDuration: String? // duration in seconds
+    var episodeID: String? // Unique ID for the file (will be used when subscriptions are added)
+    var episodeSize: Int // size of file in bytes
+    var podcast: Podcast? // Podcast Object associated with episode
 
     init(title: String, description: String, date: NSDate, duration: String, download: String, subtitle: String, size: Int, podcast: Podcast) {
         self.episodeTitle = title

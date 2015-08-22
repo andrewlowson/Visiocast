@@ -83,6 +83,7 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                     if let key = item.commonKey, let value = item.value {
                         if key == "title" {
                             title = value as? String
+                            println(title!)
                         }
                         if key == "artist" {
                             artist = value as? String
@@ -101,6 +102,7 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                 //This block from line 106 - 149 exists for cases where metadata is missing (often)
                 if let backup = defaults.objectForKey(file) as? [String : String] {
                     title = backup["title"]
+                    println(title!)
                     artworkString = backup["artwork"]
                     let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
                     
@@ -127,11 +129,6 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                         } else {
                             podcastTitle = backup["title"]!
                         }
-                    }
-                }
-                if title == nil {
-                    if let backup = defaults.objectForKey(file) as? [String : String] {
-                        title = backup["title"]!
                     }
                 }
                 if artworkString == nil {

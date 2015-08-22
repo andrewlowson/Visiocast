@@ -161,10 +161,8 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
             let pathString = "\(downloadURL!)"
             let path = split(pathString) {$0 == "/"}
             let fileName = path[path.count-1]
-            println("Filename: \(fileName)")
+            
             defaults.setObject(storage, forKey: fileName)
-            println("Unique Key: \(fileName)")
-            println("Value: \(defaults.objectForKey(fileName))")
             
             downloader.initiateDownload(selectedPodcast ,downloadURL: downloadURL!, episodeData: storage)
             episodeTitle = selectedPodcast.episodeTitle!

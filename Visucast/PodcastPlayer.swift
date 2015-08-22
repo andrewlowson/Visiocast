@@ -13,16 +13,15 @@ import AVFoundation
 
 class PodcastPlayer {
 
-    static let sharedInstance = PodcastPlayer()
+    static let sharedInstance = PodcastPlayer() // Create an instance I can access anywhere in the code
     
     private var player: AVAudioPlayer? // AudioPlayer object.
     private var isPlaying = false // boolean to find out if audio is currently playing
-    let defaults = NSUserDefaults.standardUserDefaults() // persistant storage area, track playback position is read from and written to here.
-    var filename: String?
-    
+    private var filename: String?
     private var currentTime: NSTimeInterval = 0 // variable will be used to set current playback position
     
-    
+    let defaults = NSUserDefaults.standardUserDefaults() // persistant storage area, track playback position is read from and written to here.
+
     func play() {
         if isPlaying {
             pause() // if audio is playing, call pause function
