@@ -145,9 +145,7 @@ class SearchManager {
             }
             if (duration == nil) {  
                 duration = ""
-            } else {
-                println(duration)
-            }
+            } 
             if (enclosureURL == nil) {
                 println("ERROR NO DOWNLOAD URL FOR \(title)")
                 enclosureURL = ""

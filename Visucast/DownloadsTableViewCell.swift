@@ -22,7 +22,6 @@ class DownloadsTableViewCell: UITableViewCell {
     @IBOutlet weak var epsideSummaryLabel: UILabel!
     
     func updateUI() {
-        episodeTitleLabel?.text = self.episode!.episodeTitle!
         var artworkURL = self.episode!.podcast?.podcastArtwork!
         podcastNameLabel?.text = self.episode!.podcast!.podcastTitle!
     }

@@ -236,10 +236,10 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
         if PodcastPlayer.sharedInstance.currentlyPlaying() {
             PodcastPlayer.sharedInstance.pause()
         }
+        nowPlaying.title = title
         nowPlaying.filename = fileString
         nowPlaying.podcastFile = (file)
         nowPlaying.episode = podcasts[fileIndex]
-        nowPlaying.episodeTitle = title
         nowPlaying.episodeTitleLabel?.text = title
     
         if podcastArtwork[podcast!.podcastArtwork] != nil {
