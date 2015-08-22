@@ -10,6 +10,7 @@ import Foundation
 
 
 class DictationManager {
+    // This entire class has been commented out due to code signing issues and a timing constraint.
 //    var lmGenerator = ["thing","other thing","third thing"]
 //
 //    

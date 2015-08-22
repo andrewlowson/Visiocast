@@ -119,10 +119,10 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                         }
                     }
                 }
-                if (artist == nil) {
+                if artist == nil {
                     artist = file
                 }
-                if (podcastTitle == nil) {
+                if podcastTitle == nil {
                     if let backup = defaults.objectForKey(file) as? [String : String] {
                         if let podcastName = backup["podcast"] {
                             podcastTitle = podcastName
@@ -234,6 +234,8 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
             PodcastPlayer.sharedInstance.pause()
         }
         nowPlaying.title = title
+        nowPlaying.podcast = podcast!.podcastTitle
+        nowPlaying.episodeTitle = title
         nowPlaying.filename = fileString
         nowPlaying.podcastFile = (file)
         nowPlaying.episode = podcasts[fileIndex]

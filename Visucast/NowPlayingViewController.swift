@@ -22,6 +22,7 @@ class NowPlayingViewController: UIViewController {
     var myPlayer = AVAudioPlayer()
     var podcastArtwork: UIImage?
     var podcastArtist: String?
+    var podcast: String?
 
     @IBOutlet weak var trackSlider: UISlider!
     @IBOutlet weak var shareButton: UIButton!
@@ -61,7 +62,8 @@ class NowPlayingViewController: UIViewController {
                 let albumArt = MPMediaItemArtwork(image: image)
                 println(albumArt)
                 var podcastInfo: NSMutableDictionary = [
-                    MPMediaItemPropertyArtist: podcastArtist!,
+                    MPMediaItemPropertyTitle: episodeTitle!,
+                    MPMediaItemPropertyArtist: podcast!,
                     MPMediaItemPropertyArtwork: albumArt
                 ]
                 MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = podcastInfo as [NSObject: AnyObject]

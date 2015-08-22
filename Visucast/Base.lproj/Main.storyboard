@@ -510,12 +510,6 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LNS-Tv-ejl">
-                                <rect key="frame" x="174" y="496" width="84" height="15"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="goV-fm-zSM">
                                 <rect key="frame" x="0.0" y="64" width="600" height="100"/>
                                 <color key="backgroundColor" red="0.43812830320000001" green="0.48216619900000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -615,6 +609,12 @@
                                     <action selector="PlayAudio:" destination="2dm-jV-lh3" eventType="touchUpInside" id="ucT-1v-hc5"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LNS-Tv-ejl">
+                                <rect key="frame" x="174" y="496" width="84" height="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -627,15 +627,17 @@
                                 <variation key="heightClass=compact-widthClass=compact" constant="48"/>
                             </constraint>
                             <constraint firstItem="LNS-Tv-ejl" firstAttribute="baseline" secondItem="7Wy-dU-R9b" secondAttribute="baseline" id="3Jn-mZ-uxz"/>
-                            <constraint firstItem="gyx-w5-Dfy" firstAttribute="trailing" secondItem="7Wy-dU-R9b" secondAttribute="trailing" constant="1" id="3jr-Jw-Zxp"/>
+                            <constraint firstItem="gyx-w5-Dfy" firstAttribute="trailing" secondItem="7Wy-dU-R9b" secondAttribute="trailing" constant="1" id="3jr-Jw-Zxp">
+                                <variation key="heightClass=compact-widthClass=compact" constant="-200"/>
+                            </constraint>
                             <constraint firstItem="rEC-fO-XPX" firstAttribute="baseline" secondItem="2h6-wk-ScX" secondAttribute="baseline" id="5nJ-zk-AJX">
-                                <variation key="heightClass=compact-widthClass=compact" constant="-1"/>
+                                <variation key="heightClass=compact-widthClass=compact" constant="0.0"/>
                             </constraint>
                             <constraint firstAttribute="trailingMargin" secondItem="rEC-fO-XPX" secondAttribute="trailing" constant="54" id="Aar-6a-LJ8">
                                 <variation key="heightClass=compact-widthClass=compact" constant="74"/>
                             </constraint>
                             <constraint firstItem="Bxs-4U-5oJ" firstAttribute="baseline" secondItem="rEC-fO-XPX" secondAttribute="baseline" id="CbU-Zb-6rv">
-                                <variation key="heightClass=compact-widthClass=compact" constant="1"/>
+                                <variation key="heightClass=compact-widthClass=compact" constant="0.0"/>
                             </constraint>
                             <constraint firstItem="gyx-w5-Dfy" firstAttribute="top" secondItem="goV-fm-zSM" secondAttribute="bottom" constant="41" id="CnJ-55-iBh">
                                 <variation key="heightClass=compact-widthClass=compact" constant="40"/>
@@ -644,40 +646,58 @@
                             <constraint firstItem="x12-7w-DUj" firstAttribute="leading" secondItem="yxx-v0-k7y" secondAttribute="leadingMargin" id="Hz6-tC-WTb">
                                 <variation key="heightClass=compact-widthClass=compact" constant="176"/>
                             </constraint>
-                            <constraint firstItem="gyx-w5-Dfy" firstAttribute="leading" secondItem="2pY-9h-7Ff" secondAttribute="leading" id="ICG-jb-7bC"/>
-                            <constraint firstItem="goV-fm-zSM" firstAttribute="leading" secondItem="yxx-v0-k7y" secondAttribute="leading" id="ImE-8K-C1r"/>
-                            <constraint firstItem="LNS-Tv-ejl" firstAttribute="trailing" secondItem="gyx-w5-Dfy" secondAttribute="trailing" constant="-169" id="LT9-MT-wOW"/>
-                            <constraint firstItem="x12-7w-DUj" firstAttribute="centerX" secondItem="2pY-9h-7Ff" secondAttribute="centerX" id="MNE-aQ-Pnt"/>
-                            <constraint firstItem="Bxs-4U-5oJ" firstAttribute="leading" secondItem="gyx-w5-Dfy" secondAttribute="leading" id="NHl-Gh-dNI">
-                                <variation key="heightClass=compact-widthClass=compact" constant="176"/>
+                            <constraint firstItem="gyx-w5-Dfy" firstAttribute="leading" secondItem="2pY-9h-7Ff" secondAttribute="leading" id="ICG-jb-7bC">
+                                <variation key="heightClass=compact-widthClass=compact" constant="-184"/>
                             </constraint>
-                            <constraint firstItem="LNS-Tv-ejl" firstAttribute="leading" secondItem="gyx-w5-Dfy" secondAttribute="trailing" constant="8" id="PPr-Zb-Yh0"/>
+                            <constraint firstItem="goV-fm-zSM" firstAttribute="leading" secondItem="yxx-v0-k7y" secondAttribute="leading" id="ImE-8K-C1r"/>
+                            <constraint firstItem="LNS-Tv-ejl" firstAttribute="trailing" secondItem="gyx-w5-Dfy" secondAttribute="trailing" constant="-169" id="LT9-MT-wOW">
+                                <variation key="heightClass=compact-widthClass=compact" constant="41"/>
+                            </constraint>
+                            <constraint firstItem="x12-7w-DUj" firstAttribute="centerX" secondItem="2pY-9h-7Ff" secondAttribute="centerX" id="MNE-aQ-Pnt">
+                                <variation key="heightClass=compact-widthClass=compact" constant="-4"/>
+                            </constraint>
+                            <constraint firstItem="Bxs-4U-5oJ" firstAttribute="leading" secondItem="gyx-w5-Dfy" secondAttribute="leading" id="NHl-Gh-dNI">
+                                <variation key="heightClass=compact-widthClass=compact" constant="184"/>
+                            </constraint>
+                            <constraint firstItem="LNS-Tv-ejl" firstAttribute="leading" secondItem="gyx-w5-Dfy" secondAttribute="trailing" constant="8" id="PPr-Zb-Yh0">
+                                <variation key="heightClass=compact-widthClass=compact" constant="16"/>
+                            </constraint>
                             <constraint firstItem="Bxs-4U-5oJ" firstAttribute="top" secondItem="gyx-w5-Dfy" secondAttribute="bottom" constant="8" symbolic="YES" id="PUd-iJ-dEi">
                                 <variation key="heightClass=compact-widthClass=compact" constant="-30"/>
                             </constraint>
                             <constraint firstItem="2h6-wk-ScX" firstAttribute="leading" secondItem="rEC-fO-XPX" secondAttribute="trailing" constant="-162" id="R2c-o5-ocw"/>
                             <constraint firstItem="x12-7w-DUj" firstAttribute="top" secondItem="goV-fm-zSM" secondAttribute="bottom" constant="8" symbolic="YES" id="WCz-bI-Ouf"/>
                             <constraint firstItem="rEC-fO-XPX" firstAttribute="top" secondItem="Bxs-4U-5oJ" secondAttribute="top" id="XA3-qi-yl5">
-                                <variation key="heightClass=compact-widthClass=compact" constant="-2"/>
+                                <variation key="heightClass=compact-widthClass=compact" constant="0.0"/>
                             </constraint>
                             <constraint firstItem="x12-7w-DUj" firstAttribute="centerX" secondItem="goV-fm-zSM" secondAttribute="centerX" id="ZEn-Hc-H03">
                                 <variation key="heightClass=compact-widthClass=compact" constant="88"/>
                             </constraint>
-                            <constraint firstItem="Bxs-4U-5oJ" firstAttribute="leading" secondItem="gyx-w5-Dfy" secondAttribute="trailing" constant="8" id="Zcc-zJ-Nh5"/>
-                            <constraint firstItem="gyx-w5-Dfy" firstAttribute="trailing" secondItem="2pY-9h-7Ff" secondAttribute="trailing" constant="1" id="bNq-qD-8fP"/>
+                            <constraint firstItem="Bxs-4U-5oJ" firstAttribute="leading" secondItem="gyx-w5-Dfy" secondAttribute="trailing" constant="8" id="Zcc-zJ-Nh5">
+                                <variation key="heightClass=compact-widthClass=compact" constant="16"/>
+                            </constraint>
+                            <constraint firstItem="gyx-w5-Dfy" firstAttribute="trailing" secondItem="2pY-9h-7Ff" secondAttribute="trailing" constant="1" id="bNq-qD-8fP">
+                                <variation key="heightClass=compact-widthClass=compact" constant="-200"/>
+                            </constraint>
                             <constraint firstItem="rEC-fO-XPX" firstAttribute="top" secondItem="2pY-9h-7Ff" secondAttribute="bottom" constant="22" id="cUT-fM-4OA">
-                                <variation key="heightClass=compact-widthClass=compact" constant="30"/>
+                                <variation key="heightClass=compact-widthClass=compact" constant="32"/>
                             </constraint>
                             <constraint firstItem="2h6-wk-ScX" firstAttribute="trailing" secondItem="yxx-v0-k7y" secondAttribute="trailingMargin" id="dgI-AE-l8f"/>
                             <constraint firstItem="gyx-w5-Dfy" firstAttribute="top" secondItem="x12-7w-DUj" secondAttribute="bottom" constant="12" id="eEV-VL-4bA">
                                 <variation key="heightClass=compact-widthClass=compact" constant="-36"/>
                             </constraint>
-                            <constraint firstItem="2pY-9h-7Ff" firstAttribute="leading" secondItem="gyx-w5-Dfy" secondAttribute="trailing" constant="2" id="fFG-lc-ouo"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="2pY-9h-7Ff" secondAttribute="trailing" constant="-7" id="gWj-JX-wfa"/>
-                            <constraint firstItem="rEC-fO-XPX" firstAttribute="leading" secondItem="Bxs-4U-5oJ" secondAttribute="trailing" constant="8" symbolic="YES" id="gYH-C4-tGe">
-                                <variation key="heightClass=compact-widthClass=compact" constant="37"/>
+                            <constraint firstItem="2pY-9h-7Ff" firstAttribute="leading" secondItem="gyx-w5-Dfy" secondAttribute="trailing" constant="2" id="fFG-lc-ouo">
+                                <variation key="heightClass=compact-widthClass=compact" constant="16"/>
                             </constraint>
-                            <constraint firstItem="Bxs-4U-5oJ" firstAttribute="leading" secondItem="LNS-Tv-ejl" secondAttribute="leading" constant="1" id="hAf-xo-1Hp"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="2pY-9h-7Ff" secondAttribute="trailing" constant="-7" id="gWj-JX-wfa">
+                                <variation key="heightClass=compact-widthClass=compact" constant="0.0"/>
+                            </constraint>
+                            <constraint firstItem="rEC-fO-XPX" firstAttribute="leading" secondItem="Bxs-4U-5oJ" secondAttribute="trailing" constant="8" symbolic="YES" id="gYH-C4-tGe">
+                                <variation key="heightClass=compact-widthClass=compact" constant="25"/>
+                            </constraint>
+                            <constraint firstItem="Bxs-4U-5oJ" firstAttribute="leading" secondItem="LNS-Tv-ejl" secondAttribute="leading" constant="1" id="hAf-xo-1Hp">
+                                <variation key="heightClass=compact-widthClass=compact" constant="0.0"/>
+                            </constraint>
                             <constraint firstItem="gyx-w5-Dfy" firstAttribute="centerX" secondItem="rEC-fO-XPX" secondAttribute="centerX" id="hR8-L5-TBI">
                                 <variation key="heightClass=compact-widthClass=compact" constant="-188"/>
                             </constraint>
@@ -686,19 +706,21 @@
                                 <variation key="heightClass=compact-widthClass=compact" constant="0.0"/>
                             </constraint>
                             <constraint firstItem="rEC-fO-XPX" firstAttribute="leading" secondItem="Bxs-4U-5oJ" secondAttribute="trailing" constant="61" id="jsC-46-9j3">
-                                <variation key="heightClass=compact-widthClass=compact" constant="37"/>
+                                <variation key="heightClass=compact-widthClass=compact" constant="25"/>
                             </constraint>
                             <constraint firstItem="2h6-wk-ScX" firstAttribute="leading" secondItem="rEC-fO-XPX" secondAttribute="trailing" constant="-162" id="lzX-8I-0Fv"/>
                             <constraint firstItem="2h6-wk-ScX" firstAttribute="leading" secondItem="rEC-fO-XPX" secondAttribute="trailing" constant="25" id="oLG-lD-30i">
                                 <variation key="heightClass=compact-widthClass=compact" constant="15"/>
                             </constraint>
-                            <constraint firstItem="Bxs-4U-5oJ" firstAttribute="leading" secondItem="gyx-w5-Dfy" secondAttribute="leading" id="ort-6z-Rgm"/>
+                            <constraint firstItem="Bxs-4U-5oJ" firstAttribute="leading" secondItem="gyx-w5-Dfy" secondAttribute="leading" id="ort-6z-Rgm">
+                                <variation key="heightClass=compact-widthClass=compact" constant="184"/>
+                            </constraint>
                             <constraint firstItem="7Wy-dU-R9b" firstAttribute="leading" secondItem="2pY-9h-7Ff" secondAttribute="trailing" constant="-85" id="oxs-af-3sA">
-                                <variation key="heightClass=compact-widthClass=compact" constant="-37"/>
+                                <variation key="heightClass=compact-widthClass=compact" constant="-61"/>
                             </constraint>
                             <constraint firstAttribute="trailing" secondItem="goV-fm-zSM" secondAttribute="trailing" id="qre-bg-7h8"/>
                             <constraint firstItem="rEC-fO-XPX" firstAttribute="baseline" secondItem="2h6-wk-ScX" secondAttribute="baseline" id="sBe-F1-BMg">
-                                <variation key="heightClass=compact-widthClass=compact" constant="-1"/>
+                                <variation key="heightClass=compact-widthClass=compact" constant="0.0"/>
                             </constraint>
                             <constraint firstItem="LNS-Tv-ejl" firstAttribute="top" secondItem="gyx-w5-Dfy" secondAttribute="bottom" constant="39" id="u1X-b3-kxU">
                                 <variation key="heightClass=compact-widthClass=compact" constant="-54"/>
@@ -708,7 +730,7 @@
                             <constraint firstItem="gyx-w5-Dfy" firstAttribute="centerY" secondItem="rEC-fO-XPX" secondAttribute="centerY" constant="-201" id="v6P-rA-kuD"/>
                             <constraint firstItem="2h6-wk-ScX" firstAttribute="trailing" secondItem="yxx-v0-k7y" secondAttribute="trailingMargin" id="wWf-i6-hNi"/>
                             <constraint firstItem="2pY-9h-7Ff" firstAttribute="leading" secondItem="LNS-Tv-ejl" secondAttribute="trailing" constant="-83" id="xbe-Od-jQz">
-                                <variation key="heightClass=compact-widthClass=compact" constant="-31"/>
+                                <variation key="heightClass=compact-widthClass=compact" constant="-25"/>
                             </constraint>
                             <constraint firstItem="rEC-fO-XPX" firstAttribute="centerX" secondItem="goV-fm-zSM" secondAttribute="centerX" id="y9Q-Fm-l4G">
                                 <variation key="heightClass=compact-widthClass=compact" constant="88"/>
@@ -787,7 +809,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cjJ-fJ-ftv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3931" y="489"/>
+            <point key="canvasLocation" x="3930" y="489"/>
         </scene>
         <!--SearchViewController-->
         <scene sceneID="uI4-gB-XK3">
