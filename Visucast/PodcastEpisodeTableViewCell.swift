@@ -46,16 +46,20 @@ class PodcastEpisodeTableViewCell: UITableViewCell {
             } else {
                 // otherwise, we need to convert SS to HH:MM:SS
                 // this won't work in Swift 2, have to use Int(string)
-                if let duration: Int? = durationArray[0].toInt() {
-                    let (h,m,s) = secondsToHoursMinutesSeconds(duration!)
-                    var formattedDuration:String?
-                    if h > 0 {
-                        formattedDuration = "\(h):\(m):\(s)"
-                    } else {
-                        formattedDuration = "\(m):\(s)"
+                if durationArray.count != 0 {
+                    if let duration: Int? = durationArray[0].toInt() {
+                        let (h,m,s) = secondsToHoursMinutesSeconds(duration!)
+                        var formattedDuration:String?
+                        if h > 0 {
+                            formattedDuration = "\(h):\(m):\(s)"
+                        } else {
+                            formattedDuration = "\(m):\(s)"
+                        }
+                        var descriptionText = "\(date) · \(formattedDuration!)"
+                        episodeInformation?.text = descriptionText
                     }
-                    var descriptionText = "\(date) · \(formattedDuration!)"
-                    episodeInformation?.text = descriptionText
+                } else {
+                    episodeInformation?.text = ""
                 }
             }
         }
