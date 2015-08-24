@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class SearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, SearchManagerProtocol {
     // MARK: - Instance Variables
@@ -48,6 +49,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
             self.podcasts = results as! [(Podcast)] // create a podcast array of the results
             self.waitingForResults.stopAnimating() // stop the activity spinner spinner that
             self.podcastTableView.reloadData() // reload the table data
+            AudioServicesPlaySystemSound(1054)
         }
     }
     

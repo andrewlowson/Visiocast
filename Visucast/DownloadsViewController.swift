@@ -60,46 +60,43 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                 var backup = defaults.objectForKey(file) as? [String : String]
                 
                 var fileString = "\(documentsUrl)"+file
-                var fileURL: NSURL! = NSURL(string: fileString)!
-                
-                let item = AVPlayerItem(URL: fileURL)
-                let metadataList = item.asset.commonMetadata as! [AVMetadataItem]
-                
-                let metaDataItem = item.asset.metadata as! [AVMetadataItem]
-
-                
+                var fileURL: NSURL? = NSURL(string: fileString)
                 var title: String?
                 var artist: String?
                 var podcastTitle: String?
                 var artwork: UIImage?
                 var artworkString: String?
                 
-                
-                // This block deals with MetaData in the MP3 File
-                for item in metadataList {
-                    if item.commonKey == nil {
-                        continue
-                    }
-                    if let key = item.commonKey, let value = item.value {
-                        if key == "title" {
-                            title = value as? String
-                            println(title!)
+                if let item = AVPlayerItem(URL: fileURL) {
+                    let metadataList = item.asset.commonMetadata as! [AVMetadataItem]
+                    let metaDataItem = item.asset.metadata as! [AVMetadataItem]
+                    
+                    // This block deals with MetaData in the MP3 File
+                    for item in metadataList {
+                        if item.commonKey == nil {
+                            continue
                         }
-                        if key == "artist" {
-                            artist = value as? String
-                        }
-                        if key == "albumName" {
-                            podcastTitle = value as? String
-                        }
-                        if key == "artwork" {
-                            if let image = UIImage(data: value as! NSData) {
-                                artwork = image
+                        if let key = item.commonKey, let value = item.value {
+                            if key == "title" {
+                                title = value as? String
+                                println(title!)
+                            }
+                            if key == "artist" {
+                                artist = value as? String
+                            }
+                            if key == "albumName" {
+                                podcastTitle = value as? String
+                            }
+                            if key == "artwork" {
+                                if let image = UIImage(data: value as! NSData) {
+                                    artwork = image
+                                }
                             }
                         }
                     }
                 }
                 
-                //This block from line 106 - 149 exists for cases where metadata is missing (often)
+                //This block from line 106 - 149 exists for cases where metadata is missing (this happens a lot)
                 if let backup = defaults.objectForKey(file) as? [String : String] {
                     title = backup["title"]
                     println(title!)
@@ -122,6 +119,9 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                 if artist == nil {
                     artist = file
                 }
+                if title == nil {
+                    title = file
+                }
                 if podcastTitle == nil {
                     if let backup = defaults.objectForKey(file) as? [String : String] {
                         if let podcastName = backup["podcast"] {
@@ -129,6 +129,9 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                         } else {
                             podcastTitle = backup["title"]!
                         }
+                    } else {
+                        podcastTitle = file
+                        println("the persistent storage wasn't written for \(file)")
                     }
                 }
                 if artworkString == nil {
@@ -226,27 +229,37 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
     
         var fileString = documentsPath!+thisFileName
         let fileURL = NSURL(string: fileString)
-        var file = NSData(contentsOfURL: fileURL!)
-
-        var title = podcasts[fileIndex].episodeTitle!
-        var podcast = podcasts[fileIndex].podcast
-        if PodcastPlayer.sharedInstance.currentlyPlaying() {
-            PodcastPlayer.sharedInstance.pause()
+        if fileURL == nil {
+            
+            let alertController = UIAlertController(title: "Playback Error", message: "I'm having an issue with this file.\nPlease delete it.", preferredStyle: .Alert)
+            alertController.isAccessibilityElement = true
+            // Set up default OK action for user to dismiss alert
+            let OKAction = UIAlertAction(title: "OK", style: .Default) { (action) in }
+            alertController.addAction(OKAction)
+        } else {
+            var file = NSData(contentsOfURL: fileURL!)
+            var title = podcasts[fileIndex].episodeTitle!
+            var podcast = podcasts[fileIndex].podcast
+            
+            // this could perform better, should add a 'if playing this file, skip reloading file in ViewDidLoad()'
+            if PodcastPlayer.sharedInstance.currentlyPlaying() {
+                PodcastPlayer.sharedInstance.pause()
+            }
+            nowPlaying.title = title
+            nowPlaying.podcast = podcast!.podcastTitle
+            nowPlaying.episodeTitle = title
+            nowPlaying.filename = fileString
+            nowPlaying.podcastFile = (file)
+            nowPlaying.episode = podcasts[fileIndex]
+            nowPlaying.episodeTitleLabel?.text = title
+            
+            if podcastArtwork[podcast!.podcastArtwork] != nil {
+                nowPlaying.podcastArtwork = podcastArtwork[podcast!.podcastArtwork]!
+            }
+            
+            nowPlaying.artworkImageView?.image = podcastArtwork[podcast!.podcastArtwork]!
+            nowPlaying.podcastArtist = podcasts[fileIndex].podcast?.podcastArtistName
         }
-        nowPlaying.title = title
-        nowPlaying.podcast = podcast!.podcastTitle
-        nowPlaying.episodeTitle = title
-        nowPlaying.filename = fileString
-        nowPlaying.podcastFile = (file)
-        nowPlaying.episode = podcasts[fileIndex]
-        nowPlaying.episodeTitleLabel?.text = title
-    
-        if podcastArtwork[podcast!.podcastArtwork] != nil {
-            nowPlaying.podcastArtwork = podcastArtwork[podcast!.podcastArtwork]!
-        }
-
-        nowPlaying.artworkImageView?.image = podcastArtwork[podcast!.podcastArtwork]!
-        nowPlaying.podcastArtist = podcasts[fileIndex].podcast?.podcastArtistName
     }
     
     

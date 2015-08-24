@@ -9,6 +9,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class PodcastFeedViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate, UIPopoverPresentationControllerDelegate, SearchManagerProtocol
 {
@@ -188,6 +189,7 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
                 if progress >= 100 {
                     timer.invalidate()
                     self.navigationItem.rightBarButtonItem?.title = "Downloaded"
+                    AudioServicesPlaySystemSound(1054)
                 }
             }
         }

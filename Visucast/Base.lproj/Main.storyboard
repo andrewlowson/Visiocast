@@ -74,7 +74,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sij-Nk-8iL">
                                 <rect key="frame" x="0.0" y="64" width="600" height="100"/>
                                 <color key="backgroundColor" red="0.43812830320000001" green="0.48216619900000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <accessibility key="accessibilityConfiguration" hint="Press to give application a command" label="Dictate">
+                                <accessibility key="accessibilityConfiguration" hint="Press to give application a command" label="Dictate - Disabled">
                                     <accessibilityTraits key="traits" none="YES" button="YES"/>
                                 </accessibility>
                                 <constraints>
@@ -211,7 +211,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gVa-3z-BpJ">
                                 <rect key="frame" x="0.0" y="64" width="600" height="100"/>
                                 <color key="backgroundColor" red="0.43812830323187169" green="0.4821661989540329" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <accessibility key="accessibilityConfiguration" hint="Press to give application a command" label="Dictate"/>
+                                <accessibility key="accessibilityConfiguration" hint="Press to give application a command" label="Dictate - Disabled"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="TgF-5Q-eEq"/>
                                     <constraint firstAttribute="height" constant="45" id="md9-A5-BKS"/>
@@ -513,7 +513,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="goV-fm-zSM">
                                 <rect key="frame" x="0.0" y="64" width="600" height="100"/>
                                 <color key="backgroundColor" red="0.43812830320000001" green="0.48216619900000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <accessibility key="accessibilityConfiguration" hint="Press to give application a command" label="Dictate"/>
+                                <accessibility key="accessibilityConfiguration" hint="Press to give application a command" label="Dictate - Disabled"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="4Cn-HW-ctf">
                                         <variation key="heightClass=compact-widthClass=compact" constant="50"/>
@@ -826,7 +826,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qSn-si-WMy">
                                 <rect key="frame" x="0.0" y="65" width="600" height="100"/>
                                 <color key="backgroundColor" red="0.43812830320000001" green="0.48216619900000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <accessibility key="accessibilityConfiguration" hint="Press to give application a command" label="Dictate"/>
+                                <accessibility key="accessibilityConfiguration" hint="Press to give application a command" label="Dictate - Disabled"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="8g5-Qa-NTs"/>
                                     <constraint firstAttribute="height" constant="100" id="mhs-YK-adb"/>

@@ -95,8 +95,8 @@ class DownloadManager {
         }
         println("Filename after split: \(filename)")
         println("URL after split: \(fileslug)")
-        println("Episode Data For Download: \(episodeData)")
-        
+        println("Episode Data For \(filename): \(episodeData)")
+
         defaults.setObject(episodeData, forKey: filename)
         defaults.setObject(filename, forKey: fullURL)
     }
