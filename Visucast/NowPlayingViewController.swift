@@ -53,8 +53,8 @@ class NowPlayingViewController: UIViewController {
         if podcastArtwork != nil {
             artworkImageView.image = podcastArtwork!
         }
-                trackSlider.maximumValue = Float(PodcastPlayer.sharedInstance.duration())
-        
+        trackSlider.maximumValue = Float(PodcastPlayer.sharedInstance.duration())
+
         
         if NSClassFromString("MPNowPlayingInfoCenter") != nil {
             if podcastArtwork != nil {
@@ -85,6 +85,10 @@ class NowPlayingViewController: UIViewController {
         }
         
         var timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector:Selector("updateAudioTime"), userInfo: nil, repeats: true )
+
+       
+        
+        setupSlider()
     }
 
     @IBAction func shareButton(sender: UIBarButtonItem) {
@@ -99,9 +103,52 @@ class NowPlayingViewController: UIViewController {
     @IBAction func changeTrackTime(sender: AnyObject) {
         PodcastPlayer.sharedInstance.stop()
         PodcastPlayer.sharedInstance.setTime(NSTimeInterval(trackSlider.value))
+        setupSlider()
         PodcastPlayer.sharedInstance.play()
     }
     
+    // Set up the accessibility elements and values for the slider
+    func setupSlider() {
+        trackSlider.isAccessibilityElement = true
+        
+        var duration: NSTimeInterval = PodcastPlayer.sharedInstance.duration()
+        let ti = NSInteger(duration)
+        let ms = Int((duration % 1) * 1000)
+        let seconds = ti % 60
+        let minutes = (ti / 60) % 60
+        let hours = (ti / 3600)
+        
+        
+        var durationString: NSString
+        
+        if hours < 1 {
+            durationString = NSString(format: "%0.2d minutes and %0.2d seconds.", minutes,seconds)
+        } else {
+            durationString = NSString(format: "%0.2d hours, %0.2d minutes and %0.2d seconds.",hours,minutes,seconds)
+        }
+        
+        
+        var played: NSTimeInterval = PodcastPlayer.sharedInstance.getTime()
+        println(played)
+        let nextInterval = Int(played)
+        let secondsPlayed = nextInterval % 60
+        let minutesPlayed = (nextInterval / 60) % 60
+        let hoursPlayed = (nextInterval / 3600)
+        
+        var playedString: NSString
+        
+        if hoursPlayed < 1 {
+            playedString = NSString(format: "%0.2d minutes and %0.2d seconds played", minutesPlayed,secondsPlayed)
+        } else {
+            playedString = NSString(format: "%0.2d hours, %0.2d minutes and %0.2d seconds played",hoursPlayed ,minutesPlayed,secondsPlayed)
+        }
+        
+        println (playedString)
+        trackSlider.accessibilityValue = "\(playedString) of \(durationString)"
+
+    }
+    
+    // Update audio times
     func updateAudioTime() {
         
         var time = PodcastPlayer.sharedInstance.getTime()
@@ -114,6 +161,7 @@ class NowPlayingViewController: UIViewController {
         let hours = (interval / 3600)
         var result =  String(format: "%02d:%02d:%02d", hours, minutes, seconds)
         amountPlayedLabel.text = "\(result)"
+        amountPlayedLabel.accessibilityValue = String(format: "%02d hours, %02 minutes and  %02 seconds", hours, minutes, seconds)
 
         let nextInterval = Int(timeRemaining)
         let secondsLeft = nextInterval % 60
@@ -122,7 +170,12 @@ class NowPlayingViewController: UIViewController {
         
         var formattedTime =  String(format: "%02d:%02d:%02d", hoursLeft, minutesLeft, secondsLeft)
         timeRemainingLabel.text = "\(formattedTime)"
+        timeRemainingLabel.accessibilityValue = String(format: "%02 hours, %02 minutes and %02 seconds", hoursLeft, minutesLeft, secondsLeft)
         
+        setupSlider()
+        if PodcastPlayer.sharedInstance.currentlyPlaying() {
+            playButton.setTitle("Pause", forState: UIControlState.Normal)
+        }
     }
     
     @IBAction func PlayAudio(sender: UIButton) {

@@ -50,6 +50,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
             self.waitingForResults.stopAnimating() // stop the activity spinner spinner that
             self.podcastTableView.reloadData() // reload the table data
             AudioServicesPlaySystemSound(1054)
+            UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, "Search Results Returned")
         }
     }
     

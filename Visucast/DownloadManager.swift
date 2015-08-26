@@ -70,6 +70,7 @@ class DownloadManager {
                             self.updateUserDefaults(episodeData, url: url)
                         } else {
                             println("Download Errror")
+                            AudioServicesPlaySystemSound(1053)
                         }
                     }
             }

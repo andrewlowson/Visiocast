@@ -72,9 +72,10 @@ class SearchManager {
     }
     
     /**
-    * Method to search a podcast RSS and pull out individual episode feeds.
-    * results are passed to episode method to parse the feed
-    */
+     * MARK: FeedParser
+     * Method to search a podcast RSS and pull out individual episode feeds.
+     * results are passed to episode method to parse the feed
+     **/
     func feedParser(podcastFeed: NSURL, podcast:Podcast) {
         
         var searchTerm = NSURL(string: feedString)
@@ -92,6 +93,7 @@ class SearchManager {
                     let jsonValue = JSON(responseJSON!)
                     if let results = jsonValue["results"].array {
                         for result: JSON in results {
+                            // MARK: TODO Sort the array by date to make sure I get it in the right order, example feed Empire Podcast.
                             var feedID = result["feedId"].string
                             var podcastEpisodes = [PodcastEpisode]()
                             var feedURL = NSURL(string: feedID!)
@@ -218,6 +220,7 @@ class SearchManager {
         return episodeData
     }
     
+    // MARK: RETURN Image as UIImage
     func getImageFromURL (url: NSURL) -> UIImage {
         var image: UIImage! = nil
         let request: NSURLRequest = NSURLRequest(URL: url)

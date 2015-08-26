@@ -119,6 +119,7 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
             self.podcastEpisodes = results as! [(PodcastEpisode)]
             self.isLoadingEpisodes.stopAnimating()
             self.tableView.reloadData()
+            UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, "Episodes Loaded")
         }
     }
     
