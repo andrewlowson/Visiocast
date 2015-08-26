@@ -161,7 +161,8 @@ class NowPlayingViewController: UIViewController {
         let hours = (interval / 3600)
         var result =  String(format: "%02d:%02d:%02d", hours, minutes, seconds)
         amountPlayedLabel.text = "\(result)"
-        amountPlayedLabel.accessibilityValue = String(format: "%02d hours, %02 minutes and  %02 seconds", hours, minutes, seconds)
+        var amountPlayedValue: NSString = String(format: "%02d hours, %02 minutes and  %02 seconds", hours, minutes, seconds)
+        amountPlayedLabel.accessibilityValue = amountPlayedValue as String
 
         let nextInterval = Int(timeRemaining)
         let secondsLeft = nextInterval % 60
@@ -170,7 +171,8 @@ class NowPlayingViewController: UIViewController {
         
         var formattedTime =  String(format: "%02d:%02d:%02d", hoursLeft, minutesLeft, secondsLeft)
         timeRemainingLabel.text = "\(formattedTime)"
-        timeRemainingLabel.accessibilityValue = String(format: "%02 hours, %02 minutes and %02 seconds", hoursLeft, minutesLeft, secondsLeft)
+        var remainingValue: NSString = String(format: "%02d hours, %02d minutes and %02d seconds", hoursLeft, minutesLeft, secondsLeft)
+        timeRemainingLabel.accessibilityValue = remainingValue as String
         
         setupSlider()
         if PodcastPlayer.sharedInstance.currentlyPlaying() {
