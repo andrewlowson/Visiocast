@@ -161,7 +161,7 @@ class NowPlayingViewController: UIViewController {
         let hours = (interval / 3600)
         var result =  String(format: "%02d:%02d:%02d", hours, minutes, seconds)
         amountPlayedLabel.text = "\(result)"
-        var amountPlayedValue: NSString = String(format: "%02d hours, %02 minutes and  %02 seconds", hours, minutes, seconds)
+        var amountPlayedValue: NSString = String(format: "%02d hours, %02d minutes and  %02d seconds", hours, minutes, seconds)
         amountPlayedLabel.accessibilityValue = amountPlayedValue as String
 
         let nextInterval = Int(timeRemaining)
