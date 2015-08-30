@@ -39,9 +39,9 @@ class SearchManager {
             // Alamofire is the Networking library used.
             // Give request type (GET), url and then decide what to do with results.
             Alamofire.request(.GET, searchTerm).responseJSON {
-                (_, _, jsonDict, _) in
-                var json = JSON(jsonDict!)
-                let results = json["results"]
+                (_, _, jsonDict, _) in // the only response we're interested is the dictionary JSON response
+                var json = JSON(jsonDict!) // turn it into a JSON object
+                let results = json["results"] // collect the results
                 var collectionName: String?
                 var artworkURL: String?
                 
@@ -56,6 +56,8 @@ class SearchManager {
                         var artworkURL = resultJSON["artworkUrl100"].string
                     }
                     if collectionName != nil && artistName != nil && artworkURL != nil && feedURL != nil {
+                        
+                        // if we have what we need, create Podcast object, append it to the array and send it back to the UI
                         var podcast = Podcast(title: collectionName!, artist: artistName!, artwork: artworkURL!,feedURL: feedURL!)
                         
                         // populate array set delegate result to this array
@@ -177,7 +179,6 @@ class SearchManager {
     func getEpisodeData(feed:NSURL, item: Int, podcast: String) -> [String: String] {
         var episodeData = [String: String]()
 
-        
         let data = NSData(contentsOfURL: feed)
         let parser = HTMLParser(data: data, error: nil)
         let doc = parser.doc()

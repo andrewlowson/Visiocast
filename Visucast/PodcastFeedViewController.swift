@@ -29,7 +29,7 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
     var resultSearchController = UISearchController()
     var timer: NSTimer = NSTimer()
     var episodeTitle: String?
-    
+    //TODO: Change duration string to something useful.
     
     override func viewDidLoad() {
         super.viewDidLoad()

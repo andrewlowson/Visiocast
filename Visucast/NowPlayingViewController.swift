@@ -5,6 +5,7 @@
 //  Created by Andrew Lowson on 19/07/2015.
 //  Copyright (c) 2015 Andrew Lowson. All rights reserved.
 //
+//  
 
 import UIKit
 import AVKit
@@ -23,6 +24,7 @@ class NowPlayingViewController: UIViewController {
     var podcastArtwork: UIImage?
     var podcastArtist: String?
     var podcast: String?
+    let defaults = NSUserDefaults.standardUserDefaults()
 
     @IBOutlet weak var trackSlider: UISlider!
     @IBOutlet weak var shareButton: UIButton!
@@ -47,7 +49,9 @@ class NowPlayingViewController: UIViewController {
         super.viewDidLoad()
         
         PodcastPlayer.sharedInstance.prepareAudio(podcastFile!, filename: filename!)
-        
+        if (episodeTitle != nil) {
+            episodeTitleLabel.text = episodeTitle!
+        }
         playButton.setTitle("Pause", forState: UIControlState.Normal)
         isAudioPlaying = true
         if podcastArtwork != nil {
@@ -55,7 +59,8 @@ class NowPlayingViewController: UIViewController {
         }
         trackSlider.maximumValue = Float(PodcastPlayer.sharedInstance.duration())
 
-        
+        // This is the setup area for the Lock Screen and Control Centre information
+        // Pass all the information about the podcast that is required to the MPMediaItemProperty
         if NSClassFromString("MPNowPlayingInfoCenter") != nil {
             if podcastArtwork != nil {
                 let image: UIImage = podcastArtwork!
@@ -64,7 +69,8 @@ class NowPlayingViewController: UIViewController {
                 var podcastInfo: NSMutableDictionary = [
                     MPMediaItemPropertyTitle: episodeTitle!,
                     MPMediaItemPropertyArtist: podcast!,
-                    MPMediaItemPropertyArtwork: albumArt
+                    MPMediaItemPropertyArtwork: albumArt,
+                    MPMediaItemPropertyPlaybackDuration: PodcastPlayer.sharedInstance.duration()
                 ]
                 MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = podcastInfo as [NSObject: AnyObject]
             } else {
@@ -84,27 +90,25 @@ class NowPlayingViewController: UIViewController {
             println("Audio session error")
         }
         
-        var timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector:Selector("updateAudioTime"), userInfo: nil, repeats: true )
 
-       
+        var timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector:Selector("updateAudioTime"), userInfo: nil, repeats: true )
         
         setupSlider()
     }
 
+    // Function to manage the share sheet.
     @IBAction func shareButton(sender: UIBarButtonItem) {
-        
-        let sharingContents = "Listen to \(episodeTitle!). via Visiocast"
-        
+        let sharingContents = "Listen to \(episodeTitle!). via Visiocast" // content that is shared
         let activityVC: UIActivityViewController = UIActivityViewController(activityItems: [sharingContents], applicationActivities: nil)
         self.presentViewController(activityVC, animated: true, completion: nil)
     }
     
-    
+    // this function allows the slider to be dragged to adjust the time
     @IBAction func changeTrackTime(sender: AnyObject) {
-        PodcastPlayer.sharedInstance.stop()
+        PodcastPlayer.sharedInstance.stop() // stop the player so we can adjust the time
         PodcastPlayer.sharedInstance.setTime(NSTimeInterval(trackSlider.value))
-        setupSlider()
-        PodcastPlayer.sharedInstance.play()
+        setupSlider() // reset the slider
+        PodcastPlayer.sharedInstance.play() // start the buffer to play the track again
     }
     
     // Set up the accessibility elements and values for the slider

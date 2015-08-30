@@ -23,13 +23,15 @@ class PodcastEpisodeTableViewCell: UITableViewCell {
     func updateUI() {
         if let podcastEpisode = self.podcastEpisode {
             episodeTitle?.text = podcastEpisode.episodeTitle!
-            
-            var attrStr = NSAttributedString(
-                data: podcastEpisode.episodeDescription!.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: true)!,
-                options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
-                documentAttributes: nil,
-                error: nil)
-            episodeDescription?.attributedText = attrStr
+  
+            // briefly removed due to drawing error when voiceover was on. 
+            // need to update this so the error isn't nil and is actually useful.
+//            var attrStr = NSAttributedString(
+//                data: podcastEpisode.episodeDescription!.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: true)!,
+//                options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
+//                documentAttributes: nil,
+//                error: nil)
+            episodeDescription?.text = ""//attrStr
             
             let formatter = NSDateFormatter()
             formatter.dateStyle = NSDateFormatterStyle.LongStyle
@@ -61,7 +63,6 @@ class PodcastEpisodeTableViewCell: UITableViewCell {
                         } else {
                             episodeInformation?.text = "\(date) · \(durationArray[0])"
                         }
-                        
                     }
                 } else {
                     episodeInformation?.text = ""

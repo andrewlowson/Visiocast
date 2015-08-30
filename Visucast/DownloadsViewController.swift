@@ -285,6 +285,8 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
             if error != nil {
                 println(filepath)
                 println(error?.localizedDescription)
+            } else {
+                AudioServicesPlaySystemSound(1054)
             }
             
             //redraw the table with the file deleted
