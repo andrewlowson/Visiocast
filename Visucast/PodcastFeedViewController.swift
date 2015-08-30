@@ -5,7 +5,6 @@
 //  Created by Andrew Lowson on 19/07/2015.
 //  Copyright (c) 2015 Andrew Lowson. All rights reserved.
 //  
-//  JamesonQuave.com
 //
 
 import UIKit
@@ -143,8 +142,8 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
         let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellReuseIdentifier, forIndexPath: indexPath) as! PodcastEpisodeTableViewCell
         
         cell.podcastEpisode = podcastEpisodes[indexPath.row]
-        cell.isAccessibilityElement == true
-        
+        cell.isAccessibilityElement = true
+        cell.accessibilityLabel = cell.getAccessibilityLabel() as String
         return cell
     }
     

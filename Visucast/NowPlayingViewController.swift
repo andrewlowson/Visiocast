@@ -133,7 +133,6 @@ class NowPlayingViewController: UIViewController {
         
         
         var played: NSTimeInterval = PodcastPlayer.sharedInstance.getTime()
-        println(played)
         let nextInterval = Int(played)
         let secondsPlayed = nextInterval % 60
         let minutesPlayed = (nextInterval / 60) % 60
@@ -146,8 +145,7 @@ class NowPlayingViewController: UIViewController {
         } else {
             playedString = NSString(format: "%0.2d hours, %0.2d minutes and %0.2d seconds played",hoursPlayed ,minutesPlayed,secondsPlayed)
         }
-        
-        println (playedString)
+       
         trackSlider.accessibilityValue = "\(playedString) of \(durationString)"
 
     }
