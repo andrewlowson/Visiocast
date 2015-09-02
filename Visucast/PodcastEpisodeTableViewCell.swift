@@ -38,7 +38,7 @@ class PodcastEpisodeTableViewCell: UITableViewCell {
             formatter.dateStyle = NSDateFormatterStyle.LongStyle
             var date = formatter.stringFromDate(podcastEpisode.episodeDate!)
             
-            // I want to make sure that the duration displayed is in HH:MM:SS
+            // Make sure that the duration displayed is in HH:MM:SS 
             // Some shows give the duration in a string like that, others are in seconds.
             
             let durationArray = split(podcastEpisode.episodeDuration!) {$0 == ":"} // split the string on :

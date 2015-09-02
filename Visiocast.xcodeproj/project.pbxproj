@@ -159,7 +159,6 @@
 		11037EF31B697B5E000F88EF /* HTMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLNode.m; sourceTree = "<group>"; };
 		11037EF41B697B5E000F88EF /* HTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLParser.h; sourceTree = "<group>"; };
 		11037EF51B697B5E000F88EF /* HTMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLParser.m; sourceTree = "<group>"; };
-		11037EF81B697C11000F88EF /* Visucast-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Visucast-Bridging-Header.h"; sourceTree = "<group>"; };
 		11175B791B68CE9D00A652CB /* PodcastEpisode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastEpisode.swift; sourceTree = "<group>"; };
 		11175B811B68DAF100A652CB /* PodcastEpisodeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastEpisodeTableViewCell.swift; sourceTree = "<group>"; };
 		112990E51B832E19005FD5AB /* AcousticModelEnglish.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AcousticModelEnglish.bundle; sourceTree = "<group>"; };
@@ -176,6 +175,7 @@
 		116CF05A1B5B205E0056FCA0 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		116CF05C1B5B207A0056FCA0 /* NowPlayingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowPlayingViewController.swift; sourceTree = "<group>"; };
 		116CF05E1B5B208A0056FCA0 /* PodcastFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastFeedViewController.swift; sourceTree = "<group>"; };
+		116F47541B94536D007856FB /* Visucast-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Visucast-Bridging-Header.h"; sourceTree = "<group>"; };
 		118D2F2B1B5AD9370005F577 /* Visucast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Visucast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		118D2F2F1B5AD9370005F577 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		118D2F301B5AD9370005F577 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -190,6 +190,7 @@
 		11C9781E1B6B90AC00EFDA95 /* DownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		11D8ED5A1B7CC298003B261C /* PodcastPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastPlayer.swift; sourceTree = "<group>"; };
 		11D8ED621B7CC79C003B261C /* DictationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictationManager.swift; sourceTree = "<group>"; };
+		11DE91BB1B970E850000E568 /* Visucast-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Visucast-Bridging-Header.h"; sourceTree = "<group>"; };
 		11E22D3E1B6509B200EB6A6C /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		11E22D521B650D1300EB6A6C /* SearchTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableView.swift; sourceTree = "<group>"; };
 		11E22D5B1B6565F400EB6A6C /* Podcast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Podcast.swift; sourceTree = "<group>"; };
@@ -287,7 +288,7 @@
 				116CF0561B5B203E0056FCA0 /* DownloadsViewController.swift */,
 				11BCCD8C1B6A4716002D7DE9 /* DownloadsTableViewCell.swift */,
 				11C0065A1B8253BF0084AA5B /* DownloadProgressViewController.swift */,
-				11037EF81B697C11000F88EF /* Visucast-Bridging-Header.h */,
+				116F47541B94536D007856FB /* Visucast-Bridging-Header.h */,
 				11037EF11B697B5E000F88EF /* HTMLParser */,
 				118D2F2E1B5AD9370005F577 /* Supporting Files */,
 			);
@@ -311,6 +312,7 @@
 		118D2F431B5AD9370005F577 /* VisucastTests */ = {
 			isa = PBXGroup;
 			children = (
+				11DE91BB1B970E850000E568 /* Visucast-Bridging-Header.h */,
 				118D2F461B5AD9370005F577 /* VisucastTests.swift */,
 				118D2F441B5AD9370005F577 /* Supporting Files */,
 			);

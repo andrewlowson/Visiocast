@@ -5,6 +5,8 @@
 //  Created by Andrew Lowson on 29/07/2015.
 //  Copyright (c) 2015 Andrew Lowson. All rights reserved.
 //
+//  Class initiates and manages the search queries and results for
+//  Apple iTunes and Feedly services.  
 
 import Foundation
 import Alamofire
@@ -29,6 +31,7 @@ class SearchManager {
     * Method to take a given search term and search the iTunes directory for a matching podcast.
     * Results are then turn into Podcast Objects, put in an Array and passed back to method caller.
     */
+    
     func podcastSearch(searchText: String) -> Array<Podcast> {
         var podcasts = [Podcast]()
         var search = searchText
