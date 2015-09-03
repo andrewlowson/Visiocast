@@ -45,7 +45,6 @@ class DownloadManager {
                 let destination = Alamofire.Request.suggestedDownloadDestination(directory: .DocumentDirectory, domain: .UserDomainMask)
                 Alamofire.download(.GET, downloadURL, destination: destination)
                     .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
-                        
                         var inBytes = totalBytesExpectedToRead
                         var inMBytes = Double( (totalBytesExpectedToRead / 1024) / 1024)
                         var soFar = Double(totalBytesRead / 1024) / 1024

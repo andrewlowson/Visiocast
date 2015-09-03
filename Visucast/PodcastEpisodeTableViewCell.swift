@@ -52,41 +52,59 @@ class PodcastEpisodeTableViewCell: UITableViewCell {
                     accessibilityString = "\(episodeTitle.text!), \(date), duration, \(durationArray[0]) minutes, and \(durationArray[1]) seconds)"
                 }
             } else {
-                // otherwise, we need to convert SS to HH:MM:SS
-                // this won't work in Swift 2, have to use Int(string)
-                if durationArray.count != 0 {
-                    if let duration: Int? = durationArray[0].toInt() {
-                        if duration != nil {
-                            var descriptionString: String?
-                            let (h,m,s) = secondsToHoursMinutesSeconds(duration!)
-                            var formattedDuration:String?
-                            if h > 0 {
-                                formattedDuration = "\(h):\(m):\(s)"
-                                descriptionString = "Duration, \(h) hours, \(m) minutes and \(s) seconds"
-                            } else {
-                                formattedDuration = "\(m):\(s)"
-                                descriptionString = "Duration, \(m) minutes and \(s) seconds"
-                            }
-                            var descriptionText = "\(date) · \(formattedDuration!)"
-                            episodeInformation?.text = descriptionText
-
-                            episodeInformation.accessibilityValue = "\(date), \(descriptionString!)"
-                            accessibilityString = "\(episodeTitle.text!), \(date), \(descriptionString!)"
-                            
-                        } else {
-                            episodeInformation?.text = "\(date) · \(durationArray[0])"
-                            episodeInformation.accessibilityValue = "\(episodeTitle.text!), \(date), \(durationArray[0])"
-                        }
+                // check to see if duration string has been written HH.MM.SS
+                let backupDurationArray = split(podcastEpisode.episodeDuration!) {$0 == "."}
+                
+                if backupDurationArray.count > 1 {
+                    // if there are more than one elements in the array, then it was already in HH:MM:SS so use that
+                    var descriptionText = "\(date) · \(podcastEpisode.episodeDuration!)"
+                    episodeInformation?.text = descriptionText
+                    if backupDurationArray.count > 2 {
+                        accessibilityString = "\(episodeTitle.text!), \(date), duration, \(backupDurationArray[0]) hours, \(backupDurationArray[1]) minutes and \(durationArray[2]) seconds)"
+                    } else {
+                        accessibilityString = "\(episodeTitle.text!), \(date), duration, \(backupDurationArray[0]) minutes, and \(backupDurationArray[1]) seconds)"
                     }
                 } else {
-                    episodeInformation?.text = ""
-                    accessibilityString = episodeTitle.text!
-                }
+                    // otherwise, we need to convert SS to HH:MM:SS
+                    // this won't work in Swift 2, have to use Int(string)
+                    if durationArray.count != 0 {
+                        if let duration: Int? = durationArray[0].toInt() {
+                            if duration != nil {
+                                var descriptionString: String?
+                                let (h,m,s) = secondsToHoursMinutesSeconds(duration!)
+                                var formattedDuration:String?
+                                if h > 0 {
+                                    formattedDuration = "\(h):\(m):\(s)"
+                                    descriptionString = "Duration, \(h) hours, \(m) minutes and \(s) seconds"
+                                } else {
+                                    formattedDuration = "\(m):\(s)"
+                                    descriptionString = "Duration, \(m) minutes and \(s) seconds"
+                                }
+                                var descriptionText = "\(date) · \(formattedDuration!)"
+                                episodeInformation?.text = descriptionText
+                                
+                                episodeInformation.accessibilityValue = "\(date), \(descriptionString!)"
+                                accessibilityString = "\(episodeTitle.text!), \(date), \(descriptionString!)"
+                                
+                            } else {
+                                episodeInformation?.text = "\(date) · \(durationArray[0])"
+                                episodeInformation.accessibilityValue = "\(episodeTitle.text!), \(date), \(durationArray[0])"
+                            }
+                        }
+                    } else {
+                        episodeInformation?.text = ""
+                        accessibilityString = episodeTitle.text!
+                    }
+            }
             }
         }
     }
     func getAccessibilityLabel() -> String {
-        return accessibilityString!
+        if accessibilityString == nil {
+            return ""
+        } else {
+            return accessibilityString!
+        }
     }
     func secondsToHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int) {
         return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)

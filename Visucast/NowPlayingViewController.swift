@@ -57,6 +57,7 @@ class NowPlayingViewController: UIViewController {
         if podcastArtwork != nil {
             artworkImageView.image = podcastArtwork!
         }
+        artworkImageView.isAccessibilityElement = false
         trackSlider.maximumValue = Float(PodcastPlayer.sharedInstance.duration())
 
         // This is the setup area for the Lock Screen and Control Centre information
