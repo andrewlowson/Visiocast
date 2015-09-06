@@ -28,10 +28,9 @@ class SearchManager {
 
     
     /**
-    * Method to take a given search term and search the iTunes directory for a matching podcast.
-    * Results are then turn into Podcast Objects, put in an Array and passed back to method caller.
-    */
-    
+     * Method to take a given search term and search the iTunes directory for a matching podcast.
+     * Results are then turn into Podcast Objects, put in an Array and passed back to method caller.
+     */
     func podcastSearch(searchText: String) -> Array<Podcast> {
         var podcasts = [Podcast]()
         var search = searchText
@@ -71,6 +70,7 @@ class SearchManager {
             }
         }
         else {
+            //MARK: TODO - This needs to display to the user, otherwise they won't know why it's not returning a result
             println("No Network Connectivity")
         }
         return podcasts
@@ -128,6 +128,7 @@ class SearchManager {
         for item in items {
             let itemNode = item as! HTMLNode
             
+            // for each item in the response, pull out the information we need for search results
             var title: String? = itemNode.findChildTag("title").contents()
             var subtitle: String? = itemNode.findChildTag("subtitle")?.contents()
             var summary: String? = itemNode.findChildTag("description")?.contents()
@@ -140,6 +141,8 @@ class SearchManager {
             
             var enclosureLength: Int? = enclosureLengthString?.toInt()
             
+            
+            // if any of the items are nil, prepare for that
             if title == nil {
                 title = podcast.podcastTitle
                 println(feedURL)
@@ -173,12 +176,15 @@ class SearchManager {
             dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss zzz"
             publishedDate = dateFormatter.dateFromString(publishedDateString!)
             
+            // create the podcast episode with what we've ended up with and send it back to the view
+            
             let episode = PodcastEpisode(title: title!,description:  summary!,date:  publishedDate!,duration:  duration!,download:  enclosureURL!,subtitle:  subtitle!,size:  enclosureLength!, podcast: podcast)
             episodes.append(episode)
         }
         return episodes
     }
     
+    // Function to parse all the information for a podcast episode in case the metadata is rubbish.
     func getEpisodeData(feed:NSURL, item: Int, podcast: String) -> [String: String] {
         var episodeData = [String: String]()
 

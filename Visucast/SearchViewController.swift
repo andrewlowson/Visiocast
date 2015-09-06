@@ -17,6 +17,8 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     var searchActive : Bool = false
     
     @IBOutlet weak var podcastTableView: UITableView! // Our table containing search results
+    
+    // setup the searchbar as a delegate and accessible by voiceover
     @IBOutlet private weak var searchBar: UISearchBar! {
         didSet {
             searchBar.isAccessibilityElement == true
@@ -33,9 +35,12 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         api.delegate = self
         
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true // show the network activity spinner in menu
+        
+        //setup the delegates and datasources
         podcastTableView.delegate = self
         podcastTableView.dataSource = self
         
+        // draw the table rows to appropriate height
         podcastTableView.estimatedRowHeight = podcastTableView.rowHeight
         podcastTableView.rowHeight = UITableViewAutomaticDimension
         
@@ -55,22 +60,26 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     // MARK: - SearchBar
+    // The following four functions handle status of the search bar
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
         searchActive = true;
         searchBar.setShowsCancelButton(true, animated: true)
     }
     
+    // did the user stop typing
     func searchBarTextDidEndEditing(searchBar: UISearchBar) {
         searchActive = false;
         
     }
     
+    // did the user cancel the search and now wants to go do something else?
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         searchActive = false;
         searchBar.resignFirstResponder()
         searchBar.setShowsCancelButton(false, animated: true)
     }
     
+    // did they initiate search?
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         searchActive = false;
         searchText = searchBar.text
@@ -107,6 +116,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         return podcasts.count
     }
     
+    // Function to draw each cell in the view depending on the amount of results
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellReuseIdentifier, forIndexPath: indexPath) as! PodcastTableViewCell

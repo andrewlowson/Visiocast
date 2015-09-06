@@ -21,6 +21,7 @@ class PodcastEpisode: NSObject {
     var episodeSize: Int // size of file in bytes
     var podcast: Podcast? // Podcast Object associated with episode
 
+    // constructor to assign instance variables when PodcastEpisode object is instantiated
     init(title: String, description: String, date: NSDate, duration: String, download: String, subtitle: String, size: Int, podcast: Podcast) {
         self.episodeTitle = title
         self.episodeDownloadURL = NSURL(string: download)

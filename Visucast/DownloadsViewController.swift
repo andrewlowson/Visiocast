@@ -211,6 +211,8 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
     }
 
     // NowPlaying Segue. Set up the Player and podcast details for NowPlayingViewController
+    // This requires sending all the data from the persistent storage to the PodcastPlayer class and the NowPlayingClass 
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         //Get the new view controller using segue.destinationViewController.
@@ -218,9 +220,9 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
         let nav = segue.destinationViewController as! UINavigationController
         let nowPlaying = nav.topViewController as! NowPlayingViewController
         
-        var fileIndex = episodesTableView!.indexPathForSelectedRow()!.row
-        
-        var thisFileName = podcasts[fileIndex].episodeDescription!
+
+        var fileIndex = episodesTableView!.indexPathForSelectedRow()!.row  // podcast episode row selected by the user
+        var thisFileName = podcasts[fileIndex].episodeDescription!         // it's filename
         
         var paths:[AnyObject] = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
         
@@ -229,7 +231,9 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
     
         var fileString = documentsPath!+thisFileName
         let fileURL = NSURL(string: fileString)
-        if fileURL == nil {
+        
+        
+        if fileURL == nil { // if the filestring cannot be read
             
             let alertController = UIAlertController(title: "Playback Error", message: "I'm having an issue with this file.\nPlease delete it.", preferredStyle: .Alert)
             alertController.isAccessibilityElement = true
@@ -245,6 +249,7 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
             if PodcastPlayer.sharedInstance.currentlyPlaying() {
                 PodcastPlayer.sharedInstance.pause()
             }
+            // data for the elements in NowPplaying
             nowPlaying.title = title
             nowPlaying.podcast = podcast!.podcastTitle
             nowPlaying.episodeTitle = title
@@ -296,6 +301,7 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
     }
 }
 
+ // extension to return the documents container absolute path as a String
 extension NSFileManager {
     func documentsDirectoryPath() -> String {
         let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)

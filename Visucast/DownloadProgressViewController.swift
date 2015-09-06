@@ -2,6 +2,10 @@
 //  DownloadProgressViewController.swift
 //  Visiocast
 //
+//  This class is not ucrrently in use 
+//  This will be used to display the list of currently downloading shows.
+//
+//
 //  Created by Andrew Lowson on 17/08/2015.
 //  Copyright (c) 2015 Andrew Lowson. All rights reserved.
 //
@@ -28,6 +32,7 @@ class DownloadProgressViewController: UIViewController {
     var timer: NSTimer = NSTimer()
     var downloader = DownloadManager()
     
+    // if the view returns, reinstate the download progress
     override func viewDidLoad() {
         timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector:Selector("updateProgress"), userInfo: nil, repeats: true )
     }

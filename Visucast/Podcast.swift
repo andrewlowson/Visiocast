@@ -17,6 +17,8 @@ class Podcast {
     var podcastArtwork: NSURL! // URL for the artwork file for the show.
     var podcastFeed:    NSURL! // URl for RSS Feed for all the episodes of the show
     
+    
+    // constructor to assign instance variables when Podcast object is instantiated
     init(title: String, artist: String, artwork: String, feedURL: String) {
         self.podcastTitle = title
         self.podcastArtistName = artist
