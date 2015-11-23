@@ -21,7 +21,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     // setup the searchbar as a delegate and accessible by voiceover
     @IBOutlet private weak var searchBar: UISearchBar! {
         didSet {
-            searchBar.isAccessibilityElement == true
+            searchBar.isAccessibilityElement = true
             searchBar.delegate = self
             searchBar.text = searchText
         }
@@ -86,7 +86,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         podcasts.removeAll()
         podcastTableView.reloadData()
         
-        api.podcastSearch(self.searchBar.text)
+        api.podcastSearch(self.searchBar.text!)
         self.waitingForResults.startAnimating() // make activity spinner start spinning
         searchBar.resignFirstResponder() // lower the keyboard
         searchBar.setShowsCancelButton(false, animated: true)
@@ -97,7 +97,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         didSet {
             podcasts.removeAll()
             podcastTableView.reloadData()
-            api.podcastSearch(self.searchBar.text)
+            api.podcastSearch(self.searchBar.text!)
         }
     }
  
@@ -129,11 +129,13 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
             // The image isn't cached, download the image data
             // We should perform this in a background thread
             let request: NSURLRequest = NSURLRequest(URL: cell.podcast!.podcastArtwork!)
-            let mainQueue = NSOperationQueue.mainQueue()
-            NSURLConnection.sendAsynchronousRequest(request, queue: mainQueue, completionHandler: { (response, data, error) -> Void in
+           // let mainQueue = NSOperationQueue.mainQueue()
+            NSURLSession.sharedSession().dataTaskWithRequest(request) { (data, response, error) -> Void in
+
+//            NSURLConnection.sendAsynchronousRequest(request, queue: mainQueue, completionHandler: { (response, data, error) -> Void in
                 if error == nil {
                     // Convert the downloaded data in to a UIImage object
-                    let artwork = UIImage(data: data)
+                    let artwork = UIImage(data: data!)
                     // Store the image in to our cache
                     self.podcastArtwork[self.podcasts[indexPath.row].podcastArtwork!] = artwork
                     // Update the cell
@@ -142,11 +144,11 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
                     })
                 }
                 else {
-                    println("Error: \(error.localizedDescription)")
+                    print("Error: \(error!.localizedDescription)")
                 }
-            })
+            }
         }
-        cell.isAccessibilityElement == true        
+        cell.isAccessibilityElement = true
         return cell
     }
     
@@ -154,11 +156,11 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     // MARK: - Navigation
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        var podcastFeed: PodcastFeedViewController = segue.destinationViewController as! PodcastFeedViewController
-        var podcastIndex = podcastTableView!.indexPathForSelectedRow()!.row
+        let podcastFeed: PodcastFeedViewController = segue.destinationViewController as! PodcastFeedViewController
+        let podcastIndex = podcastTableView!.indexPathForSelectedRow!.row
         
-        var selectedPodcast = self.podcasts[podcastIndex]
-        println("\(selectedPodcast.podcastFeed!)")
+        let selectedPodcast = self.podcasts[podcastIndex]
+        print("\(selectedPodcast.podcastFeed!)")
         podcastFeed.setValues(selectedPodcast.podcastFeed!, podcastTitle: selectedPodcast.podcastTitle!, podcast: selectedPodcast)
     }
 

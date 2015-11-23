@@ -73,36 +73,33 @@ class NowPlayingViewController: UIViewController {
             if podcastArtwork != nil {
                 let image: UIImage = podcastArtwork!
                 let albumArt = MPMediaItemArtwork(image: image)
-                println(albumArt)
+                print(albumArt)
                 // this is all the information required for the lock screen and control centre data
                 // current time needs to be added so it live updates.
-                var podcastInfo: NSMutableDictionary = [
-                    MPMediaItemPropertyTitle: episodeTitle!,
-                    MPMediaItemPropertyArtist: podcast!,
-                    MPMediaItemPropertyArtwork: albumArt,
-                    MPMediaItemPropertyPlaybackDuration: PodcastPlayer.sharedInstance.duration()
+                let podcastInfo: [String : AnyObject] = [
+                    String(MPMediaItemPropertyTitle): episodeTitle!,
+                    String(MPMediaItemPropertyArtist) : podcast!,
+                    String(MPMediaItemPropertyArtwork) : albumArt,
+                    String(MPMediaItemPropertyPlaybackDuration): PodcastPlayer.sharedInstance.duration()
                 ]
-                MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = podcastInfo as [NSObject: AnyObject]
+                MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = podcastInfo
             } else {
-                var podcastInfo: NSMutableDictionary = [
-                    MPMediaItemPropertyArtist: podcastArtist!
+                let podcastInfo: [String: AnyObject] = [
+                    String(MPMediaItemPropertyArtist): podcastArtist!
                 ]
-                MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = podcastInfo as [NSObject: AnyObject]
+              //  MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = podcastInfo as [NSObject: AnyObject]
+                MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = podcastInfo
             }
         } else {
-            println("error here")
+            print("error here")
         }
         
         // this allows the application to receive controls from earphone or system playback controls
-        if (AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)) {
-            println("Receiving remote control")
-            UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
-        } else {
-            println("Audio session error")
-        }
-        
+                //AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, withOptions: NilLiteralConvertible) / throws errors and need to read documentatins
+                print("Receiving remote control")
+                UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
         // set a timer to poll the updateAudioTime method so the slider updates live
-        var timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector:Selector("updateAudioTime"), userInfo: nil, repeats: true )
+        var _ = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector:Selector("updateAudioTime"), userInfo: nil, repeats: true )
         
         setupSlider()
     }
@@ -129,9 +126,9 @@ class NowPlayingViewController: UIViewController {
         trackSlider.isAccessibilityElement = true
         
         // set the value for the duration of the player in Time units as opposed so an Integer
-        var duration: NSTimeInterval = PodcastPlayer.sharedInstance.duration()
+        let duration: NSTimeInterval = PodcastPlayer.sharedInstance.duration()
         let ti = NSInteger(duration)
-        let ms = Int((duration % 1) * 1000)
+        let _ = Int((duration % 1) * 1000) // was called ms but isn't used so changed to _
         let seconds = ti % 60
         let minutes = (ti / 60) % 60
         let hours = (ti / 3600)
@@ -146,7 +143,7 @@ class NowPlayingViewController: UIViewController {
         }
         
         // set the value for the time elapsed of the player in Time units as opposed so an Integer
-        var played: NSTimeInterval = PodcastPlayer.sharedInstance.getTime()
+        let played: NSTimeInterval = PodcastPlayer.sharedInstance.getTime()
         let nextInterval = Int(played)
         let secondsPlayed = nextInterval % 60
         let minutesPlayed = (nextInterval / 60) % 60
@@ -170,8 +167,8 @@ class NowPlayingViewController: UIViewController {
     func updateAudioTime() {
         
         // set the value for the Slider
-        var time = PodcastPlayer.sharedInstance.getTime()
-        var timeRemaining = PodcastPlayer.sharedInstance.duration() - time
+        let time = PodcastPlayer.sharedInstance.getTime()
+        let timeRemaining = PodcastPlayer.sharedInstance.duration() - time
         trackSlider.value = Float(time)
         
         // repeating of code, this needs to be refactored
@@ -179,9 +176,9 @@ class NowPlayingViewController: UIViewController {
         let seconds = interval % 60
         let minutes = (interval / 60) % 60
         let hours = (interval / 3600)
-        var result =  String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+        let result =  String(format: "%02d:%02d:%02d", hours, minutes, seconds)
         amountPlayedLabel.text = "\(result)"
-        var amountPlayedValue: NSString = String(format: "%02d hours, %02d minutes and  %02d seconds", hours, minutes, seconds)
+        let amountPlayedValue: NSString = String(format: "%02d hours, %02d minutes and  %02d seconds", hours, minutes, seconds)
         amountPlayedLabel.accessibilityValue = amountPlayedValue as String
 
         let nextInterval = Int(timeRemaining)
@@ -190,9 +187,9 @@ class NowPlayingViewController: UIViewController {
         let hoursLeft = (nextInterval / 3600)
         
         // set formatted strings using the calculated times
-        var formattedTime =  String(format: "%02d:%02d:%02d", hoursLeft, minutesLeft, secondsLeft)
+        let formattedTime =  String(format: "%02d:%02d:%02d", hoursLeft, minutesLeft, secondsLeft)
         timeRemainingLabel.text = "\(formattedTime)"
-        var remainingValue: NSString = String(format: "%02d hours, %02d minutes and %02d seconds", hoursLeft, minutesLeft, secondsLeft)
+        let remainingValue: NSString = String(format: "%02d hours, %02d minutes and %02d seconds", hoursLeft, minutesLeft, secondsLeft)
         timeRemainingLabel.accessibilityValue = remainingValue as String
         
         setupSlider()

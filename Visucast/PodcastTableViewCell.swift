@@ -17,7 +17,7 @@ class PodcastTableViewCell: UITableViewCell {
     }
     @IBOutlet weak var podcastArtworkImageView: UIImageView! {
         didSet {
-            podcastArtworkImageView.isAccessibilityElement == true
+            podcastArtworkImageView.isAccessibilityElement = true
         }
     }
 

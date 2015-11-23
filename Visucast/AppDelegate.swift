@@ -13,22 +13,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    override func remoteControlReceivedWithEvent(event: UIEvent) {
-        if event.type == UIEventType.RemoteControl {
-            if event.subtype == UIEventSubtype.RemoteControlPlay {
-                println("received remote play")
+    override func remoteControlReceivedWithEvent(event: UIEvent?) {
+        if event!.type == UIEventType.RemoteControl {
+            if event!.subtype == UIEventSubtype.RemoteControlPlay {
+                print("received remote play")
                 PodcastPlayer.sharedInstance.play()
-            } else if event.subtype == UIEventSubtype.RemoteControlPause {
-                println("received remote pause")
+            } else if event!.subtype == UIEventSubtype.RemoteControlPause {
+                print("received remote pause")
                 PodcastPlayer.sharedInstance.pause()
-            } else if event.subtype == UIEventSubtype.RemoteControlTogglePlayPause {
-                println("received toggle")
+            } else if event!.subtype == UIEventSubtype.RemoteControlTogglePlayPause {
+                print("received toggle")
                 PodcastPlayer.sharedInstance.toggle()
-            } else if event.subtype == UIEventSubtype.RemoteControlBeginSeekingForward {
-                println("received skip forward")
+            } else if event!.subtype == UIEventSubtype.RemoteControlBeginSeekingForward {
+                print("received skip forward")
                 PodcastPlayer.sharedInstance.skipForward()
-            } else if event.subtype == UIEventSubtype.RemoteControlBeginSeekingBackward {
-                println("received skip back")
+            } else if event!.subtype == UIEventSubtype.RemoteControlBeginSeekingBackward {
+                print("received skip back")
                 PodcastPlayer.sharedInstance.skipBack()
             }
         }

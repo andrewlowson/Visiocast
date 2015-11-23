@@ -33,45 +33,58 @@ class SearchManager {
      */
     func podcastSearch(searchText: String) -> Array<Podcast> {
         var podcasts = [Podcast]()
-        var search = searchText
+        let search = searchText
         let result = search.lowercaseString.stringByReplacingOccurrencesOfString(" ", withString: "+")
-        var searchTerm = defaultSearchTerm + result
-        
-        if Reachability.isConnectedToNetwork() {
-            // Alamofire is the Networking library used.
-            // Give request type (GET), url and then decide what to do with results.
-            Alamofire.request(.GET, searchTerm).responseJSON {
-                (_, _, jsonDict, _) in // the only response we're interested is the dictionary JSON response
-                var json = JSON(jsonDict!) // turn it into a JSON object
-                let results = json["results"] // collect the results
-                var collectionName: String?
-                var artworkURL: String?
-                
-                // for each result, pull out relevant data, create object
-                for (index: String, resultJSON: JSON) in results {
-                    let collectionName = resultJSON["collectionName"].string
-                    let artistName = resultJSON["artistName"].string
-                    var artworkURL = resultJSON["artworkUrl600"].string
-                    var feedURL = resultJSON["feedUrl"].string
-
-                    if (artworkURL == nil) {
-                        var artworkURL = resultJSON["artworkUrl100"].string
-                    }
-                    if collectionName != nil && artistName != nil && artworkURL != nil && feedURL != nil {
+        let searchTerm = defaultSearchTerm + result
+        do {
+            let connected = try Reachability.isConnectedToNetwork()
+            if connected {
+                // Alamofire is the Networking library used.
+                // Give request type (GET), url and then decide what to do with results.
+                Alamofire.request(.GET, searchTerm).responseJSON {
+        //                (jsonDict) in // the only response we're interested is the dictionary JSON response
+        //                var json = JSON(jsonDict!) // turn it into a JSON object
+        //                let results = json["results"] // collect the results
+        //                var collectionName: String?
+        //                var artworkURL: String?
+                    response in
+                    if response.result.isSuccess {
+                        let jsonDict = response.result.value as! NSDictionary
+                        let json = JSON(jsonDict)
+                        let results = json["results"]
+                        var collectionName: String?
+                        var artworkURL: String?
                         
-                        // if we have what we need, create Podcast object, append it to the array and send it back to the UI
-                        var podcast = Podcast(title: collectionName!, artist: artistName!, artwork: artworkURL!,feedURL: feedURL!)
-                        
-                        // populate array set delegate result to this array
-                        podcasts.append(podcast)
-                        self.delegate?.didReceiveResults(podcasts)
+                        // for each result, pull out relevant data, create object
+        //                    for (index: String, resultJSON: JSON) in results {
+                        for (_, resultJSON): (String, JSON) in results {
+                            collectionName = resultJSON["collectionName"].string
+                            let artistName = resultJSON["artistName"].string
+                            artworkURL = resultJSON["artworkUrl600"].string
+                            let feedURL = resultJSON["feedUrl"].string
+                            
+                            if (artworkURL == nil) {
+                                artworkURL = resultJSON["artworkUrl100"].string
+                            }
+                            if collectionName != nil && artistName != nil && artworkURL != nil && feedURL != nil {
+                                
+                                // if we have what we need, create Podcast object, append it to the array and send it back to the UI
+                                let podcast = Podcast(title: collectionName!, artist: artistName!, artwork: artworkURL!,feedURL: feedURL!)
+                                
+                                // populate array set delegate result to this array
+                                podcasts.append(podcast)
+                                self.delegate?.didReceiveResults(podcasts)
+                            }
+                        }
                     }
                 }
             }
-        }
-        else {
-            //MARK: TODO - This needs to display to the user, otherwise they won't know why it's not returning a result
-            println("No Network Connectivity")
+            else {
+                //MARK: TODO - This needs to display to the user, otherwise they won't know why it's not returning a result
+                print("No Network Connectivity")
+            }
+        } catch {
+            print("Connection error")
         }
         return podcasts
     }
@@ -81,29 +94,29 @@ class SearchManager {
      * Method to search a podcast RSS and pull out individual episode feeds.
      * results are passed to episode method to parse the feed
      **/
-    func feedParser(podcastFeed: NSURL, podcast:Podcast) {
+    func feedParser(podcastFeed: NSURL, podcast:Podcast) throws {
         
-        var searchTerm = NSURL(string: feedString)
-        if Reachability.isConnectedToNetwork() {
+        let searchTerm = NSURL(string: feedString)
+        let connected = try Reachability.isConnectedToNetwork()
+        if connected {
             Alamofire.request(
                 .GET,
                 searchTerm!,
                 parameters: ["query": "\(podcastFeed)"],
-                encoding: .URL).responseJSON(options: NSJSONReadingOptions.allZeros) {
-                    (request: NSURLRequest,
-                    response: NSHTTPURLResponse?,
-                    responseJSON: AnyObject?,
-                    error: NSError?) -> Void in
+                encoding: .URL).responseJSON(options: NSJSONReadingOptions()) {
+                    response in
+                    let jsonValue = JSON(response.data!)
                     
-                    let jsonValue = JSON(responseJSON!)
                     if let results = jsonValue["results"].array {
                         for result: JSON in results {
                             // MARK: TODO Sort the array by date to make sure I get it in the right order, example feed Empire Podcast.
-                            var feedID = result["feedId"].string
+                            let feedID = result["feedId"].string
                             var podcastEpisodes = [PodcastEpisode]()
-                            var feedURL = NSURL(string: feedID!)
-                            podcastEpisodes = self.episodes(podcastFeed, podcast: podcast)
-                            self.delegate?.didReceiveResults(podcastEpisodes)
+                            let _ = NSURL(string: feedID!)
+                            do {
+                                podcastEpisodes = try self.episodes(podcastFeed, podcast: podcast)
+                                self.delegate?.didReceiveResults(podcastEpisodes)
+                            } catch {print("thing")}
                         }
                     }
             }
@@ -115,13 +128,13 @@ class SearchManager {
      * Method to parse a podcast RSS and pull out individual episodes.
      * Episode Objects are then created and all put into an Array passed back to the method caller
      */
-    func episodes(feedURL: NSURL, podcast: Podcast) -> Array<PodcastEpisode> {
+    func episodes(feedURL: NSURL, podcast: Podcast) throws -> Array<PodcastEpisode> {
         
         var episodes: Array<PodcastEpisode> = []
-        var podcastArtwork: UIImage?
+        var _: UIImage?
         
         let data = NSData(contentsOfURL: feedURL)
-        let parser = HTMLParser(data: data, error: nil)
+        let parser = try HTMLParser(data: data)
         let doc = parser.doc()
         let items = doc.findChildTags("item")
         
@@ -136,16 +149,16 @@ class SearchManager {
             var duration: String? = itemNode.findChildTag("duration")?.contents()
             var enclosureURL: String? = itemNode.findChildTag("enclosure")?.getAttributeNamed("url")
             var enclosureLengthString: String? = itemNode.findChildTag("enclosure")?.getAttributeNamed("length")
-            var imageTag:String? = itemNode.findChildTag("image")?.getAttributeNamed("href")
-            var guid: String? = itemNode.findChildTag("guid")?.contents()
+            var _: String? = itemNode.findChildTag("image")?.getAttributeNamed("href")
+            var _: String? = itemNode.findChildTag("guid")?.contents()
             
-            var enclosureLength: Int? = enclosureLengthString?.toInt()
+            var enclosureLength: Int? = Int(enclosureLengthString!)
             
             
             // if any of the items are nil, prepare for that
             if title == nil {
                 title = podcast.podcastTitle
-                println(feedURL)
+                print(feedURL)
             }
             if (subtitle == nil) {
                 subtitle = ""
@@ -157,7 +170,7 @@ class SearchManager {
                 duration = ""
             } 
             if (enclosureURL == nil) {
-                println("ERROR NO DOWNLOAD URL FOR \(title)")
+                print("ERROR NO DOWNLOAD URL FOR \(title)")
                 enclosureURL = ""
             }
             if (enclosureLengthString == nil) {
@@ -185,28 +198,28 @@ class SearchManager {
     }
     
     // Function to parse all the information for a podcast episode in case the metadata is rubbish.
-    func getEpisodeData(feed:NSURL, item: Int, podcast: String) -> [String: String] {
+    func getEpisodeData(feed:NSURL, item: Int, podcast: String) throws -> [String: String]  {
         var episodeData = [String: String]()
 
         let data = NSData(contentsOfURL: feed)
-        let parser = HTMLParser(data: data, error: nil)
+        let parser = try HTMLParser(data: data!)
         let doc = parser.doc()
         let items = doc.findChildTags("item")
 
-        var itemNode = items[item] as! HTMLNode
-        var podcast: String? = podcast
-        var title: String? = itemNode.findChildTag("title").contents()
-        var summary: String? = itemNode.findChildTag("description")?.contents()
-        var publishedDateString: String? = itemNode.findChildTag("pubdate")?.contents()
-        var duration: String? = itemNode.findChildTag("duration")?.contents()
-        var enclosureURL: String? = itemNode.findChildTag("enclosure")?.getAttributeNamed("url")
-        var enclosureLengthString: String? = itemNode.findChildTag("enclosure")?.getAttributeNamed("length")
-        var imageTag:String? = itemNode.findChildTag("image")?.getAttributeNamed("href")
-        var guid: String? = itemNode.findChildTag("guid")?.contents()
+        let itemNode = items[item] as! HTMLNode
+        let podcast: String? = podcast
+        let title: String? = itemNode.findChildTag("title").contents()
+        let summary: String? = itemNode.findChildTag("description")?.contents()
+        let _: String? = itemNode.findChildTag("pubdate")?.contents()
+        let _: String? = itemNode.findChildTag("duration")?.contents()
+        let _: String? = itemNode.findChildTag("enclosure")?.getAttributeNamed("url")
+        let _: String? = itemNode.findChildTag("enclosure")?.getAttributeNamed("length")
+        let imageTag:String? = itemNode.findChildTag("image")?.getAttributeNamed("href")
+        let guid: String? = itemNode.findChildTag("guid")?.contents()
 
         episodeData.updateValue(podcast!, forKey: "podcast")
         episodeData.updateValue(title!, forKey: "title")
-        println(title!)
+        print("Title: \(title!)")
         if summary != nil {
             episodeData.updateValue(summary!, forKey: "description")
         }
@@ -218,15 +231,15 @@ class SearchManager {
            // println(imageTag)
             episodeData.updateValue(imageTag!, forKey: "artwork")
         } else {
-            var image = doc.findChildTag("image") as HTMLNode
-                var imageURL: String? = image.findChildTag("url").contents()
+            let image = doc.findChildTag("image") as HTMLNode
+                let imageURL: String? = image.findChildTag("url").contents()
              //   println(imageURL!)
                 if imageURL != nil {
                     episodeData.updateValue(imageURL!, forKey: "    artwork")
             }
         }
         
-        println(episodeData)
+        print(episodeData)
         return episodeData
     }
     
@@ -238,10 +251,10 @@ class SearchManager {
         NSURLConnection.sendAsynchronousRequest(request, queue: mainQueue, completionHandler: { (response, data, error) -> Void in
             if error == nil {
                 // Convert the downloaded data in to a UIImage object
-                image = UIImage(data: data)
+                image = UIImage(data: data!)
             }
             else {
-                println("Error: \(error.localizedDescription)")
+                print("Error: \(error!.localizedDescription)")
             }
         })
         return image

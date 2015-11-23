@@ -41,35 +41,42 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
     // Method to make sure data changed between view changes are known to the UI
     override func viewDidAppear(animated: Bool) {
         podcasts.removeAll()
-        loadFiles()
+        do {
+            try loadFiles()
+        } catch {
+            print("Loading files didn't work")
+        }
     }
         
     // This searches the documents directory and grabs all the files in it.
-    func loadFiles() {
+    func loadFiles() throws {
         // We need just to get the documents folder url
-        let documentsUrl =  NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as! NSURL
+        let documentsUrl =  NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] 
         
         // if you want to filter the directory contents you can do like this:
-        if let directoryUrls =  NSFileManager.defaultManager().contentsOfDirectoryAtURL(documentsUrl, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsSubdirectoryDescendants, error: nil) {
-
-            let mp3Files = directoryUrls.map(){ $0.lastPathComponent }.filter(){ $0.pathExtension == "mp3" }
+//        if let directoryUrls = try NSFileManager.defaultManager().contentsOfDirectoryAtURL(documentsUrl, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsSubdirectoryDescendants)  {
+        let fileManager = NSFileManager.defaultManager()
+        let folderPathURL = fileManager.URLsForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomains: NSSearchPathDomainMask.UserDomainMask)[0]
+        if let directoryURLs = try? fileManager.contentsOfDirectoryAtURL(folderPathURL, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles) {
+            
+            let mp3Files = directoryURLs.filter { $0.pathExtension == "mp3" }.map { $0.lastPathComponent! }
             
             // for each MP3 file in the Documents directory we want all the data on it and to create objecst for the podcasts
-            for (file: String) in mp3Files {
+            for file: String in mp3Files {
                 
-                var backup = defaults.objectForKey(file) as? [String : String]
+                _ = defaults.objectForKey(file) as? [String : String]
                 
-                var fileString = "\(documentsUrl)"+file
-                var fileURL: NSURL? = NSURL(string: fileString)
+                let fileString = "\(documentsUrl)"+file
+                let fileURL: NSURL? = NSURL(string: fileString)
                 var title: String?
                 var artist: String?
                 var podcastTitle: String?
                 var artwork: UIImage?
                 var artworkString: String?
                 
-                if let item = AVPlayerItem(URL: fileURL) {
-                    let metadataList = item.asset.commonMetadata as! [AVMetadataItem]
-                    let metaDataItem = item.asset.metadata as! [AVMetadataItem]
+                let item = AVPlayerItem(URL: fileURL!)
+                let metadataList = item.asset.commonMetadata 
+                _ = item.asset.metadata
                     
                     // This block deals with MetaData in the MP3 File
                     for item in metadataList {
@@ -79,7 +86,7 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                         if let key = item.commonKey, let value = item.value {
                             if key == "title" {
                                 title = value as? String
-                                println(title!)
+                                print(title!)
                             }
                             if key == "artist" {
                                 artist = value as? String
@@ -94,26 +101,29 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                             }
                         }
                     }
-                }
+
                 
                 //This block from line 106 - 149 exists for cases where metadata is missing (this happens a lot)
                 if let backup = defaults.objectForKey(file) as? [String : String] {
                     title = backup["title"]
-                    println(title!)
+                    print(title!)
                     artworkString = backup["artwork"]
                     let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
                     
                     dispatch_async(dispatch_get_global_queue(priority, 0)) {
-                        if let artworkURLAsString = backup["artwork"] {
+                        do {
+                            if let artworkURLAsString = backup["artwork"] {
                             var  artworkURL = NSURL(string: artworkURLAsString)
-                            if Reachability.isConnectedToNetwork() {
-                                var artworkData = NSData(contentsOfURL: artworkURL!)
-                                if artwork == nil {
-                                    artwork = UIImage(data: artworkData!)
+                                var connected = try Reachability.isConnectedToNetwork()
+                                if connected {
+                                    var artworkData = NSData(contentsOfURL: artworkURL!)
+                                    if artwork == nil {
+                                        artwork = UIImage(data: artworkData!)
+                                    }
+                                    self.podcastArtwork[artworkURL!] = artwork
                                 }
-                                self.podcastArtwork[artworkURL!] = artwork
                             }
-                        }
+                        } catch {print("thing")}
                     }
                 }
                 if artist == nil {
@@ -131,7 +141,7 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                         }
                     } else {
                         podcastTitle = file
-                        println("the persistent storage wasn't written for \(file)")
+                        print("the persistent storage wasn't written for \(file)")
                     }
                 }
                 if artworkString == nil {
@@ -153,10 +163,10 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
     }
     
     // if an episode is downloaded during the lifecycle of the application and I'm in this view, load the episode
-    func didReceiveDownload(episode: PodcastEpisode) {        
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+    func didReceiveDownload(episode: PodcastEpisode) {
+        dispatch_async(dispatch_get_main_queue()) { ()  -> Void in
             self.podcasts.append(episode)
-            self.loadFiles()
+            do {try self.loadFiles()} catch{}
             self.episodesTableView.reloadData()
         }
     }
@@ -186,11 +196,13 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
             // The image isn't cached, download the image data
             // We should perform this in a background thread
             let request: NSURLRequest = NSURLRequest(URL: cell.episode!.podcast!.podcastArtwork!)
-            let mainQueue = NSOperationQueue.mainQueue()
-            NSURLConnection.sendAsynchronousRequest(request, queue: mainQueue, completionHandler: { (response, data, error) -> Void in
+            //let mainQueue = NSOperationQueue.mainQueue()
+            
+            NSURLSession.sharedSession().dataTaskWithRequest(request) { (data, response, error) -> Void in
+            //NSURLConnection.sendAsynchronousRequest(request, queue: mainQueue, completionHandler: { (response, data, error) -> Void in
                 if error == nil {
                     // Convert the downloaded data in to a UIImage object
-                    let artwork = UIImage(data: data)
+                    let artwork = UIImage(data: data!)
                     // Store the image in to our cache
                     self.podcastArtwork[cell.episode!.podcast!.podcastArtwork!] = artwork
                     // Update the cell
@@ -200,11 +212,11 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
                     })
                 }
                 else {
-                    println("Error 1: \(cell.episode!.episodeTitle!)")
-                    println("Error 2: \(cell.episode!.podcast!.podcastFeed!)")
-                    println("Error 3: \(error.localizedDescription)")
+                    print("Error 1: \(cell.episode!.episodeTitle!)")
+                    print("Error 2: \(cell.episode!.podcast!.podcastFeed!)")
+                    print("Error 3: \(error!.localizedDescription)")
                 }
-            })
+            }
         }
         
         return cell
@@ -221,15 +233,16 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
         let nowPlaying = nav.topViewController as! NowPlayingViewController
         
 
-        var fileIndex = episodesTableView!.indexPathForSelectedRow()!.row  // podcast episode row selected by the user
-        var thisFileName = podcasts[fileIndex].episodeDescription!         // it's filename
+        let fileIndex = episodesTableView!.indexPathForSelectedRow!.row  // podcast episode row selected by the user
+        let thisFileName = podcasts[fileIndex].episodeDescription!         // it's filename
         
-        var paths:[AnyObject] = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
-        
-        let documentsUrl =  NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as! NSURL
+        // previous var paths:[AnyObject] No idea wthat the _ is for....
+        _ = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+    
+        let documentsUrl =  NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as NSURL
         let documentsPath = documentsUrl.absoluteString
     
-        var fileString = documentsPath!+thisFileName
+        let fileString = documentsPath+thisFileName
         let fileURL = NSURL(string: fileString)
         
         
@@ -241,9 +254,9 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
             let OKAction = UIAlertAction(title: "OK", style: .Default) { (action) in }
             alertController.addAction(OKAction)
         } else {
-            var file = NSData(contentsOfURL: fileURL!)
-            var title = podcasts[fileIndex].episodeTitle!
-            var podcast = podcasts[fileIndex].podcast
+            let file = NSData(contentsOfURL: fileURL!)
+            let title = podcasts[fileIndex].episodeTitle!
+            let podcast = podcasts[fileIndex].podcast
             
             // this could perform better, should add a 'if playing this file, skip reloading file in ViewDidLoad()'
             if PodcastPlayer.sharedInstance.currentlyPlaying() {
@@ -278,25 +291,30 @@ class DownloadsViewController: UIViewController, UITableViewDelegate, AVAudioPla
         if (editingStyle == UITableViewCellEditingStyle.Delete) {
             
             // Find the file
-            var error:NSError?
-            var manager = NSFileManager.defaultManager()
-            var path = manager.documentsDirectoryPath()
-            var filename = podcasts[indexPath.row].episodeDescription!
-            var filepath = path+"/"+filename
+            let error:NSError?
+            let manager = NSFileManager.defaultManager()
+            let path = manager.documentsDirectoryPath()
+            let filename = podcasts[indexPath.row].episodeDescription!
+            let filepath = path+"/"+filename
 
             // remove the file from the array, the row, the array
-            manager.removeItemAtPath(filepath, error: &error)
-            podcasts.removeAtIndex(indexPath.row)
-            if error != nil {
-                println(filepath)
-                println(error?.localizedDescription)
-            } else {
-                AudioServicesPlaySystemSound(1054)
-            }
+            do {
+                try manager.removeItemAtPath(filepath)
+                podcasts.removeAtIndex(indexPath.row)
+//                if error != nil {
+//                    print(filepath)
+//                    print(error?.localizedDescription)
+//                } else {
+//                    AudioServicesPlaySystemSound(1054)
+//                }
+                
+                //redraw the table with the file deleted
+                podcasts.removeAll()
             
-            //redraw the table with the file deleted
-            podcasts.removeAll()
-            loadFiles()
+                try loadFiles()
+            } catch {
+                print("Loading files didn't work: 307")
+            }
         }
     }
 }

@@ -39,7 +39,8 @@ class AboutViewController: UIViewController {
         super.viewDidLoad()
         self.aboutParagraph.editable = false
         // Do any additional setup after loading the view.
-        let logoImage = UIImage(named: "glasgowLogo")
+        //let logoImage = UIImage(named: "glasgowLogo")
+        _ = UIImage(named: "glasgowLogo")
         view.addSubview(self.imageLogoView!)
         scrollView.addSubview(aboutParagraph)
     }

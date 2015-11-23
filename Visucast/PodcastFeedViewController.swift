@@ -10,7 +10,7 @@
 import UIKit
 import AVFoundation
 
-class PodcastFeedViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate, UIPopoverPresentationControllerDelegate, SearchManagerProtocol
+class PodcastFeedViewController: UITableViewController, UIPopoverPresentationControllerDelegate, SearchManagerProtocol
 {
     
     @IBOutlet weak var isLoadingEpisodes: UIActivityIndicatorView!
@@ -89,11 +89,11 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
             case Download.SegueIdentifier:
                 if let dpvc = segue.destinationViewController as? DownloadProgressViewController {
                     if let ppc = dpvc.popoverPresentationController {
-                        if tableView.indexPathForSelectedRow() != nil {
-                            var podcastIndex: Int? = tableView.indexPathForSelectedRow()!.row
+                        if tableView.indexPathForSelectedRow != nil {
+                            let podcastIndex: Int? = tableView.indexPathForSelectedRow!.row
                             if podcastIndex != nil {
-                                var selectedPodcast = self.podcastEpisodes[podcastIndex!]
-                                var podcastTitle = selectedPodcast.episodeTitle!
+                                let selectedPodcast = self.podcastEpisodes[podcastIndex!]
+                                let podcastTitle = selectedPodcast.episodeTitle!
                                 if !podcastTitle.isEmpty {
                                     dpvc.episodeTitle = podcastTitle
                                 }
@@ -108,7 +108,7 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
         }
     }
     
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController!, traitCollection: UITraitCollection!) -> UIModalPresentationStyle {
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         // stop modal box coming up on iPhone
         return UIModalPresentationStyle.None
     }
@@ -149,18 +149,18 @@ class PodcastFeedViewController: UITableViewController, UITableViewDataSource, U
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         // trigger download
-        var podcastIndex = tableView.indexPathForSelectedRow()!.row
-        var selectedPodcast = self.podcastEpisodes[podcastIndex]
-        var downloadURL = selectedPodcast.episodeDownloadURL
+        let podcastIndex = tableView.indexPathForSelectedRow!.row
+        let selectedPodcast = self.podcastEpisodes[podcastIndex]
+        let downloadURL = selectedPodcast.episodeDownloadURL
         
         // check to see if user already downloaded the episode, if we don't then download it.
         if !downloader.isDuplicate(downloadURL!) {
             
             // Add the podcast to NSUserDefaults so we can have podcast information in the Player
-            var storage = api.getEpisodeData(podcastFeed!, item: podcastIndex, podcast: podcastTitle!)
+            let storage = api.getEpisodeData(podcastFeed!, item: podcastIndex, podcast: podcastTitle!)
             
             let pathString = "\(downloadURL!)"
-            let path = split(pathString) {$0 == "/"}
+            let path = pathString.componentsSeparatedByString("/")
             let fileName = path[path.count-1]
             
             defaults.setObject(storage, forKey: fileName)

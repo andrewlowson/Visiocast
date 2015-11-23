@@ -25,7 +25,8 @@ class DownloadsTableViewCell: UITableViewCell {
     
     // set values for all items in the cell
     func updateUI() {
-        var artworkURL = self.episode!.podcast?.podcastArtwork!
+//        var artworkURL = self.episode!.podcast?.podcastArtwork!
+        _ = self.episode!.podcast?.podcastArtwork!
         podcastNameLabel?.text = self.episode!.podcast!.podcastTitle!
         episodeTitleLabel?.text = self.episode!.episodeTitle!
     }

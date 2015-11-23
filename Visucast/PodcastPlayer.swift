@@ -65,16 +65,21 @@ class PodcastPlayer {
     **/
     func prepareAudio(myData: NSData, filename: String) {
         self.filename = filename
-        player = AVAudioPlayer(data: myData, error: nil)
-        player!.prepareToPlay()
         
-        // If we've started this podcast before, go and get it's playback position
-        if let time = defaults.objectForKey(filename) as? NSTimeInterval {
-            currentTime = time
-            player!.currentTime = time
-        } 
-        player!.play()
-        isPlaying = true
+        do {
+            player = try AVAudioPlayer(data: myData, fileTypeHint: nil)
+            player!.prepareToPlay()
+            
+            // If we've started this podcast before, go and get it's playback position
+            if let time = defaults.objectForKey(filename) as? NSTimeInterval {
+                currentTime = time
+                player!.currentTime = time
+            } 
+            player!.play()
+            isPlaying = true
+        } catch {
+            print("something went wrong with Player Line 66")
+        }
     }
     
     /**
