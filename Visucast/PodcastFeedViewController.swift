@@ -54,7 +54,12 @@ class PodcastFeedViewController: UITableViewController, UIPopoverPresentationCon
     
     override func viewWillAppear(animated: Bool) {
         isLoadingEpisodes.startAnimating()
-        api.feedParser(podcastFeed!, podcast: podcast!)
+        
+        do {
+            try api.feedParser(podcastFeed!, podcast: podcast!)
+        } catch {
+            print("Couldn't get feedparser to work")
+        }
         
         tableView.reloadData()
     }
@@ -154,20 +159,30 @@ class PodcastFeedViewController: UITableViewController, UIPopoverPresentationCon
         let downloadURL = selectedPodcast.episodeDownloadURL
         
         // check to see if user already downloaded the episode, if we don't then download it.
-        if !downloader.isDuplicate(downloadURL!) {
-            
-            // Add the podcast to NSUserDefaults so we can have podcast information in the Player
-            let storage = api.getEpisodeData(podcastFeed!, item: podcastIndex, podcast: podcastTitle!)
-            
-            let pathString = "\(downloadURL!)"
-            let path = pathString.componentsSeparatedByString("/")
-            let fileName = path[path.count-1]
-            
-            defaults.setObject(storage, forKey: fileName)
-            
-            downloader.initiateDownload(selectedPodcast ,downloadURL: downloadURL!, episodeData: storage)
-            episodeTitle = selectedPodcast.episodeTitle!
-            timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector:Selector("updateProgress"), userInfo: nil, repeats: true )
+        var isDuplicate = false
+        do {
+           isDuplicate = try downloader.isDuplicate(downloadURL!)
+        } catch {
+            print("can't carry out duplicate test")
+        }
+        
+        if isDuplicate == false {
+            do {
+                // Add the podcast to NSUserDefaults so we can have podcast information in the Player
+                let storage = try api.getEpisodeData(podcastFeed!, item: podcastIndex, podcast: podcastTitle!)
+                
+                let pathString = "\(downloadURL!)"
+                let path = pathString.componentsSeparatedByString("/")
+                let fileName = path[path.count-1]
+                
+                defaults.setObject(storage, forKey: fileName)
+                
+                try downloader.initiateDownload(selectedPodcast ,downloadURL: downloadURL!, episodeData: storage)
+                episodeTitle = selectedPodcast.episodeTitle!
+                timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector:Selector("updateProgress"), userInfo: nil, repeats: true )
+            } catch {
+                print("downloader error")
+            }
             
         } else {
             // if we already have the episode display an information box alerting the user to that fact
